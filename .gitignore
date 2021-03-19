@@ -9,3 +9,11 @@
 
 # rspec failure tracking
 .rspec_status
+
+# Used by dotenv library to load environment variables.
+.env
+/log/*
+.idea/*
+.byebug_history
+
+football-butler-*.gem

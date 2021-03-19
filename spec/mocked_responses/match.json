@@ -1,0 +1,84 @@
+{
+  "head2head": {
+    "numberOfMatches": 10,
+    "totalGoals": 34,
+    "homeTeam": {
+      "id": 10,
+      "name": "VfB Stuttgart",
+      "wins": 1,
+      "draws": 0,
+      "losses": 9
+    },
+    "awayTeam": {
+      "id": 5,
+      "name": "FC Bayern München",
+      "wins": 9,
+      "draws": 0,
+      "losses": 1
+    }
+  },
+  "match": {
+    "id": 2002,
+    "competition": {
+      "id": 2002,
+      "name": "Bundesliga",
+      "area": {
+        "name": "Germany",
+        "code": "DEU",
+        "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg"
+      }
+    },
+    "season": {
+      "id": 228,
+      "startDate": "2002-08-09",
+      "endDate": "2003-05-24",
+      "currentMatchday": "null",
+      "winner": {
+        "id": 5,
+        "name": "FC Bayern München",
+        "shortName": "Bayern M",
+        "tla": "FCB",
+        "crestUrl": "https://crests.football-data.org/5.svg"
+      }
+    },
+    "utcDate": "2002-12-07T15:30:00Z",
+    "status": "FINISHED",
+    "venue": "null",
+    "matchday": 16,
+    "stage": "null",
+    "group": "null",
+    "lastUpdated": "2018-07-12T16:27:45Z",
+    "odds": {
+      "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+    },
+    "score": {
+      "winner": "AWAY_TEAM",
+      "duration": "REGULAR",
+      "fullTime": {
+        "homeTeam": 0,
+        "awayTeam": 3
+      },
+      "halfTime": {
+        "homeTeam": "null",
+        "awayTeam": "null"
+      },
+      "extraTime": {
+        "homeTeam": "null",
+        "awayTeam": "null"
+      },
+      "penalties": {
+        "homeTeam": "null",
+        "awayTeam": "null"
+      }
+    },
+    "homeTeam": {
+      "id": 10,
+      "name": "VfB Stuttgart"
+    },
+    "awayTeam": {
+      "id": 5,
+      "name": "FC Bayern München"
+    },
+    "referees": []
+  }
+}

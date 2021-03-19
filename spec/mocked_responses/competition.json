@@ -1,0 +1,54 @@
+{
+  "id": 2002,
+  "area": {
+    "id": 2088,
+    "name": "Germany"
+  },
+  "name": "Bundesliga",
+  "code": "BL1",
+  "emblemUrl": "null",
+  "plan": "TIER_ONE",
+  "currentSeason": {
+    "id": 599,
+    "startDate": "2020-09-18",
+    "endDate": "2021-05-15",
+    "currentMatchday": 27,
+    "winner": "null"
+  },
+  "seasons": [
+    {
+      "id": 599,
+      "startDate": "2020-09-18",
+      "endDate": "2021-05-15",
+      "currentMatchday": 27,
+      "winner": "null"
+    },
+    {
+      "id": 474,
+      "startDate": "2019-08-16",
+      "endDate": "2020-06-27",
+      "currentMatchday": 34,
+      "winner": {
+        "id": 5,
+        "name": "FC Bayern München",
+        "shortName": "Bayern M",
+        "tla": "FCB",
+        "crestUrl": "https://crests.football-data.org/5.svg"
+      }
+    },
+    {
+      "id": 155,
+      "startDate": "2018-08-24",
+      "endDate": "2019-05-18",
+      "currentMatchday": 34,
+      "winner": {
+        "id": 5,
+        "name": "FC Bayern München",
+        "shortName": "Bayern M",
+        "tla": "FCB",
+        "crestUrl": "https://crests.football-data.org/5.svg"
+      }
+    }
+  ],
+  "lastUpdated": "2021-03-22T01:20:06Z"
+}

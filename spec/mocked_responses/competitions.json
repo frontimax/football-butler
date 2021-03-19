@@ -1,0 +1,72 @@
+{
+  "count": 152,
+  "filters": {},
+  "competitions": [
+    {
+      "id": 2006,
+      "area": {
+        "id": 2001,
+        "name": "Africa",
+        "countryCode": "AFR",
+        "ensignUrl": "null"
+      },
+      "name": "WC Qualification",
+      "code": "null",
+      "emblemUrl": "null",
+      "plan": "TIER_FOUR",
+      "currentSeason": {
+        "id": 555,
+        "startDate": "2019-09-04",
+        "endDate": "2021-11-16",
+        "currentMatchday": "null",
+        "winner": "null"
+      },
+      "numberOfAvailableSeasons": 2,
+      "lastUpdated": "2018-06-04T23:54:04Z"
+    },
+    {
+      "id": 2023,
+      "area": {
+        "id": 2011,
+        "name": "Argentina",
+        "countryCode": "ARG",
+        "ensignUrl": "null"
+      },
+      "name": "Primera B Nacional",
+      "code": "null",
+      "emblemUrl": "null",
+      "plan": "TIER_FOUR",
+      "currentSeason": {
+        "id": 716,
+        "startDate": "2021-03-13",
+        "endDate": "2021-12-26",
+        "currentMatchday": 3,
+        "winner": "null"
+      },
+      "numberOfAvailableSeasons": 5,
+      "lastUpdated": "2021-03-27T00:00:06Z"
+    },
+    {
+      "id": 2026,
+      "area": {
+        "id": 2015,
+        "name": "Australia",
+        "countryCode": "AUS",
+        "ensignUrl": "null"
+      },
+      "name": "FFA Cup",
+      "code": "null",
+      "emblemUrl": "null",
+      "plan": "TIER_FOUR",
+      "currentSeason": {
+        "id": 592,
+        "startDate": "2020-02-19",
+        "endDate": "2020-10-28",
+        "currentMatchday": "null",
+        "winner": "null"
+      },
+      "numberOfAvailableSeasons": 3,
+      "lastUpdated": "2019-10-23T23:59:22Z"
+    }
+  ]
+}

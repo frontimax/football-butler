@@ -1,9 +1,8 @@
+# frozen_string_literal: true
+
 module Football
   module Butler
-    VERSION = "0.1.0"
-    XXX = 'XXX'
-    class Version
-      TEST = "XXX"
-    end
+    # TIER_ONE initial Version April 2021
+    VERSION = "1.0.0"
   end
 end

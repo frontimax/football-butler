@@ -1,0 +1,74 @@
+{
+  "count": 12,
+  "filters": {
+    "plan": "TIER_ONE"
+  },
+  "competitions": [
+    {
+      "id": 2013,
+      "area": {
+        "id": 2032,
+        "name": "Brazil",
+        "countryCode": "BRA",
+        "ensignUrl": "null"
+      },
+      "name": "Série A",
+      "code": "BSA",
+      "emblemUrl": "null",
+      "plan": "TIER_ONE",
+      "currentSeason": {
+        "id": 589,
+        "startDate": "2020-08-09",
+        "endDate": "2021-02-24",
+        "currentMatchday": 37,
+        "winner": "null"
+      },
+      "numberOfAvailableSeasons": 4,
+      "lastUpdated": "2021-02-26T13:16:24Z"
+    },
+    {
+      "id": 2016,
+      "area": {
+        "id": 2072,
+        "name": "England",
+        "countryCode": "ENG",
+        "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
+      },
+      "name": "Championship",
+      "code": "ELC",
+      "emblemUrl": "null",
+      "plan": "TIER_ONE",
+      "currentSeason": {
+        "id": 628,
+        "startDate": "2020-09-12",
+        "endDate": "2021-08-04",
+        "currentMatchday": 39,
+        "winner": "null"
+      },
+      "numberOfAvailableSeasons": 4,
+      "lastUpdated": "2021-04-02T00:00:14Z"
+    },
+    {
+      "id": 2021,
+      "area": {
+        "id": 2072,
+        "name": "England",
+        "countryCode": "ENG",
+        "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
+      },
+      "name": "Premier League",
+      "code": "PL",
+      "emblemUrl": "null",
+      "plan": "TIER_ONE",
+      "currentSeason": {
+        "id": 619,
+        "startDate": "2020-09-12",
+        "endDate": "2021-05-23",
+        "currentMatchday": 30,
+        "winner": "null"
+      },
+      "numberOfAvailableSeasons": 28,
+      "lastUpdated": "2021-04-02T00:00:14Z"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "count": 14,
+  "filters": {
+    "areas": [
+      2088,
+      2081
+    ]
+  },
+  "competitions": [
+    {
+      "id": 2135,
+      "area": {
+        "id": 2081,
+        "name": "France",
+        "countryCode": "FRA",
+        "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      },
+      "name": "Coupe de la Ligue",
+      "code": "null",
+      "emblemUrl": "null",
+      "plan": "TIER_FOUR",
+      "currentSeason": {
+        "id": 522,
+        "startDate": "2019-08-13",
+        "endDate": "2020-04-04",
+        "currentMatchday": "null",
+        "winner": "null"
+      },
+      "numberOfAvailableSeasons": 3,
+      "lastUpdated": "2020-09-10T13:52:55Z"
+    },
+    {
+      "id": 2142,
+      "area": {
+        "id": 2081,
+        "name": "France",
+        "countryCode": "FRA",
+        "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      },
+      "name": "Ligue 2",
+      "code": "FL2",
+      "emblemUrl": "null",
+      "plan": "TIER_TWO",
+      "currentSeason": {
+        "id": 597,
+        "startDate": "2020-08-22",
+        "endDate": "2021-05-15",
+        "currentMatchday": 31,
+        "winner": "null"
+      },
+      "numberOfAvailableSeasons": 23,
+      "lastUpdated": "2021-04-02T00:00:16Z"
+    },
+    {
+      "id": 2015,
+      "area": {
+        "id": 2081,
+        "name": "France",
+        "countryCode": "FRA",
+        "ensignUrl": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      },
+      "name": "Ligue 1",
+      "code": "FL1",
+      "emblemUrl": "null",
+      "plan": "TIER_ONE",
+      "currentSeason": {
+        "id": 596,
+        "startDate": "2020-08-22",
+        "endDate": "2021-05-23",
+        "currentMatchday": 31,
+        "winner": "null"
+      },
+      "numberOfAvailableSeasons": 11,
+      "lastUpdated": "2021-04-02T00:00:15Z"
+    }
+  ]
+}

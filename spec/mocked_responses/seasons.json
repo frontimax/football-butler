@@ -1,0 +1,42 @@
+{
+  "id": 2001,
+  "area": {
+    "id": 2077,
+    "name": "Europe"
+  },
+  "name": "UEFA Champions League",
+  "code": "CL",
+  "emblemUrl": "https://upload.wikimedia.org/wikipedia/en/b/bf/UEFA_Champions_League_logo_2.svg",
+  "plan": "TIER_ONE",
+  "currentSeason": {
+    "id": 642,
+    "startDate": "2020-08-08",
+    "endDate": "2021-05-29",
+    "currentMatchday": 6,
+    "winner": "null"
+  },
+  "seasons": [
+    {
+      "id": 642,
+      "startDate": "2020-08-08",
+      "endDate": "2021-05-29",
+      "currentMatchday": 6,
+      "winner": "null"
+    },
+    {
+      "id": 495,
+      "startDate": "2019-06-25",
+      "endDate": "2020-08-23",
+      "currentMatchday": 6,
+      "winner": "null"
+    },
+    {
+      "id": 175,
+      "startDate": "2018-06-26",
+      "endDate": "2019-06-01",
+      "currentMatchday": 7,
+      "winner": "null"
+    }
+  ],
+  "lastUpdated": "2021-03-18T03:00:04Z"
+}
