@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'httparty'
 require "football/butler/version"
 require "football/butler/base"
 require "football/butler/configuration"

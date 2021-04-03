@@ -15,7 +15,7 @@ module Football
       DEFAULT_WAIT_ON_LIMIT = false
 
       class << self
-        attr_accessor :api_version, :api_token, :api_endpoint, :tier_plan, :wait_on_limit
+        attr_accessor :api_version, :api_token, :api_endpoint, :tier_plan, :wait_on_limit, :init_done
 
         def configure
           raise "You need to configure football-butler first, see readme." unless block_given?
@@ -28,20 +28,25 @@ module Football
           @tier_plan      ||= DEFAULT_TIER_PLAN
           @wait_on_limit  ||= DEFAULT_WAIT_ON_LIMIT
 
+          @init_done = true
+
           true
         end
 
         def reconfigure(
           api_token: nil, api_version: nil, api_endpoint: nil, tier_plan: nil, wait_on_limit: nil
         )
-          @api_token      = api_token if !api_token.nil?
-          if !api_version.nil?
+
+          reset unless @init_done
+
+          @api_token      = api_token unless api_token.nil?
+          unless api_version.nil?
             @api_version    = api_version
             @api_endpoint   = "#{DEFAULT_API_URL}/v#{api_version}" if api_endpoint.nil?
           end
-          @api_endpoint   = api_endpoint if !api_endpoint.nil?
-          @tier_plan      = tier_plan if !tier_plan.nil?
-          @wait_on_limit  = wait_on_limit if !wait_on_limit.nil?
+          @api_endpoint   = api_endpoint unless api_endpoint.nil?
+          @tier_plan      = tier_plan unless tier_plan.nil?
+          @wait_on_limit  = wait_on_limit unless wait_on_limit.nil?
 
           true
         end
@@ -51,7 +56,9 @@ module Football
           @api_endpoint   = DEFAULT_API_ENDPOINT
           @tier_plan      = DEFAULT_TIER_PLAN
           @wait_on_limit  = DEFAULT_WAIT_ON_LIMIT
-          
+
+          @init_done = true
+
           true
         end
 
