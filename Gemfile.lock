@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    football-butler (1.0.0)
-      httparty (>= 0.15.7)
+    football-butler (1.0.1)
+      httparty (~> 0.15)
 
 GEM
   remote: https://rubygems.org/
@@ -53,11 +53,9 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.0225)
-    mini_portile2 (2.5.0)
     minitest (5.14.4)
     multi_xml (0.6.0)
-    nokogiri (1.11.2)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.11.2-x86_64-darwin)
       racc (~> 1.4)
     parallel (1.20.1)
     parser (3.0.0.0)
@@ -138,7 +136,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
+  byebug (~> 11.1)
   codecov
   football-butler!
   rake (~> 12.0)
@@ -149,4 +147,4 @@ DEPENDENCIES
   webmock (>= 3.9.3)
 
 BUNDLED WITH
-   2.1.2
+   2.1.4

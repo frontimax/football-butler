@@ -2,7 +2,7 @@
 
 module Football
   module Butler
-    # TIER_ONE initial Version April 2021
-    VERSION = "1.0.0"
+    # TIER_ONE Version April 2021
+    VERSION = "1.0.1"
   end
 end

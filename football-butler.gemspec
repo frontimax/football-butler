@@ -20,9 +20,9 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*", "LICENSE"].reject { |f| File.directory?(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency 'byebug'
+  spec.add_development_dependency 'byebug', '~> 11.1'
   spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
 
-  spec.add_dependency 'httparty', '>= 0.15.7'
+  spec.add_dependency 'httparty', '~> 0.15'
 end
