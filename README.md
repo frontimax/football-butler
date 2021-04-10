@@ -23,7 +23,10 @@ Also see the following Links:
 This Gem supports direct calls to the API with path & filters so you can use all Tiers (Payment Plans) with the direct API calls.
 
 The "comfort" functions (one class for each endpoint with semantic methods) of this Gem only covers API calls for the Free Tier (TIER_ONE) yet, the next version will add 
-also the features included in TIER_TWO and up (Standings, Players, and Odds).
+also the features included in TIER_TWO and up (Players, Bookings and Odds).
+
+Update April 10th 2021: The Tier packages have been adjusted, Standings are now part of TIER_ONE ans also of the newest Gem Version 1.1.0
+
 
 ## Installation
 
@@ -167,7 +170,8 @@ Returns a Hash with full API response:
     => response['areas']
     => [{"id"=>2000, "name"=>"Afghanistan", "countryCode"=>"AFG", "ensignUrl"=>nil, "parentAreaId"=>2014, "parentArea"=>"Asia"}, ... ]
 
-*If you request a single Object (e.g. "by_id") the Object is returned by football-data.org directly as a Hash (not in an Array)!*
+*If you request a single Object (e.g. "by_id") the Object is returned by football-data.org directly as a Hash 
+(not in an Array)! Exception: Match.by_id returns Hash with Keys ["head2head", "match"]*
 
 #### Areas
 
@@ -249,6 +253,23 @@ Examples:
     Football::Butler::Matches.by_team_and_status(id: 18, status: 'FINISHED')
     Football::Butler::Matches.by_team_finished(id: 18)
     Football::Butler::Matches.by_team_scheduled(id: 18)
+
+#### Standings (added in version 1.1.0)
+
+Football::Butler::Standings
+
+| Method | Params required | Params optional |
+| ---------------|----------------|----------------|
+| by_competition | id: Integer | result (Symbol)<br>filters (Hash) |
+| home_by_competition | id: Integer | result (Symbol)<br>filters (Hash) |
+| away_by_competition | id: Integer | result (Symbol)<br>filters (Hash) |
+| by_competition_and_year | id: Integer<br>year: String | result (Symbol)<br>filters (Hash) |
+
+    Football::Butler::Standings.by_competition(id: 2002)
+    Football::Butler::Standings.home_by_competition(id: 2002)
+    Football::Butler::Standings.away_by_competition(id: 2002)
+    Football::Butler::Standings.by_competition_and_year(id: 2002, year: '2020')
+
 
 ## Contributing
 
