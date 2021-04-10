@@ -3,7 +3,7 @@
 ![Image of Yaktocat](https://www.football-butler.de/wp-content/uploads/2021/03/cropped-cropped-cropped-logo_football_butler_128px_geen02-1.png)
 
 [![Build Status](https://travis-ci.com/frontimax/football-butler.svg?token=kdzGtbwhXCggiYUeL5pd&branch=main)](https://travis-ci.org/frontimax/football-butler)
-[![codecov](https://codecov.io/gh/frontimax/football-butler/branch/main/graph/badge.svg?token=GBV4PK62WC)](https://codecov.io/gh/frontimax/football-butler)  *
+[![codecov](https://codecov.io/gh/frontimax/football-butler/branch/main/graph/badge.svg?token=GBV4PK62WC)](https://codecov.io/gh/frontimax/football-butler)  
 
 This gem enables API requests against the dev-friendly football API: football-data.org.
 To use the API you need an API token, get it for free @ http://api.football-data.org/register
@@ -265,6 +265,3 @@ The gem is available as open source under the terms of the [MIT License](https:/
 Everyone interacting in the Football Butler project's codebases, issue trackers, 
 chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/football-butler/blob/master/CODE_OF_CONDUCT.md).
 
-<br/><br/>
-
-**Code Coverage is 100% actually :-) ... the codecov gem seems to be buggy :-(*

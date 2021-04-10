@@ -7,3 +7,6 @@ coverage:
   range: "90...100"
   status:
     patch: off
+
+ignore:
+  - "lib/football/butler/version.rb"
