@@ -9,7 +9,7 @@ module Football
 
       ## MATCH
       # v2/matches/{id}
-      # returns match object directly as a hash
+      # returns ["head2head", "match"]
       def self.by_id(id:)
         path = "#{PATH}/#{id}"
         Api.get(path: path)

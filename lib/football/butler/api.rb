@@ -92,7 +92,10 @@ module Football
         end
 
         def log(text)
-          puts "\n\nFootball::Butler::VERSION: #{Football::Butler::VERSION} - #{text}\n\n"
+          log_text = "Football::Butler::VERSION: #{Football::Butler::VERSION} - #{text}"
+
+          puts "\n\n#{log_text}\n\n"
+          Football::Butler.logger.debug(log_text)
         end
       end
     end
