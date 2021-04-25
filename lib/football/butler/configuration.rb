@@ -3,11 +3,20 @@
 module Football
   module Butler
     module Configuration
+      # MULTI-API
+      API_URL_FOOTBALL_DATA = 'https://api.football-data.org'
+      API_URL_APIFOOTBALL   = 'https://apiv2.apifootball.com/?'
+
+      API_VERSION_FOOTBALL_DATA = 2
+      API_VERSION_APIFOOTBALL   = 2
+
       # API
-      DEFAULT_API_URL       = "https://api.football-data.org"
+      AVAILABLE_APIS        = [:football_data_org, :apifootball_com]
+      DEFAULT_API_NAME      = :football_data_org
+      DEFAULT_API_URL       = API_URL_FOOTBALL_DATA
 
       DEFAULT_API_TOKEN     = nil
-      DEFAULT_API_VERSION   = 2
+      DEFAULT_API_VERSION   = API_VERSION_FOOTBALL_DATA
       DEFAULT_API_ENDPOINT  = "#{DEFAULT_API_URL}/v#{DEFAULT_API_VERSION}"
       
       # ADDITIONAL
@@ -15,16 +24,18 @@ module Football
       DEFAULT_WAIT_ON_LIMIT = false
 
       class << self
-        attr_accessor :api_version, :api_token, :api_endpoint, :tier_plan, :wait_on_limit, :init_done
+        attr_accessor :api_version, :api_token, :api_endpoint, :tier_plan, :wait_on_limit, :init_done,
+                      :api_name
 
         def configure
           raise "You need to configure football-butler first, see readme." unless block_given?
 
           yield self
 
+          @api_name       ||= DEFAULT_API_NAME
           @api_token      ||= DEFAULT_API_TOKEN
           @api_version    ||= DEFAULT_API_VERSION
-          @api_endpoint   ||= DEFAULT_API_ENDPOINT
+          @api_endpoint   ||= api_endpoint
           @tier_plan      ||= DEFAULT_TIER_PLAN
           @wait_on_limit  ||= DEFAULT_WAIT_ON_LIMIT
 
@@ -34,15 +45,17 @@ module Football
         end
 
         def reconfigure(
-          api_token: nil, api_version: nil, api_endpoint: nil, tier_plan: nil, wait_on_limit: nil
+          api_token: nil, api_version: nil, api_endpoint: nil, tier_plan: nil, wait_on_limit: nil,
+          api_name: nil
         )
 
           reset unless @init_done
 
+          @api_name       = api_name unless api_name.nil?
           @api_token      = api_token unless api_token.nil?
           unless api_version.nil?
             @api_version    = api_version
-            @api_endpoint   = "#{DEFAULT_API_URL}/v#{api_version}" if api_endpoint.nil?
+            @api_endpoint   = api_endpoint(api_version) if api_endpoint.nil?
           end
           @api_endpoint   = api_endpoint unless api_endpoint.nil?
           @tier_plan      = tier_plan unless tier_plan.nil?
@@ -52,6 +65,7 @@ module Football
         end
 
         def reset
+          @api_name       = DEFAULT_API_NAME
           @api_version    = DEFAULT_API_VERSION
           @api_endpoint   = DEFAULT_API_ENDPOINT
           @tier_plan      = DEFAULT_TIER_PLAN
@@ -65,6 +79,59 @@ module Football
         # plan = [ TIER_ONE | TIER_TWO | TIER_THREE | TIER_FOUR ]
         def tier_plan_filter
           tier_plan.nil? ? {} : { plan: tier_plan }
+        end
+
+        # [:football_data_org, :apifootball_com]
+        # - https://www.football-data.org/documentation/api
+        # - https://apifootball.com/documentation
+        def api_class
+          case api_name
+          when :apifootball_com
+            'Apifootball'
+          else
+            'FootballData'
+          end
+        end
+
+        def api_endpoint(api_version = DEFAULT_API_VERSION)
+          case api_name
+          when :apifootball_com
+            API_URL_APIFOOTBALL
+          else
+            "#{API_URL_FOOTBALL_DATA}/v#{api_version}"
+          end
+        end
+
+        def http_party_headers
+          case api_name
+          when :apifootball_com
+            {}
+          else
+            { "X-Auth-Token": Configuration.api_token }
+          end
+        end
+
+        def http_party_url(path)
+          case api_name
+          when :apifootball_com
+            "#{Configuration.api_endpoint}#{path}&APIkey=#{Configuration.api_token}"
+          else
+            "#{Configuration.api_endpoint}/#{path}"
+          end
+        end
+
+        def http_party_response(response, result)
+          case api_name
+          when :apifootball_com
+            response
+          else
+            case result
+            when :default
+              response.parsed_response
+            else
+              response&.keys&.include?(result.to_s) ? response[result.to_s] : nil
+            end
+          end
         end
       end
     end

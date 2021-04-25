@@ -19,6 +19,7 @@ module Football
         end
 
         def reached_limit?(response)
+          return unless response.parsed_response.is_a?(Hash)
           response.dig('message') ? response['message'].start_with?(MSG_REACHED_LIMIT) : false
         end
 
@@ -36,8 +37,24 @@ module Football
           error_message(MSG_INVALID_CONFIG)
         end
 
+        def unsupported_api_call
+          error_message("This method is not supported by this API: #{Configuration.api_name}")
+        end
+
         def error_message(error)
           { message: error }.with_indifferent_access
+        end
+
+        def api_switch
+          "Football::Butler::#{api_class}::#{this_class}".constantize
+        end
+
+        def api_class
+          Configuration.api_class
+        end
+
+        def this_class
+          self.to_s.split('::').last
         end
       end
     end

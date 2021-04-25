@@ -1,43 +1,30 @@
 # frozen_string_literal: true
+require 'football/butler/apifootball/standings'
+require 'football/butler/football_data/standings'
 
 module Football
   module Butler
     class Standings < Base
-      PATH = :standings
 
-      STANDING_TYPE_HOME = 'HOME'
-      STANDING_TYPE_AWAY = 'AWAY'
+      class << self
+        ## STANDINGS
+        def by_competition(id:, result: :default, filters: {})
+          api_switch.by_competition(id: id, result: result, filters: filters)
+        end
 
-      ## STANDINGS
-      #
-      # season={YEAR}
-      # standingType={standingType}
-      # standingType: [ TOTAL (default) | HOME | AWAY ]
-      #
-      # v2/competitions/{id}/standings
-      def self.by_competition(id:, result: PATH, filters: {})
-        path = "#{Competitions::PATH}/#{id}/#{PATH}"
-        Api.get(path: path, filters: filters, result: result)
+        def home_by_competition(id:, result: :default, filters: {})
+          api_switch.home_by_competition(id: id, result: result, filters: filters)
+        end
+
+        def away_by_competition(id:, result: :default, filters: {})
+          api_switch.away_by_competition(id: id, result: result, filters: filters)
+        end
+
+        def by_competition_and_year(id:, year:, result: :default, filters: {})
+          api_switch.by_competition_and_year(id: id, year: year, result: result, filters: filters)
+        end
       end
 
-      # v2/competitions/{id}/standings?standingType=HOME
-      def self.home_by_competition(id:, result: PATH, filters: {})
-        filters.merge!({ standingType: STANDING_TYPE_HOME })
-        by_competition(id: id, filters: filters, result: result)
-      end
-
-      # v2/competitions/{id}/standings?standingType=AWAY
-      def self.away_by_competition(id:, result: PATH, filters: {})
-        filters.merge!({ standingType: STANDING_TYPE_AWAY })
-        by_competition(id: id, filters: filters, result: result)
-      end
-
-      # v2/competitions/{id}/standings
-      def self.by_competition_and_year(id:, year:, result: PATH, filters: {})
-        path = "#{Competitions::PATH}/#{id}/#{PATH}"
-        filters.merge!({ season: year })
-        Api.get(path: path, filters: filters, result: result)
-      end
     end
   end
 end

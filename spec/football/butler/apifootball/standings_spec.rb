@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe Football::Butler::Standings do
+RSpec.describe Football::Butler::Apifootball::Standings do
   before do
-    stubs_standing
+    stubs_standing_apifootball
   end
 
   after do
@@ -16,10 +16,9 @@ RSpec.describe Football::Butler::Standings do
       expect(response).to match_array(response_standings)
     end
   end
-
 end
 
-def stubs_standing
+def stubs_standing_apifootball
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/standings")
     .to_return(status: 200, body: get_mocked_response('standings.json'))
 end

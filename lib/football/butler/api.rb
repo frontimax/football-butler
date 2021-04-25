@@ -58,25 +58,17 @@ module Football
         end
 
         def process_http_party(path, filters)
-          headers = {
-            "X-Auth-Token": Configuration.api_token
-          }
-          url   = "#{Configuration.api_endpoint}/#{path}"
-          query = filters || {}
-
+          headers = Configuration.http_party_headers
+          url     = Configuration.http_party_url(path)
+          query   = filters || {}
           http_party_get(url, headers, query)
         end
 
         def process_response(response, result)
-          if response.dig('message')
+          if response.parsed_response.is_a?(Hash) && response.dig('message')
             error_message(response['message'])
           else
-            case result
-            when :default
-              response
-            else
-              response&.keys&.include?(result.to_s) ? response[result.to_s] : nil
-            end
+            Configuration.http_party_response(response, result)
           end
         end
 
