@@ -25,7 +25,7 @@ This Gem supports direct calls to the API with path & filters so you can use all
 The "comfort" functions (one class for each endpoint with semantic methods) of this Gem only covers API calls for the Free Tier (TIER_ONE) yet, the next version will add 
 also the features included in TIER_TWO and up (Players, Bookings and Odds).
 
-Update April 10th 2021: The Tier packages have been adjusted, Standings are now part of TIER_ONE ans also of the newest Gem Version 1.1.0
+**Update April 10th 2021:** The Tier packages have been adjusted - Standings are now part of TIER_ONE and also of the newest Gem Version 1.1.0
 
 
 ## Installation
