@@ -151,11 +151,15 @@ module Football
             case klass
             when 'Areas'
               return 'Countries'
+            when 'Matches'
+              return 'Events'
             end
           when :football_data_org
             case klass
             when 'Countries'
               return 'Areas'
+            when 'Events'
+              return 'Matches'
             end
           end
 
