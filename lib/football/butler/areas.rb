@@ -1,35 +1,26 @@
 # frozen_string_literal: true
+require 'football/butler/apifootball/countries'
+require 'football/butler/football_data/areas'
 
 module Football
   module Butler
     class Areas < Base
-      PATH = :areas
 
-      ## AREA
-      # v2/areas/{id}
-      # returns area object directly as a hash
-      def self.by_id(id:)
-        path = "#{PATH}/#{id}"
-        Api.get(path: path)
-      end
+      class << self
+        ## AREA / COUNTRY
+        def by_id(id:)
+          api_switch_method(__method__, { id: id })
+        end
 
-      ## AREAS
-      # v2/areas
-      def self.all(result: PATH)
-        Api.get(path: PATH, result: result)
-      end
+        ## AREAS / COUNTRIES
+        def all(result: :default)
+          api_switch_method(__method__, { result: result })
+        end
 
-      ## ADDITIONAL
-      # v2/areas
-      # v2/areas/{id}
-      # returns area object directly as a hash
-      def self.by_name(name:)
-        areas = all
-        return areas if areas.is_a?(Hash) && areas.with_indifferent_access.dig('message')
-        area  = areas&.detect { |area| area['name'] == name }
-        return not_found_result(name) unless area
-
-        by_id(id: area['id'])
+        ## ADDITIONAL
+        def by_name(name:)
+          api_switch_method(__method__, { name: name })
+        end
       end
     end
   end

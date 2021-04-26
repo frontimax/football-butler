@@ -11,6 +11,7 @@ module Football
       API_VERSION_APIFOOTBALL   = 2
 
       # API
+      # TODO: validate includes valid api name!
       AVAILABLE_APIS        = [:football_data_org, :apifootball_com]
       DEFAULT_API_NAME      = :football_data_org
       DEFAULT_API_URL       = API_URL_FOOTBALL_DATA
@@ -115,7 +116,7 @@ module Football
           case api_name
           when :apifootball_com
             "#{Configuration.api_endpoint}#{path}&APIkey=#{Configuration.api_token}"
-          else
+          when :football_data_org
             "#{Configuration.api_endpoint}/#{path}"
           end
         end
@@ -125,7 +126,7 @@ module Football
           case api_name
           when :apifootball_com
             response.parsed_response
-          else
+          when :football_data_org
             case result
             when :default
               response.parsed_response
@@ -139,9 +140,26 @@ module Football
           case api_name
           when :apifootball_com
             # n/a
-          else
+          when :football_data_org
             Tier.set_from_response_headers(response)
           end
+        end
+
+        def class_converter(klass)
+          case api_name
+          when :apifootball_com
+            case klass
+            when 'Areas'
+              return 'Countries'
+            end
+          when :football_data_org
+            case klass
+            when 'Countries'
+              return 'Areas'
+            end
+          end
+
+          klass
         end
       end
     end

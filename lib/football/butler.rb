@@ -10,6 +10,7 @@ require 'football/butler/matches'
 require 'football/butler/areas'
 require 'football/butler/teams'
 require 'football/butler/standings'
+require 'football/butler/countries'
 
 module Football
   module Butler

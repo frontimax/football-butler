@@ -18,7 +18,7 @@ module Football
           # action=get_teams&league_id={id}
           def by_competition(id:, result:, filters:)
             path = "action=#{PATH}&league_id=#{id}"
-            Api.get(path: path)
+            Api.get(path: path, result: :default)
           end
         end
 

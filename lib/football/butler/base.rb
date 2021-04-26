@@ -46,6 +46,13 @@ module Football
           { message: error }.with_indifferent_access
         end
 
+        def api_switch_method(method, named_params)
+          klass = api_switch
+          klass.respond_to?(method) ?
+            klass.send(method, **named_params) :
+            unsupported_api_call
+        end
+
         def api_switch
           "Football::Butler::#{api_class}::#{this_class}".constantize
         end
@@ -55,14 +62,8 @@ module Football
         end
 
         def this_class
-          self.to_s.split('::').last
-        end
-
-        def api_switch_method(method, named_params)
-          klass = api_switch
-          klass.respond_to?(method) ?
-            klass.send(method, **named_params) :
-            unsupported_api_call
+          klass = self.to_s.split('::').last
+          Configuration.class_converter(klass)
         end
       end
     end

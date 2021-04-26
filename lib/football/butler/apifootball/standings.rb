@@ -10,9 +10,9 @@ module Football
           ## STANDINGS / League
           #
           # action=get_standings&league_id={id}
-          def by_competition(id:, result:, filters:)
+          def by_competition(id:, result: :default, filters:)
             path = "action=#{PATH}&league_id=#{id}"
-            Api.get(path: path)
+            Api.get(path: path, result: result)
           end
         end
 
