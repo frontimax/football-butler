@@ -120,10 +120,11 @@ module Football
           end
         end
 
+        # TODO: v1.1 it was response w/o parsed_response!
         def http_party_response(response, result)
           case api_name
           when :apifootball_com
-            response
+            response.parsed_response
           else
             case result
             when :default
@@ -131,6 +132,15 @@ module Football
             else
               response&.keys&.include?(result.to_s) ? response[result.to_s] : nil
             end
+          end
+        end
+
+        def tier_from_response(response)
+          case api_name
+          when :apifootball_com
+            # n/a
+          else
+            Tier.set_from_response_headers(response)
           end
         end
       end

@@ -1,62 +1,40 @@
 # frozen_string_literal: true
+require 'football/butler/apifootball/competitions'
+require 'football/butler/football_data/competitions'
 
 module Football
   module Butler
     class Competitions < Base
-      PATH = :competitions
 
-      ## COMPETITION
-      # v2/competitions/{id}
-      # returns competition object directly as a hash
-      def self.by_id(id:)
-        path = "#{PATH}/#{id}"
-        Api.get(path: path)
-      end
+      class << self
+        ## COMPETITION
+        def self.by_id(id:)
+          api_switch_method(__method__, { id: id })
+        end
 
-      ## COMPETITIONS
-      #
-      # areas={AREAS}
-      # plan={PLAN}
-      #
-      # v2/competitions
-      def self.all(result: PATH, filters: Configuration.tier_plan_filter)
-        Api.get(path: PATH, result: result, filters: filters)
-      end
+        ## COMPETITIONS
+        def self.all(result:, filters:)
+          api_switch_method(__method__, { result: result, filters: filters })
+        end
 
-      # v2/competitions?plan={plan}
-      def self.by_plan(plan:, result: PATH, filters: {})
-        filters.merge!({ plan: plan })
-        Api.get(path: PATH, result: result, filters: filters)
-      end
+        def self.by_plan(plan:, result:, filters:)
+          api_switch_method(__method__, { plan: plan, result: result, filters: filters })
+        end
 
-      # v2/competitions?areas={id1, id2, ...}
-      def self.by_areas(ids:, result: PATH, filters: {})
-        filters.merge!({ areas: ids.join(',') })
-        Api.get(path: PATH, result: result, filters: filters)
-      end
+        def self.by_areas(ids:, result:, filters:)
+          api_switch_method(__method__, { id: id, result: result, filters: filters })
+        end
 
-      ## ADDITIONAL
-      # v2/competitions/{id}
-      def self.current_match_day(id:)
-        response = by_id(id:id)
+        ## ADDITIONAL
+        def self.current_match_day(id:)
+          api_switch_method(__method__, { id: id })
+        end
 
-        if response.is_a?(Hash) && response.dig('message')
-          response
-        else
-          response['currentSeason']['currentMatchday']
+        def self.seasons(id:)
+          api_switch_method(__method__, { id: id })
         end
       end
 
-      # v2/competitions/{id}
-      def self.seasons(id:)
-        response = by_id(id:id)
-
-        if response.is_a?(Hash) && response.dig('message')
-          response
-        else
-          response['seasons']
-        end
-      end
     end
   end
 end

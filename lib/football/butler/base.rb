@@ -3,6 +3,7 @@
 module Football
   module Butler
     class Base
+      # TODO: switch api different messages!
       MSG_INVALID_TOKEN   = 'Your API token is invalid.' # 400
       MSG_NOT_EXIST       = 'The resource you are looking for does not exist' # 404
       MSG_REACHED_LIMIT   = 'You reached your request limit.' # 429
@@ -55,6 +56,13 @@ module Football
 
         def this_class
           self.to_s.split('::').last
+        end
+
+        def api_switch_method(method, named_params)
+          klass = api_switch
+          klass.respond_to?(method) ?
+            klass.send(method, **named_params) :
+            unsupported_api_call
         end
       end
     end

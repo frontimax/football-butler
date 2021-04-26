@@ -30,7 +30,7 @@ module Football
           end
 
           response = process_http_party(path, filters)
-          Tier.set_from_response_headers(response)
+          Configuration.tier_from_response(response)
 
           if reached_limit?(response)
             response = process_retry(path, filters)
@@ -50,7 +50,7 @@ module Football
             sleep(Tier.get_sleep_seconds) unless Rails.env.test?
 
             response = process_http_party(path, filters)
-            Tier.set_from_response_headers(response)
+            Configuration.tier_from_response(response)
 
             break unless reached_limit?(response)
           end

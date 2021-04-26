@@ -7,21 +7,20 @@ module Football
     class Standings < Base
 
       class << self
-        ## STANDINGS
         def by_competition(id:, result: :default, filters: {})
-          api_switch.by_competition(id: id, result: result, filters: filters)
+          api_switch_method(__method__, { id: id, result: result, filters: filters })
         end
 
         def home_by_competition(id:, result: :default, filters: {})
-          api_switch.home_by_competition(id: id, result: result, filters: filters)
+          api_switch_method(__method__, { id: id, result: result, filters: filters })
         end
 
         def away_by_competition(id:, result: :default, filters: {})
-          api_switch.away_by_competition(id: id, result: result, filters: filters)
+          api_switch_method(__method__, { id: id, year: year, result: result, filters: filters })
         end
 
         def by_competition_and_year(id:, year:, result: :default, filters: {})
-          api_switch.by_competition_and_year(id: id, year: year, result: result, filters: filters)
+          api_switch_method(__method__, { id: id, year: year, result: result, filters: filters })
         end
       end
 
