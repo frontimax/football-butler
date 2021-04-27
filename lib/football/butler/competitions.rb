@@ -8,29 +8,29 @@ module Football
 
       class << self
         ## COMPETITION
-        def self.by_id(id:)
+        def by_id(id:)
           api_switch_method(__method__, { id: id })
         end
 
         ## COMPETITIONS
-        def self.all(result: :default, filters: {})
+        def all(result: api_switch_result, filters: {})
           api_switch_method(__method__, { result: result, filters: filters })
         end
 
-        def self.by_plan(plan:, result: :default, filters: {})
+        def by_plan(plan:, result: api_switch_result, filters: {})
           api_switch_method(__method__, { plan: plan, result: result, filters: filters })
         end
 
-        def self.by_areas(ids:, result: :default, filters: {})
-          api_switch_method(__method__, { id: id, result: result, filters: filters })
+        def by_areas(ids:, result: api_switch_result, filters: {})
+          api_switch_method(__method__, { ids: ids, result: result, filters: filters })
         end
 
         ## ADDITIONAL
-        def self.current_match_day(id:)
+        def current_match_day(id:)
           api_switch_method(__method__, { id: id })
         end
 
-        def self.seasons(id:)
+        def seasons(id:)
           api_switch_method(__method__, { id: id })
         end
       end

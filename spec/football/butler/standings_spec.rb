@@ -21,7 +21,7 @@ end
 
 def stubs_standing
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/standings")
-    .to_return(status: 200, body: get_mocked_response('standings.json'))
+    .to_return(status: 200, body: get_mocked_response('standings.json', :football_data))
 end
 
 def response_standings

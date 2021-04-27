@@ -17,7 +17,7 @@ module Football
 
           ## AREAS
           # v2/areas
-          def all(result: PATH)
+          def all(result:)
             Api.get(path: PATH, result: result)
           end
 
@@ -26,7 +26,7 @@ module Football
           # v2/areas/{id}
           # returns area object directly as a hash
           def by_name(name:)
-            areas = all
+            areas = all(result: PATH)
             return areas if areas.is_a?(Hash) && areas.with_indifferent_access.dig('message')
             area  = areas&.detect { |area| area['name'] == name }
             return not_found_result(name) unless area

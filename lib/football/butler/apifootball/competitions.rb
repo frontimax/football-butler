@@ -10,7 +10,7 @@ module Football
         class << self
           ## COMPETITION
           # action=get_leagues&country_id={id}
-          def self.by_id(id:)
+          def by_id(id:)
             filters = { country_id: id }
             Api.get(path: build_path(PATH), filters: filters)
           end

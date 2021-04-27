@@ -59,7 +59,7 @@ end
 
 def stubs
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches")
-    .to_return(status: 200, body: get_mocked_response('matches.json'))
+    .to_return(status: 200, body: get_mocked_response('matches.json', :football_data))
 end
 
 def response_matches_butler

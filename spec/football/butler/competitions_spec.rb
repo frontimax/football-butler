@@ -65,22 +65,22 @@ end
 
 def stubs_competitions
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002")
-    .to_return(status: 200, body: get_mocked_response('competition.json'))
+    .to_return(status: 200, body: get_mocked_response('competition.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/9999")
-    .to_return(status: 200, body: get_mocked_response('resource_missing.json'))
+    .to_return(status: 200, body: get_mocked_response('resource_missing.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions")
-    .to_return(status: 200, body: get_mocked_response('competitions.json'))
+    .to_return(status: 200, body: get_mocked_response('competitions.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2001")
-    .to_return(status: 200, body: get_mocked_response('seasons.json'))
+    .to_return(status: 200, body: get_mocked_response('seasons.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions?plan=TIER_ONE")
-    .to_return(status: 200, body: get_mocked_response('competitions_filter_plan.json'))
+    .to_return(status: 200, body: get_mocked_response('competitions_filter_plan.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions?areas=2088,2081")
-    .to_return(status: 200, body: get_mocked_response('competitions_filter_areas.json'))
+    .to_return(status: 200, body: get_mocked_response('competitions_filter_areas.json', :football_data))
 end
 
 def response_missing

@@ -57,10 +57,10 @@ end
 
 def stubs_area
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/areas/2002")
-    .to_return(status: 200, body: get_mocked_response('area.json'))
+    .to_return(status: 200, body: get_mocked_response('area.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/areas")
-    .to_return(status: 200, body: get_mocked_response('areas.json'))
+    .to_return(status: 200, body: get_mocked_response('areas.json', :football_data))
 end
 
 def response_area

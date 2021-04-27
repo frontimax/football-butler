@@ -5,8 +5,10 @@ module Football
     module Apifootball
       class BaseApifootball < Base
 
-        def build_path(action)
-          "action=#{action}"
+        class << self
+          def build_path(action)
+            "action=#{action}"
+          end
         end
 
       end

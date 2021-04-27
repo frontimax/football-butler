@@ -21,13 +21,13 @@ module Football
           # stage={STAGE}
           #
           # v2/competitions/{id}/teams
-          def by_competition(id:, result: PATH, filters: {})
+          def by_competition(id:, result:, filters:)
             path = "#{Competitions::PATH}/#{id}/#{PATH}"
             Api.get(path: path, result: result, filters: filters)
           end
 
           # v2/competitions/{id}/teams?year={year}
-          def by_competition_and_year(id:, year:, result: PATH, filters: {})
+          def by_competition_and_year(id:, year:, result:, filters:)
             path = "#{Competitions::PATH}/#{id}/#{PATH}"
             filters.merge!({ year: year })
             Api.get(path: path, result: result, filters: filters)

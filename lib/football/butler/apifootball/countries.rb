@@ -10,7 +10,7 @@ module Football
         class << self
           ## COUNTRIES
           # action=get_leagues
-          def all(result: :parsed_response)
+          def all(result:)
             Api.get(path: build_path(PATH), result: result)
           end
         end

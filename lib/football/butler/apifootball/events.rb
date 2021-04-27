@@ -11,11 +11,10 @@ module Football
           ## EVENT
           # action=get_events?match_id={id}
           def by_id(id:, result:)
-            filters.merge!({ match_id: id })
-            Api.get(path: build_path(PATH), result: result)
+            filters= { match_id: id }
+            Api.get(path: build_path(PATH), result: result, filters: filters)
           end
 
-          # TODO: NEXT!
           ## EVENTS
           #
           # timezone	Default timezone: Europe/Berlin.
@@ -51,7 +50,7 @@ module Football
 
           ## by TEAM
           # action=get_events?team_id={id}
-          def by_team(id:, result: :parsed_response, filters:)
+          def by_team(id:, result:, filters:)
             filters.merge!({ team_id: id })
             Api.get(path: build_path(PATH), result: result, filters: filters)
           end

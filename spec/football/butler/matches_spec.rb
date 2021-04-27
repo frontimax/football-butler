@@ -69,31 +69,31 @@ end
 
 def stubs_matches
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches/2002")
-    .to_return(status: 200, body: get_mocked_response('match.json'))
+    .to_return(status: 200, body: get_mocked_response('match.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches/9999")
-    .to_return(status: 200, body: get_mocked_response('resource_missing.json'))
+    .to_return(status: 200, body: get_mocked_response('resource_missing.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches")
-    .to_return(status: 200, body: get_mocked_response('matches.json'))
+    .to_return(status: 200, body: get_mocked_response('matches.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches?season=2020")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches?matchday=1")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches?status=FINISHED")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches?status=SCHEDULED")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 end
 
 def response_missing

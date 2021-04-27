@@ -159,7 +159,7 @@ end
 
 def stubs_client
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/areas/2002")
-    .to_return(status: 200, body: get_mocked_response('area.json'),
+    .to_return(status: 200, body: get_mocked_response('area.json', :football_data),
                headers: {
                  'x-requests-available-minute': 2,
                  'x-requestcounter-reset': 29
@@ -167,7 +167,7 @@ def stubs_client
     )
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/areas/9999")
-    .to_return(status: 200, body: get_mocked_response('reached_limit.json')
+    .to_return(status: 200, body: get_mocked_response('reached_limit.json', :football_data)
     )
 
 end

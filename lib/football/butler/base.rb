@@ -12,20 +12,26 @@ module Football
       class << self
         # MESSAGES
         def invalid_token?(response)
+          # TODO: switch api different messages!
+          return false if !response.is_a?(Hash) && (response.respond_to?(:parsed_response) && !response.parsed_response.is_a?(Hash))
           response.dig('message') ? response['message'] == MSG_INVALID_TOKEN : false
         end
 
         def resource_not_found?(response)
+          # TODO: switch api different messages!
+          return false if !response.is_a?(Hash) && (response.respond_to?(:parsed_response) && !response.parsed_response.is_a?(Hash))
           response.dig('message') ? response['message'] == MSG_NOT_EXIST : false
         end
 
         def reached_limit?(response)
-          return unless response.parsed_response.is_a?(Hash)
+          return false if !response.is_a?(Hash) && (response.respond_to?(:parsed_response) && !response.parsed_response.is_a?(Hash))
           response.dig('message') ? response['message'].start_with?(MSG_REACHED_LIMIT) : false
         end
 
         # CODES
         def bad_request?(response)
+          # TODO: switch api different messages!
+          return false if !response.is_a?(Hash) && (response.respond_to?(:parsed_response) && !response.parsed_response.is_a?(Hash))
           response.dig('errorCode') ? response['errorCode'] == 400 : false
         end
 
@@ -51,6 +57,10 @@ module Football
           klass.respond_to?(method) ?
             klass.send(method, **named_params) :
             unsupported_api_call
+        end
+
+        def api_switch_result
+          Configuration.api_result(api_switch)
         end
 
         def api_switch

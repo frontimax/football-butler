@@ -56,7 +56,7 @@ module Football
           @api_token      = api_token unless api_token.nil?
           unless api_version.nil?
             @api_version    = api_version
-            @api_endpoint   = api_endpoint(api_version) if api_endpoint.nil?
+            @api_endpoint   = toggle_api_endpoint(api_version) if api_endpoint.nil?
           end
           @api_endpoint   = api_endpoint unless api_endpoint.nil?
           @tier_plan      = tier_plan unless tier_plan.nil?
@@ -94,7 +94,7 @@ module Football
           end
         end
 
-        def api_endpoint(api_version = DEFAULT_API_VERSION)
+        def toggle_api_endpoint(api_version = DEFAULT_API_VERSION)
           case api_name
           when :apifootball_com
             API_URL_APIFOOTBALL
@@ -150,6 +150,15 @@ module Football
             # n/a
           when :football_data_org
             Tier.set_from_response_headers(response)
+          end
+        end
+
+        def api_result(klass)
+          case api_name
+          when :apifootball_com
+            :parsed_response
+          when :football_data_org
+            klass::PATH
           end
         end
 

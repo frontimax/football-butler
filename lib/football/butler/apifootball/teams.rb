@@ -17,7 +17,7 @@ module Football
 
           ## COMPETITION
           # action=get_teams&league_id={id}
-          def by_competition(id:, result: :parsed_response, filters:)
+          def by_competition(id:, result:, filters:)
             filters.merge!({ league_id: id })
             Api.get(path: build_path(PATH), result: result, filters: filters)
           end

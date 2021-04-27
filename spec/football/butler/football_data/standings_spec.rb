@@ -12,28 +12,28 @@ RSpec.describe Football::Butler::FootballData::Standings do
 
   describe 'when by_competition' do
     it 'returns standings of competition' do
-      response = described_class.by_competition(id: 2002)
+      response = described_class.by_competition(id: 2002, result: :standings, filters: {})
       expect(response).to match_array(response_standings)
     end
   end
 
   describe 'when home_by_competition' do
     it 'returns standings of home competition' do
-      response = described_class.home_by_competition(id: 2002)
+      response = described_class.home_by_competition(id: 2002, result: :standings, filters: {})
       expect(response).to match_array(response_standings_home)
     end
   end
 
   describe 'when away_by_competition' do
     it 'returns standings of away competition' do
-      response = described_class.away_by_competition(id: 2002)
+      response = described_class.away_by_competition(id: 2002, result: :standings, filters: {})
       expect(response).to match_array(response_standings_away)
     end
   end
 
   describe 'when by_competition_and_year' do
     it 'returns standings of competition by season year' do
-      response = described_class.by_competition_and_year(id: 2002, year: '2020')
+      response = described_class.by_competition_and_year(id: 2002, year: '2020', result: :standings, filters: {})
       expect(response).to match_array(response_standings)
     end
   end
@@ -41,16 +41,16 @@ end
 
 def stubs_standing_football_data
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/standings")
-    .to_return(status: 200, body: get_mocked_response('standings.json'))
+    .to_return(status: 200, body: get_mocked_response('standings.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/standings?standingType=HOME")
-    .to_return(status: 200, body: get_mocked_response('standings_home.json'))
+    .to_return(status: 200, body: get_mocked_response('standings_home.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/standings?standingType=AWAY")
-    .to_return(status: 200, body: get_mocked_response('standings_away.json'))
+    .to_return(status: 200, body: get_mocked_response('standings_away.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/standings?season=2020")
-    .to_return(status: 200, body: get_mocked_response('standings_2020.json'))
+    .to_return(status: 200, body: get_mocked_response('standings_2020.json', :football_data))
 end
 
 def response_standings
