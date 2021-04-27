@@ -3,15 +3,15 @@
 module Football
   module Butler
     module Apifootball
-      class Competitions < Base
+      class Competitions < BaseApifootball
         PATH = :get_leagues
 
         class << self
           ## COMPETITION
           # action=get_leagues&country_id={id}
           def self.by_id(id:)
-            path = "action=#{PATH}&country_id=#{id}"
-            Api.get(path: path)
+            filters = { country_id: id }
+            Api.get(path: build_path(PATH), filters: filters)
           end
         end
 

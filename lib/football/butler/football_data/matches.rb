@@ -12,9 +12,9 @@ module Football
           ## MATCH
           # v2/matches/{id}
           # returns ["head2head", "match"]
-          def by_id(id:)
+          def by_id(id:, result:)
             path = "#{PATH}/#{id}"
-            Api.get(path: path)
+            Api.get(path: path, result: result)
           end
 
           ## MATCHES

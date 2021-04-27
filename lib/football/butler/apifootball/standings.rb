@@ -3,16 +3,16 @@
 module Football
   module Butler
     module Apifootball
-      class Standings < Base
+      class Standings < BaseApifootball
         PATH = :get_standings
 
         class << self
           ## STANDINGS / League
           #
           # action=get_standings&league_id={id}
-          def by_competition(id:, result: :default, filters:)
-            path = "action=#{PATH}&league_id=#{id}"
-            Api.get(path: path, result: result)
+          def by_competition(id:, result: :parsed_response, filters:)
+            filters.merge!({ league_id: id })
+            Api.get(path: build_path(PATH), result: result, filters: filters)
           end
         end
 

@@ -13,7 +13,7 @@ module Football
         end
 
         ## AREAS / COUNTRIES
-        def all(result:)
+        def all(result: :default)
           api_switch_method(__method__, { result: result })
         end
 

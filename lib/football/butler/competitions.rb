@@ -13,15 +13,15 @@ module Football
         end
 
         ## COMPETITIONS
-        def self.all(result:, filters:)
+        def self.all(result: :default, filters: {})
           api_switch_method(__method__, { result: result, filters: filters })
         end
 
-        def self.by_plan(plan:, result:, filters:)
+        def self.by_plan(plan:, result: :default, filters: {})
           api_switch_method(__method__, { plan: plan, result: result, filters: filters })
         end
 
-        def self.by_areas(ids:, result:, filters:)
+        def self.by_areas(ids:, result: :default, filters: {})
           api_switch_method(__method__, { id: id, result: result, filters: filters })
         end
 

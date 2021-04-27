@@ -3,89 +3,56 @@
 module Football
   module Butler
     module Apifootball
-      class Events < Base
+      class Events < BaseApifootball
         PATH = :get_events
 
         class << self
-          ## MATCH
+          ## EVENT
           # action=get_events?match_id={id}
-          def by_id(id:)
-            path = "action=#{PATH}?match_id=#{id}"
-            Api.get(path: path)
+          def by_id(id:, result:)
+            filters.merge!({ match_id: id })
+            Api.get(path: build_path(PATH), result: result)
           end
 
           # TODO: NEXT!
-          ## MATCHES
+          ## EVENTS
           #
-          # competitions={competitionIds}
-          # dateFrom={DATE}
-          # dateTo={DATE}
-          # status={STATUS}
+          # timezone	Default timezone: Europe/Berlin.
+          #    With this filter you can set the timezone where you want to receive the data.
+          #    Timezone is in TZ format (exemple: America/New_York). (Optional)
+          # from	                   Start date (yyyy-mm-dd)
+          # to	                     Stop date (yyyy-mm-dd)
+          # country_id	Country ID   if set only leagues from specific country will be returned (Optional)
+          # league_id	League ID      if set events from specific league will be returned (Optional)
+          # match_id	Match ID       if set only details from specific match will be returned (Optional)
+          # team_id	Team ID          if set only details from specific team will be returned (Optional)
           #
-          # /v2/matches
-          def all(result: PATH, filters: {})
-            Api.get(path: PATH, result: result, filters: filters)
+          # action=get_events&...<AT LEAST ONE PARAMETER IS REQUIRED!>
+          # "error": 201, "message": "Required parameters missing"
+          def all(result:, filters:)
+            Api.get(path: build_path(PATH), result: result, filters: filters)
           end
 
           ## by COMPETITION
-          #
-          # dateFrom={DATE}
-          # dateTo={DATE}
-          # stage={STAGE}
-          # status={STATUS}
-          # matchday={MATCHDAY}
-          # group={GROUP}
-          # season={YEAR}
-          #
-          # v2/competitions/{id}/matches
-          def by_competition(id:, result: PATH, filters: {})
-            path = "#{Competitions::PATH}/#{id}/#{PATH}"
-            Api.get(path: path, filters: filters, result: result)
+          # action=get_events?league_id={id}
+          def by_competition(id:, result:, filters:)
+            filters.merge!({ league_id: id })
+            Api.get(path: build_path(PATH), filters: filters, result: result)
           end
 
-          # v2/competitions/{id}/matches?season={year}
-          def by_competition_and_year(id:, year:, result: PATH, filters: {})
-            path = "#{Competitions::PATH}/#{id}/#{PATH}"
-            filters.merge!({ season: year })
-            Api.get(path: path, filters: filters, result: result)
-          end
-
-          # v2/competitions/{id}/matches?matchday={match_day}
-          def by_competition_and_match_day(id:, match_day:, result: PATH, filters: {})
-            path = "#{Competitions::PATH}/#{id}/#{PATH}"
-            filters.merge!({ matchday: match_day })
-            Api.get(path: path, filters: filters, result: result)
+          # action=get_events?league_id={id}&from={year}-01-01&{year}-12-31
+          def by_competition_and_year(id:, year:, result:, filters:)
+            from  = "#{year}-01-01"
+            to    = "#{year}-12-31"
+            filters.merge!({ from: from, to: to })
+            Api.get(path: build_path(PATH), filters: filters, result: result)
           end
 
           ## by TEAM
-          #
-          # dateFrom={DATE}
-          # dateTo={DATE}
-          # status={STATUS}
-          # venue={VENUE}
-          # limit={LIMIT}
-          #
-          # v2/teams/{id}/matches
-          def by_team(id:, result: PATH, filters: {})
-            path = "#{Teams::PATH}/#{id}/#{PATH}"
-            Api.get(path: path, result: result, filters: filters)
-          end
-
-          # v2/teams/{id}/matches?status={status}
-          def by_team_and_status(id:, status:, result: PATH, filters: {})
-            path = "#{Teams::PATH}/#{id}/#{PATH}"
-            filters.merge!({ status: status })
-            Api.get(path: path, result: result, filters: filters)
-          end
-
-          # v2/teams/{team}/matches?status=FINISHED
-          def by_team_finished(id:, result: PATH, filters: {})
-            by_team_and_status(id: id, status: STATUS_FINISHED, result: result, filters: filters)
-          end
-
-          # v2/teams/{team}/matches?status=SCHEDULED
-          def by_team_scheduled(id:, result: PATH, filters: {})
-            by_team_and_status(id: id, status: STATUS_SCHEDULED, result: result, filters: filters)
+          # action=get_events?team_id={id}
+          def by_team(id:, result: :parsed_response, filters:)
+            filters.merge!({ team_id: id })
+            Api.get(path: build_path(PATH), result: result, filters: filters)
           end
         end
       end

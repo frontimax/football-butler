@@ -3,15 +3,14 @@
 module Football
   module Butler
     module Apifootball
-      class Countries < Base
+      class Countries < BaseApifootball
         PATH = :get_countries
 
         class << self
-          ## AREAS
+          ## COUNTRIES
           # action=get_leagues
-          def all(result: :default)
-            path = "action=#{PATH}"
-            Api.get(path: path, result: result)
+          def all(result: :parsed_response)
+            Api.get(path: build_path(PATH), result: result)
           end
         end
       end

@@ -122,13 +122,21 @@ module Football
         end
 
         # TODO: v1.1 it was response w/o parsed_response!
+        # TODO: norm response for all apis each endpoint and method! (Array, Hash...)
         def http_party_response(response, result)
           case api_name
           when :apifootball_com
-            response.parsed_response
+            case result
+            when :default
+              response
+            else
+              response.parsed_response
+            end
           when :football_data_org
             case result
             when :default
+              response
+            when :parsed_response
               response.parsed_response
             else
               response&.keys&.include?(result.to_s) ? response[result.to_s] : nil
