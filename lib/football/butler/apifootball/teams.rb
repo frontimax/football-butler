@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'football/butler/apifootball/base_apifootball'
 
 module Football
   module Butler

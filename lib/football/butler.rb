@@ -12,6 +12,7 @@ require 'football/butler/teams'
 require 'football/butler/standings'
 require 'football/butler/countries'
 require 'football/butler/events'
+require 'football/butler/apifootball/base_apifootball'
 
 module Football
   module Butler
