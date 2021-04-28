@@ -36,7 +36,7 @@ module Football
           @api_name       ||= DEFAULT_API_NAME
           @api_token      ||= DEFAULT_API_TOKEN
           @api_version    ||= DEFAULT_API_VERSION
-          @api_endpoint   ||= api_endpoint
+          @api_endpoint   ||= set_api_endpoint
           @tier_plan      ||= DEFAULT_TIER_PLAN
           @wait_on_limit  ||= DEFAULT_WAIT_ON_LIMIT
 
@@ -56,7 +56,7 @@ module Football
           @api_token      = api_token unless api_token.nil?
           unless api_version.nil?
             @api_version    = api_version
-            @api_endpoint   = toggle_api_endpoint(api_version) if api_endpoint.nil?
+            @api_endpoint   = set_api_endpoint(api_version) if api_endpoint.nil?
           end
           @api_endpoint   = api_endpoint unless api_endpoint.nil?
           @tier_plan      = tier_plan unless tier_plan.nil?
@@ -94,7 +94,7 @@ module Football
           end
         end
 
-        def toggle_api_endpoint(api_version = DEFAULT_API_VERSION)
+        def set_api_endpoint(api_version = DEFAULT_API_VERSION)
           case api_name
           when :apifootball_com
             API_URL_APIFOOTBALL
