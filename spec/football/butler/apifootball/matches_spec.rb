@@ -2,7 +2,17 @@
 
 RSpec.describe Football::Butler::Matches do
   before do
-    stubs_matches
+    Football::Butler::Configuration.reconfigure(
+      api_endpoint: Football::Butler::Configuration::API_URL_APIFOOTBALL,
+      api_name: :apifootball_com
+    )
+    
+    stubs_matches_apifootball
+  end
+
+  after do
+    Football::Butler::Configuration.reset
+    Football::Butler::Configuration.reconfigure(api_token: 'my_dummy_token')
   end
 
   describe 'when by_id' do
@@ -77,7 +87,7 @@ RSpec.describe Football::Butler::Matches do
   end
 end
 
-def stubs_matches
+def stubs_matches_apifootball
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches/2002")
     .to_return(status: 200, body: get_mocked_response('match.json', :football_data))
 

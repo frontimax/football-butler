@@ -13,6 +13,8 @@ module Football
         end
 
         ## COMPETITIONS
+        # TODO: Configuration.tier_plan_filter?
+        # v before: def self.all(result: PATH, filters: Configuration.tier_plan_filter)
         def all(result: api_switch_result, filters: {})
           api_switch_method(__method__, { result: result, filters: filters })
         end

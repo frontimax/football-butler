@@ -7,8 +7,8 @@ module Football
     class Matches < Base
       class << self
         ## MATCH
-        def by_id(id:, result: :default)
-          api_switch_method(__method__, { id: id, result: result })
+        def by_id(id:)
+          api_switch_method(__method__, { id: id })
         end
 
         ## MATCHES

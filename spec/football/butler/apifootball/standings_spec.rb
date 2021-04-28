@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: master class w/o Apifootball!!!!!!!!!!!!!!!!!!!!!!!!
 RSpec.describe Football::Butler::Apifootball::Standings do
   before do
     Football::Butler::Configuration.reset

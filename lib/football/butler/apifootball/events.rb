@@ -10,9 +10,9 @@ module Football
         class << self
           ## EVENT
           # action=get_events?match_id={id}
-          def by_id(id:, result:)
-            filters= { match_id: id }
-            Api.get(path: build_path(PATH), result: result, filters: filters)
+          def by_id(id:)
+            filters = { match_id: id }
+            Api.get(path: build_path(PATH), result: :parsed_response, filters: filters)
           end
 
           ## EVENTS

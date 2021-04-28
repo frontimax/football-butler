@@ -8,6 +8,9 @@ RSpec.describe Football::Butler::Competitions do
   describe 'when by_id' do
     it 'returns one competition' do
       response = described_class.by_id(id: 2002)
+
+      expect(response).to be_a(HTTParty::Response)
+      expect(response.parsed_response).to be_a(Hash)
       expect(response.parsed_response).to include(response_competition.stringify_keys)
     end
   end
@@ -15,18 +18,25 @@ RSpec.describe Football::Butler::Competitions do
   describe 'when all' do
     it 'returns all competitions' do
       response = described_class.all
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_competitions)
     end
 
     it 'returns all competitions with result param :default' do
       response = described_class.all(result: :default)
-      expect(response.parsed_response).to include(response_competitions_all.stringify_keys)
+
+      expect(response).to be_a(HTTParty::Response)
+      expect(response.parsed_response).to be_a(Hash)
+      expect(response).to include(response_competitions_all.stringify_keys)
     end
   end
 
   describe 'when by_plan' do
     it 'returns all competitions TIER_ONE' do
       response = described_class.by_plan(plan: 'TIER_ONE')
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_competitions_filter_plan)
     end
   end
@@ -34,6 +44,8 @@ RSpec.describe Football::Butler::Competitions do
   describe 'when by_areas' do
     it 'returns all competitions two areas' do
       response = described_class.by_areas(ids: [2088, 2081])
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_competitions_filter_areas)
     end
   end
@@ -71,7 +83,7 @@ def stubs_competitions
     .to_return(status: 200, body: get_mocked_response('resource_missing.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions")
-    .to_return(status: 200, body: get_mocked_response('competitions.json', :football_data))
+    .to_return(status: 200, body: get_mocked_response('competition.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2001")
     .to_return(status: 200, body: get_mocked_response('seasons.json', :football_data))
