@@ -17,103 +17,107 @@ RSpec.describe Football::Butler::Matches do
 
   describe 'when by_id' do
     it 'returns one match' do
-      response = described_class.by_id(id: 2002)
-      expect(response.parsed_response).to include(response_match.stringify_keys)
+      response = described_class.by_id(id: 205430)
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_match_apifootball)
     end
   end
 
   describe 'when all' do
-    it 'returns all matches' do
+    it 'returns parameters missing' do
       response = described_class.all
-      expect(response).to match_array(response_matches)
+
+      expect(response).to be_a(Hash)
+      expect(response['message']).to eq('Required parameters missing')
     end
 
-    it 'returns all matches with result param :default' do
+    it 'returns parameters missing with param :default' do
       response = described_class.all(result: :default)
-      expect(response.parsed_response).to include(response_matches_all.stringify_keys)
+
+      expect(response).to be_a(Hash)
+      expect(response['message']).to eq('Required parameters missing')
+    end
+
+    it 'returns match by match_id' do
+      response = described_class.all(filters: { match_id: 205430 })
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_match_apifootball)
+    end
+
+    it 'returns returns match by match_id result param :default' do
+      response = described_class.all(result: :default)
+
+      expect(response).to be_a(Hash)
+      expect(response['message']).to eq('Required parameters missing')
     end
   end
 
   describe 'when by_competition' do
     it 'returns all matches of competition' do
-      response = described_class.by_competition(id: 2002)
-      expect(response).to match_array(response_matches_more)
+      response = described_class.by_competition(id: 149)
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_match_apifootball)
     end
   end
 
   describe 'when by_competition_and_year' do
     it 'returns all matches of competition and season year' do
-      response = described_class.by_competition_and_year(id: 2002, year: 2020)
-      expect(response).to match_array(response_matches_more)
-    end
-  end
+      response = described_class.by_competition_and_year(id: 149, year: 2020)
 
-  describe 'when by_competition_and_match_day' do
-    it 'returns all matches of competition and season year' do
-      response = described_class.by_competition_and_match_day(id: 2002, match_day: 1)
-      expect(response).to match_array(response_matches_more)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_match_apifootball)
     end
   end
 
   describe 'when by_team' do
     it 'returns all matches of a team' do
-      response = described_class.by_team(id: 2002)
-      expect(response).to match_array(response_matches_more)
-    end
-  end
+      response = described_class.by_team(id: 148)
 
-  describe 'when by_team_finished' do
-    it 'returns all finished matches of a team' do
-      response = described_class.by_team_finished(id: 2002)
-      expect(response).to match_array(response_matches_more)
-    end
-  end
-
-  describe 'when by_team_and_status' do
-    it 'returns all scheduled matches of a team' do
-      response = described_class.by_team_and_status(
-        id: 2002, status: Football::Butler::FootballData::Matches::STATUS_FINISHED
-      )
-
-      expect(response).to match_array(response_matches_more)
-    end
-  end
-
-  describe 'when by_team_scheduled' do
-    it 'returns all scheduled matches of a team' do
-      response = described_class.by_team_scheduled(id: 2002)
-      expect(response).to match_array(response_matches_more)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_match_apifootball)
     end
   end
 end
 
 def stubs_matches_apifootball
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches/2002")
-    .to_return(status: 200, body: get_mocked_response('match.json', :football_data))
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}APIkey=my_dummy_token&action=get_events&match_id=205430")
+    .to_return(status: 200, body: get_mocked_response('match.json', :apifootball))
 
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches/9999")
-    .to_return(status: 200, body: get_mocked_response('resource_missing.json', :football_data))
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}APIkey=my_dummy_token&action=get_events")
+    .to_return(status: 200, body: get_mocked_response('matches_missing_param.json', :apifootball))
 
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches")
-    .to_return(status: 200, body: get_mocked_response('matches.json', :football_data))
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}APIkey=my_dummy_token&action=get_events&league_id=149")
+    .to_return(status: 200, body: get_mocked_response('matches.json', :apifootball))
 
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}APIkey=my_dummy_token&action=get_events&from=2020-01-01&to=2020-12-31")
+    .to_return(status: 200, body: get_mocked_response('matches.json', :apifootball))
 
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches?season=2020")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}APIkey=my_dummy_token&action=get_events&team_id=148")
+    .to_return(status: 200, body: get_mocked_response('matches.json', :apifootball))
 
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches?matchday=1")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
-
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
-
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches?status=FINISHED")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
-
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches?status=SCHEDULED")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
+  #stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches")
+  #   .to_return(status: 200, body: get_mocked_response('matches.json', :apifootball))
+  #
+  # stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches")
+  #   .to_return(status: 200, body: get_mocked_response('matches_more.json', :apifootball))
+  #
+  # stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches?season=2020")
+  #   .to_return(status: 200, body: get_mocked_response('matches_more.json', :apifootball))
+  #
+  # stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches?matchday=1")
+  #   .to_return(status: 200, body: get_mocked_response('matches_more.json', :apifootball))
+  #
+  # stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches")
+  #   .to_return(status: 200, body: get_mocked_response('matches_more.json', :apifootball))
+  #
+  # stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches?status=FINISHED")
+  #   .to_return(status: 200, body: get_mocked_response('matches_more.json', :apifootball))
+  #
+  # stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches?status=SCHEDULED")
+  #   .to_return(status: 200, body: get_mocked_response('matches_more.json', :apifootball))
 end
 
 def response_missing
@@ -122,264 +126,91 @@ def response_missing
   }.with_indifferent_access
 end
 
-def response_match
-  {
-    "head2head": {
-      "numberOfMatches": 10,
-      "totalGoals": 34,
-      "homeTeam": {
-        "id": 10,
-        "name": "VfB Stuttgart",
-        "wins": 1,
-        "draws": 0,
-        "losses": 9
-      }.with_indifferent_access,
-      "awayTeam": {
-        "id": 5,
-        "name": "FC Bayern München",
-        "wins": 9,
-        "draws": 0,
-        "losses": 1
-      }
-    }.with_indifferent_access,
-    "match": {
-      "id": 2002,
-      "competition": {
-        "id": 2002,
-        "name": "Bundesliga",
-        "area": {
-          "name": "Germany",
-          "code": "DEU",
-          "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg"
-        }
-      }.with_indifferent_access,
-      "season": {
-        "id": 228,
-        "startDate": "2002-08-09",
-        "endDate": "2003-05-24",
-        "currentMatchday": "null",
-        "winner": {
-          "id": 5,
-          "name": "FC Bayern München",
-          "shortName": "Bayern M",
-          "tla": "FCB",
-          "crestUrl": "https://crests.football-data.org/5.svg"
-        }
-      }.with_indifferent_access,
-      "utcDate": "2002-12-07T15:30:00Z",
-      "status": "FINISHED",
-      "venue": "null",
-      "matchday": 16,
-      "stage": "null",
-      "group": "null",
-      "lastUpdated": "2018-07-12T16:27:45Z",
-      "odds": {
-        "msg": "Activate Odds-Package in User-Panel to retrieve odds."
-      }.with_indifferent_access,
-      "score": {
-        "winner": "AWAY_TEAM",
-        "duration": "REGULAR",
-        "fullTime": {
-          "homeTeam": 0,
-          "awayTeam": 3
-        }.with_indifferent_access,
-        "halfTime": {
-          "homeTeam": "null",
-          "awayTeam": "null"
-        }.with_indifferent_access,
-        "extraTime": {
-          "homeTeam": "null",
-          "awayTeam": "null"
-        }.with_indifferent_access,
-        "penalties": {
-          "homeTeam": "null",
-          "awayTeam": "null"
-        }
-      }.with_indifferent_access,
-      "homeTeam": {
-        "id": 10,
-        "name": "VfB Stuttgart"
-      }.with_indifferent_access,
-      "awayTeam": {
-        "id": 5,
-        "name": "FC Bayern München"
-      }.with_indifferent_access,
-      "referees": []
-    }
-  }.with_indifferent_access
-end
-
-def response_matches_all
-  {
-    "count": 0,
-    "filters": {
-      "dateFrom": "2021-03-27",
-      "dateTo": "2021-03-27",
-      "permission": "TIER_ONE"
-    }.with_indifferent_access,
-    "matches": []
-  }
-end
-
-def response_matches
-  []
-end
-
-def response_matches_more
+def response_match_apifootball
   [
     {
-      "id": 303007,
-      "season": {
-        "id": 599,
-        "startDate": "2020-09-18",
-        "endDate": "2021-05-15",
-        "currentMatchday": 27
-      }.with_indifferent_access,
-      "utcDate": "2020-09-18T18:30:00Z",
-      "status": "FINISHED",
-      "matchday": 1,
-      "stage": "REGULAR_SEASON",
-      "group": "Regular Season",
-      "lastUpdated": "2020-10-03T07:30:16Z",
-      "odds": {
-        "msg": "Activate Odds-Package in User-Panel to retrieve odds."
-      }.with_indifferent_access,
-      "score": {
-        "winner": "HOME_TEAM",
-        "duration": "REGULAR",
-        "fullTime": {
-          "homeTeam": 8,
-          "awayTeam": 0
-        }.with_indifferent_access,
-        "halfTime": {
-          "homeTeam": 3,
-          "awayTeam": 0
-        }.with_indifferent_access,
-        "extraTime": {
-          "homeTeam": "null",
-          "awayTeam": "null"
-        }.with_indifferent_access,
-        "penalties": {
-          "homeTeam": "null",
-          "awayTeam": "null"
-        }
-      }.with_indifferent_access,
-      "homeTeam": {
-        "id": 5,
-        "name": "FC Bayern München"
-      }.with_indifferent_access,
-      "awayTeam": {
-        "id": 6,
-        "name": "FC Schalke 04"
-      }.with_indifferent_access,
-      "referees": [
+      "match_id": "205430",
+      "country_id": "41",
+      "country_name": "England",
+      "league_id": "149",
+      "league_name": "Championship",
+      "match_date": "2019-04-27",
+      "match_status": "Finished",
+      "match_time": "14:30",
+      "match_hometeam_id": "2638",
+      "match_hometeam_name": "Millwall",
+      "match_hometeam_score": "0",
+      "match_awayteam_name": "Stoke",
+      "match_awayteam_id": "2624",
+      "match_awayteam_score": "0",
+      "match_hometeam_halftime_score": "0",
+      "match_awayteam_halftime_score": "0",
+      "match_hometeam_extra_score": "",
+      "match_awayteam_extra_score": "",
+      "match_hometeam_penalty_score": "",
+      "match_awayteam_penalty_score": "",
+      "match_hometeam_ft_score": "",
+      "match_awayteam_ft_score": "",
+      "match_hometeam_system": "4 - 1 - 4 - 1",
+      "match_awayteam_system": "3 - 4 - 3",
+      "match_live": "0",
+      "match_round": "Round 45",
+      "match_stadium": "",
+      "match_referee": "",
+      "team_home_badge": "https://apiv2.apifootball.com/badges/2638_millwall.png",
+      "team_away_badge": "https://apiv2.apifootball.com/badges/2624_stoke-city.png",
+      "league_logo": "https://apiv2.apifootball.com/badges/logo_leagues/149_championship.png",
+      "country_logo": "https://apiv2.apifootball.com/badges/logo_country/41_england.png",
+      "goalscorer": [],
+      "cards": [
         {
-          "id": 43878,
-          "name": "Felix Zwayer",
-          "role": "REF",
-          "nationality": "Germany"
-        }.with_indifferent_access,
-        {
-          "id": 43923,
-          "name": "Thorsten Schiffner",
-          "role": "REF",
-          "nationality": "Germany"
-        }.with_indifferent_access,
-        {
-          "id": 43879,
-          "name": "Marco Achmüller",
-          "role": "REF",
-          "nationality": "Germany"
-        }.with_indifferent_access,
-        {
-          "id": 57517,
-          "name": "Daniel Schlager",
-          "role": "REF",
-          "nationality": "Germany"
-        }.with_indifferent_access,
-        {
-          "id": 57539,
-          "name": "Tobias Welz",
-          "role": "REF",
-          "nationality": "Germany"
-        }
-      ]
-    }.with_indifferent_access,
-    {
-      "id": 303002,
-      "season": {
-        "id": 599,
-        "startDate": "2020-09-18",
-        "endDate": "2021-05-15",
-        "currentMatchday": 27
+          "time": "74",
+          "home_fault": "",
+          "card": "yellow card",
+          "away_fault": "Shawcross R.",
+          "info": ""
+        }.with_indifferent_access
+      ],
+      "substitutions": {
+        "home": [
+          {
+            "time": "66",
+            "substitution": "Marshall B. | Morison S."
+          }.with_indifferent_access
+        ],
+        "away": [
+          {
+            "time": "76",
+            "substitution": "Ince T. | Vokes S."
+          }.with_indifferent_access
+        ]
       }.with_indifferent_access,
-      "utcDate": "2020-09-19T13:30:00Z",
-      "status": "FINISHED",
-      "matchday": 1,
-      "stage": "REGULAR_SEASON",
-      "group": "Regular Season",
-      "lastUpdated": "2020-10-03T07:30:16Z",
-      "odds": {
-        "msg": "Activate Odds-Package in User-Panel to retrieve odds."
-      }.with_indifferent_access,
-      "score": {
-        "winner": "AWAY_TEAM",
-        "duration": "REGULAR",
-        "fullTime": {
-          "homeTeam": 2,
-          "awayTeam": 3
-        }.with_indifferent_access,
-        "halfTime": {
-          "homeTeam": 1,
-          "awayTeam": 2
-        }.with_indifferent_access,
-        "extraTime": {
-          "homeTeam": "null",
-          "awayTeam": "null"
-        }.with_indifferent_access,
-        "penalties": {
-          "homeTeam": "null",
-          "awayTeam": "null"
+      "lineup": {
+        "home": {
+          "starting_lineups": [
+            {
+              "lineup_player": "Cooper J.",
+              "lineup_number": "5",
+              "lineup_position": "4",
+              "player_key": "183782679"
+            }.with_indifferent_access
+          ],
+          "coach": [
+            {
+              "lineup_player": "Jones N.",
+              "lineup_number": "-1",
+              "lineup_position": "",
+              "player_key": "2874574677"
+            }.with_indifferent_access
+          ],
+          "missing_players": []
         }.with_indifferent_access
       }.with_indifferent_access,
-      "homeTeam": {
-        "id": 1,
-        "name": "1. FC Köln"
-      }.with_indifferent_access,
-      "awayTeam": {
-        "id": 2,
-        "name": "TSG 1899 Hoffenheim"
-      }.with_indifferent_access,
-      "referees": [
+      "statistics": [
         {
-          "id": 15408,
-          "name": "Daniel Siebert",
-          "role": "REF",
-          "nationality": "Germany"
-        }.with_indifferent_access,
-        {
-          "id": 8826,
-          "name": "Christian Dietz",
-          "role": "REF",
-          "nationality": "Germany"
-        }.with_indifferent_access,
-        {
-          "id": 57525,
-          "name": "Marcel Pelgrim",
-          "role": "REF",
-          "nationality": "Germany"
-        }.with_indifferent_access,
-        {
-          "id": 57515,
-          "name": "Sören Storks",
-          "role": "REF",
-          "nationality": "Germany"
-        }.with_indifferent_access,
-        {
-          "id": 57532,
-          "name": "Frank Willenborg",
-          "role": "REF",
-          "nationality": "Germany"
+          "type": "Ball Possession",
+          "home": "37%",
+          "away": "63%"
         }.with_indifferent_access
       ]
     }.with_indifferent_access

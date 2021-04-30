@@ -1,0 +1,88 @@
+[
+  {
+    "match_id": "205430",
+    "country_id": "41",
+    "country_name": "England",
+    "league_id": "149",
+    "league_name": "Championship",
+    "match_date": "2019-04-27",
+    "match_status": "Finished",
+    "match_time": "14:30",
+    "match_hometeam_id": "2638",
+    "match_hometeam_name": "Millwall",
+    "match_hometeam_score": "0",
+    "match_awayteam_name": "Stoke",
+    "match_awayteam_id": "2624",
+    "match_awayteam_score": "0",
+    "match_hometeam_halftime_score": "0",
+    "match_awayteam_halftime_score": "0",
+    "match_hometeam_extra_score": "",
+    "match_awayteam_extra_score": "",
+    "match_hometeam_penalty_score": "",
+    "match_awayteam_penalty_score": "",
+    "match_hometeam_ft_score": "",
+    "match_awayteam_ft_score": "",
+    "match_hometeam_system": "4 - 1 - 4 - 1",
+    "match_awayteam_system": "3 - 4 - 3",
+    "match_live": "0",
+    "match_round": "Round 45",
+    "match_stadium": "",
+    "match_referee": "",
+    "team_home_badge": "https://apiv2.apifootball.com/badges/2638_millwall.png",
+    "team_away_badge": "https://apiv2.apifootball.com/badges/2624_stoke-city.png",
+    "league_logo": "https://apiv2.apifootball.com/badges/logo_leagues/149_championship.png",
+    "country_logo": "https://apiv2.apifootball.com/badges/logo_country/41_england.png",
+    "goalscorer": [],
+    "cards": [
+      {
+        "time": "74",
+        "home_fault": "",
+        "card": "yellow card",
+        "away_fault": "Shawcross R.",
+        "info": ""
+      }
+    ],
+    "substitutions": {
+      "home": [
+        {
+          "time": "66",
+          "substitution": "Marshall B. | Morison S."
+        }
+      ],
+      "away": [
+        {
+          "time": "76",
+          "substitution": "Ince T. | Vokes S."
+        }
+      ]
+    },
+    "lineup": {
+      "home": {
+        "starting_lineups": [
+          {
+            "lineup_player": "Cooper J.",
+            "lineup_number": "5",
+            "lineup_position": "4",
+            "player_key": "183782679"
+          }
+        ],
+        "coach": [
+          {
+            "lineup_player": "Jones N.",
+            "lineup_number": "-1",
+            "lineup_position": "",
+            "player_key": "2874574677"
+          }
+        ],
+        "missing_players": []
+      }
+    },
+    "statistics": [
+      {
+        "type": "Ball Possession",
+        "home": "37%",
+        "away": "63%"
+      }
+    ]
+  }
+]

@@ -28,7 +28,7 @@ RSpec.describe Football::Butler::Competitions do
 
       expect(response).to be_a(HTTParty::Response)
       expect(response.parsed_response).to be_a(Hash)
-      expect(response).to include(response_competitions_all.stringify_keys)
+      expect(response.parsed_response).to include(response_competitions_all.stringify_keys)
     end
   end
 
@@ -83,7 +83,7 @@ def stubs_competitions
     .to_return(status: 200, body: get_mocked_response('resource_missing.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions")
-    .to_return(status: 200, body: get_mocked_response('competition.json', :football_data))
+    .to_return(status: 200, body: get_mocked_response('competitions.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2001")
     .to_return(status: 200, body: get_mocked_response('seasons.json', :football_data))
