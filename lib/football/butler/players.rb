@@ -8,8 +8,12 @@ module Football
 
       class << self
         ## PLAYER
-        def by_id(id:, result: api_switch_result)
-          api_switch_method(__method__, { id: id, result: result })
+        def by_id(id:)
+          api_switch_method(__method__, { id: id })
+        end
+
+        def by_name(name:)
+          api_switch_method(__method__, { name: name })
         end
       end
     end

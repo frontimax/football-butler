@@ -34,6 +34,13 @@ RSpec.describe Football::Butler::Areas do
       expect(response.parsed_response).to be_a(Hash)
       expect(response.parsed_response).to include(response_areas_all.stringify_keys)
     end
+
+    it 'returns all areas with result param :parsed_response' do
+      response = described_class.all(result: :parsed_response)
+
+      expect(response).to be_a(Hash)
+      expect(response).to include(response_areas_all.stringify_keys)
+    end
   end
 
   describe 'when by_name' do

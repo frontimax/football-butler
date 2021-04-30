@@ -32,9 +32,28 @@ RSpec.describe Football::Butler::Competitions do
     end
   end
 
+  describe 'when all_tier_plan_filter' do
+    it 'returns all competitions with configured tier plan filter empty' do
+      response = described_class.all_tier_plan_filter
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_competitions)
+    end
+
+    it 'returns all competitions with configured tier plan filter TIER_ONE' do
+      Football::Butler::Configuration.reconfigure(
+        tier_plan: 'TIER_ONE'
+      )
+      response = described_class.all_tier_plan_filter
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_competitions)
+    end
+  end
+
   describe 'when by_plan' do
-    it 'returns all competitions TIER_ONE' do
-      response = described_class.by_plan(plan: 'TIER_ONE')
+    it 'returns all competitions TIER_TWO' do
+      response = described_class.by_plan(plan: 'TIER_TWO')
 
       expect(response).to be_a(Array)
       expect(response).to match_array(response_competitions_filter_plan)
@@ -85,11 +104,14 @@ def stubs_competitions
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions")
     .to_return(status: 200, body: get_mocked_response('competitions.json', :football_data))
 
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions?plan=TIER_TWO")
+    .to_return(status: 200, body: get_mocked_response('competitions_filter_plan.json', :football_data))
+
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2001")
     .to_return(status: 200, body: get_mocked_response('seasons.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions?plan=TIER_ONE")
-    .to_return(status: 200, body: get_mocked_response('competitions_filter_plan.json', :football_data))
+    .to_return(status: 200, body: get_mocked_response('competitions.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions?areas=2088,2081")
     .to_return(status: 200, body: get_mocked_response('competitions_filter_areas.json', :football_data))

@@ -91,6 +91,25 @@ RSpec.describe Football::Butler::Competitions do
       expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
     end
   end
+
+  describe 'when all_tier_plan_filter' do
+    it 'returns all competitions with configured tier plan filter empty' do
+      response = described_class.all_tier_plan_filter
+
+      expect(response).to be_a(Hash)
+      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+    end
+
+    it 'returns all competitions with configured tier plan filter TIER_ONE' do
+      Football::Butler::Configuration.reconfigure(
+        tier_plan: ['TIER_ONE']
+      )
+      response = described_class.all_tier_plan_filter
+
+      expect(response).to be_a(Hash)
+      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+    end
+  end
 end
 
 def stubs_competitions_apifootball

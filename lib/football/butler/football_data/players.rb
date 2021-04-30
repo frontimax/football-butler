@@ -9,9 +9,9 @@ module Football
         class << self
           ## PLAYER
           # v2/players/{id}
-          def by_id(id:, result:)
+          def by_id(id:)
             path = "#{PATH}/#{id}"
-            Api.get(path: path, result: result)
+            Api.get(path: path)
           end
 
           ## MATCHES

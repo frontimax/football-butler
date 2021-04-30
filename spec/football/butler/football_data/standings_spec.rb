@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Football::Butler::FootballData::Standings do
+RSpec.describe Football::Butler::Standings do
   before do
     stubs_standing_football_data
   end
@@ -13,6 +13,8 @@ RSpec.describe Football::Butler::FootballData::Standings do
   describe 'when by_competition' do
     it 'returns standings of competition' do
       response = described_class.by_competition(id: 2002, result: :standings, filters: {})
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_standings)
     end
   end
@@ -20,6 +22,8 @@ RSpec.describe Football::Butler::FootballData::Standings do
   describe 'when home_by_competition' do
     it 'returns standings of home competition' do
       response = described_class.home_by_competition(id: 2002, result: :standings, filters: {})
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_standings_home)
     end
   end
@@ -27,6 +31,8 @@ RSpec.describe Football::Butler::FootballData::Standings do
   describe 'when away_by_competition' do
     it 'returns standings of away competition' do
       response = described_class.away_by_competition(id: 2002, result: :standings, filters: {})
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_standings_away)
     end
   end
@@ -34,6 +40,8 @@ RSpec.describe Football::Butler::FootballData::Standings do
   describe 'when by_competition_and_year' do
     it 'returns standings of competition by season year' do
       response = described_class.by_competition_and_year(id: 2002, year: '2020', result: :standings, filters: {})
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_standings)
     end
   end

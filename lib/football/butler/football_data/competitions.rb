@@ -21,8 +21,12 @@ module Football
           # plan={PLAN}
           #
           # v2/competitions
-          # TODO: Configuration.tier_plan_filter?
           def all(result:, filters: Configuration.tier_plan_filter)
+            Api.get(path: PATH, result: result, filters: filters)
+          end
+
+          # v2/competitions
+          def all_tier_plan_filter(result:, filters:)
             Api.get(path: PATH, result: result, filters: filters)
           end
 

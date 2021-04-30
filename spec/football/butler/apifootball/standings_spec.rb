@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # TODO: master class w/o Apifootball!!!!!!!!!!!!!!!!!!!!!!!!
-RSpec.describe Football::Butler::Apifootball::Standings do
+RSpec.describe Football::Butler::Standings do
   before do
     Football::Butler::Configuration.reset
     Football::Butler::Configuration.reconfigure(
@@ -20,6 +20,8 @@ RSpec.describe Football::Butler::Apifootball::Standings do
   describe 'when by_competition' do
     it 'returns standings of competition' do
       response = described_class.by_competition(id: 2002, result: :parsed_response, filters: {})
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_standings_api_football)
     end
   end
