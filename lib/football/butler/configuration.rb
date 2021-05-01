@@ -12,6 +12,7 @@ module Football
 
       # API
       # TODO: validate includes valid api name!
+      # TODO: switch api (by name to defaults of each)
       AVAILABLE_APIS        = [:football_data_org, :apifootball_com]
       DEFAULT_API_NAME      = :football_data_org
       DEFAULT_API_URL       = API_URL_FOOTBALL_DATA
