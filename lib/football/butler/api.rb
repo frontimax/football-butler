@@ -6,6 +6,7 @@ module Football
     class Api < Base
       RETRIES = 2
 
+      # TODO: both work with apifootball???
       class << self
         def get(path:, filters: {}, result: :default)
           Configuration.wait_on_limit ?

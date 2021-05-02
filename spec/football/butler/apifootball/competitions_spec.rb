@@ -15,13 +15,13 @@ RSpec.describe Football::Butler::Competitions do
     Football::Butler::Configuration.reconfigure(api_token: 'my_dummy_token')
   end
 
+  # TODO: check ids from request and response match!
   describe 'when by_id' do
     it 'returns one competition' do
-      response = described_class.by_id(id: 2002)
+      response = described_class.by_id(id: 41)
 
       expect(response).to be_a(HTTParty::Response)
       expect(response.parsed_response).to be_a(Array)
-
       expect(response.parsed_response).to match_array(response_competition_apifootball)
     end
   end
@@ -30,15 +30,16 @@ RSpec.describe Football::Butler::Competitions do
     it 'returns all competitions' do
       response = described_class.all
 
-      expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_competition_apifootball)
     end
 
     it 'returns all competitions with result param :default' do
       response = described_class.all(result: :default)
 
-      expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response).to be_a(HTTParty::Response)
+      expect(response.parsed_response).to be_a(Array)
+      expect(response.parsed_response).to match_array(response_competition_apifootball)
     end
   end
 
@@ -113,7 +114,10 @@ RSpec.describe Football::Butler::Competitions do
 end
 
 def stubs_competitions_apifootball
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}APIkey=my_dummy_token&action=get_leagues&country_id=2002")
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}APIkey=my_dummy_token&action=get_leagues")
+    .to_return(status: 200, body: get_mocked_response('competition.json', :apifootball))
+
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}APIkey=my_dummy_token&action=get_leagues&country_id=41")
     .to_return(status: 200, body: get_mocked_response('competition.json', :apifootball))
 end
 

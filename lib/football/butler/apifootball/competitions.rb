@@ -14,8 +14,16 @@ module Football
             filters = { country_id: id }
             Api.get(path: build_path(PATH), filters: filters)
           end
-        end
 
+          ## COMPETITIONS
+          #
+          # country_id    Country ID - if set only leagues from specific country will be returned (Optional)
+          #
+          # action=get_league
+          def all(result:, filters:)
+            Api.get(path: build_path(PATH), result: result, filters: filters)
+          end
+        end
       end
     end
   end

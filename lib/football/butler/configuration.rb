@@ -13,6 +13,7 @@ module Football
       # API
       # TODO: validate includes valid api name!
       # TODO: switch api (by name to defaults of each)
+      # TODO: how does apifootball handle limits on request !?
       AVAILABLE_APIS        = [:football_data_org, :apifootball_com]
       DEFAULT_API_NAME      = :football_data_org
       DEFAULT_API_URL       = API_URL_FOOTBALL_DATA
@@ -37,7 +38,7 @@ module Football
           @api_name       ||= DEFAULT_API_NAME
           @api_token      ||= DEFAULT_API_TOKEN
           @api_version    ||= DEFAULT_API_VERSION
-          @api_endpoint   ||= set_api_endpoint
+          @api_endpoint   ||= set_api_endpoint(@api_name, @api_version)
           @tier_plan      ||= DEFAULT_TIER_PLAN
           @wait_on_limit  ||= DEFAULT_WAIT_ON_LIMIT
 
@@ -57,7 +58,7 @@ module Football
           @api_token      = api_token unless api_token.nil?
           unless api_version.nil?
             @api_version    = api_version
-            @api_endpoint   = set_api_endpoint(api_version) if api_endpoint.nil?
+            @api_endpoint   = set_api_endpoint(@api_name, @api_version) if api_endpoint.nil?
           end
           @api_endpoint   = api_endpoint unless api_endpoint.nil?
           @tier_plan      = tier_plan unless tier_plan.nil?
@@ -90,16 +91,18 @@ module Football
           case api_name
           when :apifootball_com
             'Apifootball'
-          else
+          when :football_data_org
             'FootballData'
           end
         end
 
-        def set_api_endpoint(api_version = DEFAULT_API_VERSION)
+        def set_api_endpoint(api_name, api_version = DEFAULT_API_VERSION)
+          return if api_name.nil?
+
           case api_name
           when :apifootball_com
             API_URL_APIFOOTBALL
-          else
+          when :football_data_org
             "#{API_URL_FOOTBALL_DATA}/v#{api_version}"
           end
         end
@@ -108,7 +111,7 @@ module Football
           case api_name
           when :apifootball_com
             {}
-          else
+          when :football_data_org
             { "X-Auth-Token": Configuration.api_token }
           end
         end
