@@ -11,9 +11,6 @@ module Football
       API_VERSION_APIFOOTBALL   = 2
 
       # API
-      # TODO: validate includes valid api name!
-      # TODO: switch api (by name to defaults of each)
-      # TODO: how does apifootball handle limits on request !?
       AVAILABLE_APIS        = [:football_data_org, :apifootball_com]
       DEFAULT_API_NAME      = :football_data_org
       DEFAULT_API_URL       = API_URL_FOOTBALL_DATA
@@ -35,16 +32,18 @@ module Football
 
           yield self
 
-          @api_name       ||= DEFAULT_API_NAME
+          # api_name: AVAILABLE_APIS
+          @api_name       = set_api_name(self.api_name)
+
           @api_token      ||= DEFAULT_API_TOKEN
           @api_version    ||= DEFAULT_API_VERSION
           @api_endpoint   ||= set_api_endpoint(@api_name, @api_version)
           @tier_plan      ||= DEFAULT_TIER_PLAN
-          @wait_on_limit  ||= DEFAULT_WAIT_ON_LIMIT
+          @wait_on_limit  ||= set_wait_on_limit(self.wait_on_limit, @api_name)
 
           @init_done = true
 
-          true
+          api_name_valid?(self.api_name)
         end
 
         def reconfigure(
@@ -54,7 +53,7 @@ module Football
 
           reset unless @init_done
 
-          @api_name       = api_name unless api_name.nil?
+          @api_name       = set_api_name(api_name) unless api_name.nil?
           @api_token      = api_token unless api_token.nil?
           unless api_version.nil?
             @api_version    = api_version
@@ -62,9 +61,13 @@ module Football
           end
           @api_endpoint   = api_endpoint unless api_endpoint.nil?
           @tier_plan      = tier_plan unless tier_plan.nil?
-          @wait_on_limit  = wait_on_limit unless wait_on_limit.nil?
+          @wait_on_limit  = set_wait_on_limit(wait_on_limit, @api_name) unless wait_on_limit.nil?
 
-          true
+          api_name_valid?(api_name ? api_name : @api_name)
+        end
+
+        def api_name_valid?(api_name)
+          AVAILABLE_APIS.include?(api_name)
         end
 
         def reset
@@ -96,6 +99,10 @@ module Football
           end
         end
 
+        def set_api_name(api_name)
+          api_name_valid?(api_name) ? api_name : DEFAULT_API_NAME
+        end
+
         def set_api_endpoint(api_name, api_version = DEFAULT_API_VERSION)
           return if api_name.nil?
 
@@ -104,6 +111,15 @@ module Football
             API_URL_APIFOOTBALL
           when :football_data_org
             "#{API_URL_FOOTBALL_DATA}/v#{api_version}"
+          end
+        end
+
+        def set_wait_on_limit(wait_on_limit, api_name)
+          case api_name
+          when :apifootball_com
+            false
+          when :football_data_org
+            wait_on_limit
           end
         end
 
@@ -125,26 +141,32 @@ module Football
           end
         end
 
-        # TODO: v1.1 it was response w/o parsed_response!
-        # TODO: norm response for all apis each endpoint and method! (Array, Hash...)
         def http_party_response(response, result)
           case api_name
           when :apifootball_com
-            case result
-            when :default
-              response
-            else
-              response.parsed_response
-            end
+            response_apifootball_com(response, result)
           when :football_data_org
-            case result
-            when :default
-              response
-            when :parsed_response
-              response.parsed_response
-            else
-              response&.keys&.include?(result.to_s) ? response[result.to_s] : nil
-            end
+            response_football_data_org(response, result)
+          end
+        end
+
+        def response_apifootball_com(response, result)
+          case result
+          when :default
+            response
+          else
+            response.parsed_response
+          end
+        end
+
+        def response_football_data_org(response, result)
+          case result
+          when :default
+            response
+          when :parsed_response
+            response.parsed_response
+          else
+            response&.keys&.include?(result.to_s) ? response[result.to_s] : nil
           end
         end
 

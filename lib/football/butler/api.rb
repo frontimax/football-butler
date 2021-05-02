@@ -6,7 +6,6 @@ module Football
     class Api < Base
       RETRIES = 2
 
-      # TODO: both work with apifootball???
       class << self
         def get(path:, filters: {}, result: :default)
           Configuration.wait_on_limit ?
@@ -81,7 +80,7 @@ module Football
         end
 
         def invalid_config?
-          Configuration.api_token.blank? || Configuration.api_endpoint.blank?
+          Configuration.api_token.blank? || !Configuration.api_name_valid?(Configuration.api_name)
         end
 
         def log(text)
