@@ -2,7 +2,7 @@
 
 module Football
   module Butler
-    # Adding multiple API Support - April 2021
+    # Adding multiple API Support - May 2021
     # - https://www.football-data.org (>= 1.0.0)
     # - https://apifootball.com (>= 2.0.0)
     VERSION = "2.0.0"
