@@ -14,6 +14,8 @@ require 'football/butler/countries'
 require 'football/butler/events'
 require 'football/butler/players'
 require 'football/butler/scorers'
+require 'football/butler/top_scorers'
+require 'football/butler/lineups'
 
 module Football
   module Butler
