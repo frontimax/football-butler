@@ -36,13 +36,13 @@ end
 
 def stubs_teams
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/18")
-    .to_return(status: 200, body: get_mocked_response('team.json'))
+    .to_return(status: 200, body: get_mocked_response('team.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/teams")
-    .to_return(status: 200, body: get_mocked_response('teams.json'))
+    .to_return(status: 200, body: get_mocked_response('teams.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/teams?year=2019")
-    .to_return(status: 200, body: get_mocked_response('teams_filter_year.json'))
+    .to_return(status: 200, body: get_mocked_response('teams_filter_year.json', :football_data))
 end
 
 def response_team

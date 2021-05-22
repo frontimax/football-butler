@@ -15,74 +15,12 @@ RSpec.describe Football::Butler::Api do
   end
 
   describe 'when base functions' do
-    context 'with invalid_token?' do
-      it 'returns true' do
-        response = { message: Football::Butler::Base::MSG_INVALID_TOKEN }.with_indifferent_access
-        expect(described_class.invalid_token?(response)).to be_truthy
-      end
-
-      it 'returns false' do
-        response = { message: 'I am fine.' }
-        expect(described_class.invalid_token?(response)).to be_falsey
-      end
-
-      it 'returns false' do
-        response = { no_message: 'I am also fine.' }
-        expect(described_class.invalid_token?(response)).to be_falsey
-      end
-    end
-
-    context 'with resource_not_found?' do
-      it 'returns true' do
-        response = { message: Football::Butler::Base::MSG_NOT_EXIST }.with_indifferent_access
-        expect(described_class.resource_not_found?(response)).to be_truthy
-      end
-
-      it 'returns false' do
-        response = { message: 'I am fine.' }.with_indifferent_access
-        expect(described_class.invalid_token?(response)).to be_falsey
-      end
-
-      it 'returns false' do
-        response = { no_message: 'I am also fine.' }.with_indifferent_access
-        expect(described_class.invalid_token?(response)).to be_falsey
-      end
-    end
-
     context 'with reached_limit?' do
       it 'returns true' do
         response = { message: Football::Butler::Base::MSG_REACHED_LIMIT }.with_indifferent_access
         expect(described_class.reached_limit?(response)).to be_truthy
       end
-
-      it 'returns false' do
-        response = { message: 'I am fine.' }.with_indifferent_access
-        expect(described_class.invalid_token?(response)).to be_falsey
-      end
-
-      it 'returns false' do
-        response = { no_message: 'I am also fine.' }.with_indifferent_access
-        expect(described_class.invalid_token?(response)).to be_falsey
-      end
     end
-
-    context 'with bad_request?' do
-      it 'returns true' do
-        response = { errorCode: 400 }.with_indifferent_access
-        expect(described_class.bad_request?(response)).to be_truthy
-      end
-
-      it 'returns false' do
-        response = { errorCode: 200 }.with_indifferent_access
-        expect(described_class.invalid_token?(response)).to be_falsey
-      end
-
-      it 'returns false' do
-        response = { no_code: 200 }.with_indifferent_access
-        expect(described_class.invalid_token?(response)).to be_falsey
-      end
-    end
-
   end
 
   describe 'when tier functions' do
@@ -159,7 +97,7 @@ end
 
 def stubs_client
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/areas/2002")
-    .to_return(status: 200, body: get_mocked_response('area.json'),
+    .to_return(status: 200, body: get_mocked_response('area.json', :football_data),
                headers: {
                  'x-requests-available-minute': 2,
                  'x-requestcounter-reset': 29
@@ -167,7 +105,7 @@ def stubs_client
     )
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/areas/9999")
-    .to_return(status: 200, body: get_mocked_response('reached_limit.json')
+    .to_return(status: 200, body: get_mocked_response('reached_limit.json', :football_data)
     )
 
 end

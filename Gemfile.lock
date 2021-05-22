@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    football-butler (1.1.1)
+    football-butler (2.0.0)
       httparty (~> 0.15)
 
 GEM

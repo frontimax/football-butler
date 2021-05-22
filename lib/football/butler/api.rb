@@ -30,7 +30,7 @@ module Football
           end
 
           response = process_http_party(path, filters)
-          Tier.set_from_response_headers(response)
+          Configuration.tier_from_response(response)
 
           if reached_limit?(response)
             response = process_retry(path, filters)
@@ -50,7 +50,7 @@ module Football
             sleep(Tier.get_sleep_seconds) unless Rails.env.test?
 
             response = process_http_party(path, filters)
-            Tier.set_from_response_headers(response)
+            Configuration.tier_from_response(response)
 
             break unless reached_limit?(response)
           end
@@ -58,25 +58,17 @@ module Football
         end
 
         def process_http_party(path, filters)
-          headers = {
-            "X-Auth-Token": Configuration.api_token
-          }
-          url   = "#{Configuration.api_endpoint}/#{path}"
-          query = filters || {}
-
+          headers = Configuration.http_party_headers
+          url     = Configuration.http_party_url(path)
+          query   = filters || {}
           http_party_get(url, headers, query)
         end
 
         def process_response(response, result)
-          if response.dig('message')
+          if response.parsed_response.is_a?(Hash) && response.dig('message')
             error_message(response['message'])
           else
-            case result
-            when :default
-              response
-            else
-              response&.keys&.include?(result.to_s) ? response[result.to_s] : nil
-            end
+            Configuration.http_party_response(response, result)
           end
         end
 
@@ -88,7 +80,7 @@ module Football
         end
 
         def invalid_config?
-          Configuration.api_token.blank? || Configuration.api_endpoint.blank?
+          Configuration.api_token.blank? || !Configuration.api_name_valid?(Configuration.api_name)
         end
 
         def log(text)

@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["info@joerg-kirschstein.de"]
 
   spec.summary       = 'Football data via API'
-  spec.description   = 'API Wrapper with endpoint classes for https://www.football-data.org'
+  spec.description   = 'Multiple API Wrapper with endpoint classes for football-data.org & apifootball.com'
   spec.homepage      = "https://github.com/frontimax/football-butler"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")

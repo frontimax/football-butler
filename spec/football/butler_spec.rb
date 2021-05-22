@@ -16,7 +16,7 @@ RSpec.describe Football::Butler do
     end
     
     it "returns current version #{Football::Butler::VERSION}" do
-      expect(Football::Butler::VERSION).to eq('1.1.1')
+      expect(Football::Butler::VERSION).to eq('2.0.0')
     end
   end
 
@@ -59,7 +59,7 @@ end
 
 def stubs
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches")
-    .to_return(status: 200, body: get_mocked_response('matches.json'))
+    .to_return(status: 200, body: get_mocked_response('matches.json', :football_data))
 end
 
 def response_matches_butler

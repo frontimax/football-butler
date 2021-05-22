@@ -1,0 +1,173 @@
+{
+  "count": 306,
+  "filters": {},
+  "competition": {
+    "id": 2002,
+    "area": {
+      "id": 2088,
+      "name": "Germany"
+    },
+    "name": "Bundesliga",
+    "code": "BL1",
+    "plan": "TIER_ONE",
+    "lastUpdated": "2021-03-22T01:20:06Z"
+  },
+  "matches": [
+    {
+      "id": 303007,
+      "season": {
+        "id": 599,
+        "startDate": "2020-09-18",
+        "endDate": "2021-05-15",
+        "currentMatchday": 27
+      },
+      "utcDate": "2020-09-18T18:30:00Z",
+      "status": "FINISHED",
+      "matchday": 1,
+      "stage": "REGULAR_SEASON",
+      "group": "Regular Season",
+      "lastUpdated": "2020-10-03T07:30:16Z",
+      "odds": {
+        "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+      },
+      "score": {
+        "winner": "HOME_TEAM",
+        "duration": "REGULAR",
+        "fullTime": {
+          "homeTeam": 8,
+          "awayTeam": 0
+        },
+        "halfTime": {
+          "homeTeam": 3,
+          "awayTeam": 0
+        },
+        "extraTime": {
+          "homeTeam": "null",
+          "awayTeam": "null"
+        },
+        "penalties": {
+          "homeTeam": "null",
+          "awayTeam": "null"
+        }
+      },
+      "homeTeam": {
+        "id": 5,
+        "name": "FC Bayern München"
+      },
+      "awayTeam": {
+        "id": 6,
+        "name": "FC Schalke 04"
+      },
+      "referees": [
+        {
+          "id": 43878,
+          "name": "Felix Zwayer",
+          "role": "REF",
+          "nationality": "Germany"
+        },
+        {
+          "id": 43923,
+          "name": "Thorsten Schiffner",
+          "role": "REF",
+          "nationality": "Germany"
+        },
+        {
+          "id": 43879,
+          "name": "Marco Achmüller",
+          "role": "REF",
+          "nationality": "Germany"
+        },
+        {
+          "id": 57517,
+          "name": "Daniel Schlager",
+          "role": "REF",
+          "nationality": "Germany"
+        },
+        {
+          "id": 57539,
+          "name": "Tobias Welz",
+          "role": "REF",
+          "nationality": "Germany"
+        }
+      ]
+    },
+    {
+      "id": 303002,
+      "season": {
+        "id": 599,
+        "startDate": "2020-09-18",
+        "endDate": "2021-05-15",
+        "currentMatchday": 27
+      },
+      "utcDate": "2020-09-19T13:30:00Z",
+      "status": "FINISHED",
+      "matchday": 1,
+      "stage": "REGULAR_SEASON",
+      "group": "Regular Season",
+      "lastUpdated": "2020-10-03T07:30:16Z",
+      "odds": {
+        "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+      },
+      "score": {
+        "winner": "AWAY_TEAM",
+        "duration": "REGULAR",
+        "fullTime": {
+          "homeTeam": 2,
+          "awayTeam": 3
+        },
+        "halfTime": {
+          "homeTeam": 1,
+          "awayTeam": 2
+        },
+        "extraTime": {
+          "homeTeam": "null",
+          "awayTeam": "null"
+        },
+        "penalties": {
+          "homeTeam": "null",
+          "awayTeam": "null"
+        }
+      },
+      "homeTeam": {
+        "id": 1,
+        "name": "1. FC Köln"
+      },
+      "awayTeam": {
+        "id": 2,
+        "name": "TSG 1899 Hoffenheim"
+      },
+      "referees": [
+        {
+          "id": 15408,
+          "name": "Daniel Siebert",
+          "role": "REF",
+          "nationality": "Germany"
+        },
+        {
+          "id": 8826,
+          "name": "Christian Dietz",
+          "role": "REF",
+          "nationality": "Germany"
+        },
+        {
+          "id": 57525,
+          "name": "Marcel Pelgrim",
+          "role": "REF",
+          "nationality": "Germany"
+        },
+        {
+          "id": 57515,
+          "name": "Sören Storks",
+          "role": "REF",
+          "nationality": "Germany"
+        },
+        {
+          "id": 57532,
+          "name": "Frank Willenborg",
+          "role": "REF",
+          "nationality": "Germany"
+        }
+      ]
+    }
+  ]
+}

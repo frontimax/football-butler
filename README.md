@@ -5,12 +5,11 @@
 [![Build Status](https://travis-ci.com/frontimax/football-butler.svg?token=kdzGtbwhXCggiYUeL5pd&branch=main)](https://travis-ci.org/frontimax/football-butler)
 [![codecov](https://codecov.io/gh/frontimax/football-butler/branch/main/graph/badge.svg?token=GBV4PK62WC)](https://codecov.io/gh/frontimax/football-butler)  
 
-This gem enables API requests against the dev-friendly football API: football-data.org.
-To use the API you need an API token, get it for free @ http://api.football-data.org/register
+This gem enables API requests against multiple different football APIs: football-data.org & apifootball.com.
+
+To use the API you need an API token, get it for free @ http://api.football-data.org/register or https://apifootball.com/register.
 
 Depending on you Payment Plan you can access international Competitions, Teams, Matches, Scores, Players, Odds, and Standings.
-
-See a list of available competitons [here](https://www.football-data.org/coverage).
 
 Also see the following Links:
 
@@ -26,7 +25,7 @@ The "comfort" functions (one class for each endpoint with semantic methods) of t
 also the features included in TIER_TWO and up (Players, Bookings and Odds).
 
 **Update April 10th 2021:** The Tier packages have been adjusted - Standings are now part of TIER_ONE and also of the newest Gem Version 1.1.0
-
+**Update May 2021:** Multiple APIs are now supported. See below for more info on usage.
 
 ## Installation
 
@@ -177,18 +176,23 @@ Returns a Hash with full API response:
 
 Football::Butler::Areas
 
+*alias (apifootball):* Football::Butler::Countries
 
-| Method | Params required | Params optional |
-| ---------------|----------------|----------------|
-| by_id | id: Integer | - |
-| all | - | result (Symbol) |
-| by_name | name: String | - |
+*Return Values for football-data & apifootball in default return mode!*
+
+| Method | Params required | Params optional | football-data | apifootball |
+| ---------------|----------------|----------------|----------------|----------------|
+| by_id | id: Integer | - | Hash | - | 
+| all | - | result (Symbol) | Array | Array |
+| by_name | name: String | - | Hash | - |
 
 Examples:
 
     Football::Butler::Areas.by_id(id: 2088)
     Football::Butler::Areas.all
     Football::Butler::Areas.by_name(name: 'Germany')
+
+    Football::Butler::Countries.by_id(id: 2088)
 
 #### Competitions
 

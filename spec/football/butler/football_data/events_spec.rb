@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Football::Butler::Matches do
+RSpec.describe Football::Butler::Events do
   before do
     stubs_matches
   end
@@ -8,6 +8,8 @@ RSpec.describe Football::Butler::Matches do
   describe 'when by_id' do
     it 'returns one match' do
       response = described_class.by_id(id: 2002)
+
+      expect(response).to be_a(HTTParty::Response)
       expect(response.parsed_response).to include(response_match.stringify_keys)
     end
   end
@@ -15,11 +17,16 @@ RSpec.describe Football::Butler::Matches do
   describe 'when all' do
     it 'returns all matches' do
       response = described_class.all
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_matches)
     end
 
     it 'returns all matches with result param :default' do
       response = described_class.all(result: :default)
+
+      expect(response).to be_a(HTTParty::Response)
+      expect(response.parsed_response).to be_a(Hash)
       expect(response.parsed_response).to include(response_matches_all.stringify_keys)
     end
   end
@@ -27,6 +34,8 @@ RSpec.describe Football::Butler::Matches do
   describe 'when by_competition' do
     it 'returns all matches of competition' do
       response = described_class.by_competition(id: 2002)
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_matches_more)
     end
   end
@@ -34,6 +43,8 @@ RSpec.describe Football::Butler::Matches do
   describe 'when by_competition_and_year' do
     it 'returns all matches of competition and season year' do
       response = described_class.by_competition_and_year(id: 2002, year: 2020)
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_matches_more)
     end
   end
@@ -41,6 +52,8 @@ RSpec.describe Football::Butler::Matches do
   describe 'when by_competition_and_match_day' do
     it 'returns all matches of competition and season year' do
       response = described_class.by_competition_and_match_day(id: 2002, match_day: 1)
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_matches_more)
     end
   end
@@ -48,6 +61,8 @@ RSpec.describe Football::Butler::Matches do
   describe 'when by_team' do
     it 'returns all matches of a team' do
       response = described_class.by_team(id: 2002)
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_matches_more)
     end
   end
@@ -55,6 +70,19 @@ RSpec.describe Football::Butler::Matches do
   describe 'when by_team_finished' do
     it 'returns all finished matches of a team' do
       response = described_class.by_team_finished(id: 2002)
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_matches_more)
+    end
+  end
+
+  describe 'when by_team_and_status' do
+    it 'returns all scheduled matches of a team' do
+      response = described_class.by_team_and_status(
+        id: 2002, status: Football::Butler::FootballData::Matches::STATUS_FINISHED
+      )
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_matches_more)
     end
   end
@@ -62,6 +90,8 @@ RSpec.describe Football::Butler::Matches do
   describe 'when by_team_scheduled' do
     it 'returns all scheduled matches of a team' do
       response = described_class.by_team_scheduled(id: 2002)
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_matches_more)
     end
   end
@@ -69,31 +99,31 @@ end
 
 def stubs_matches
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches/2002")
-    .to_return(status: 200, body: get_mocked_response('match.json'))
+    .to_return(status: 200, body: get_mocked_response('match.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches/9999")
-    .to_return(status: 200, body: get_mocked_response('resource_missing.json'))
+    .to_return(status: 200, body: get_mocked_response('resource_missing.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/matches")
-    .to_return(status: 200, body: get_mocked_response('matches.json'))
+    .to_return(status: 200, body: get_mocked_response('matches.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches?season=2020")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002/matches?matchday=1")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches?status=FINISHED")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches?status=SCHEDULED")
-    .to_return(status: 200, body: get_mocked_response('matches_more.json'))
+    .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
 end
 
 def response_missing

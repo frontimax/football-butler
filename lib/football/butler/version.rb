@@ -2,7 +2,9 @@
 
 module Football
   module Butler
-    # TIER_ONE with Standings (new packages) - April 2021
-    VERSION = "1.1.1"
+    # Adding multiple API Support - May 2021
+    # - https://www.football-data.org (>= 1.0.0)
+    # - https://apifootball.com (>= 2.0.0)
+    VERSION = "2.0.0"
   end
 end

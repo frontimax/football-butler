@@ -37,8 +37,8 @@ RSpec.configure do |config|
   end
 end
 
-def get_mocked_response(file, value_if_file_not_found = false)
-  File.read(File.join(File.dirname(__FILE__), 'mocked_responses/', file))
+def get_mocked_response(file, api_name, value_if_file_not_found = false)
+  File.read(File.join(File.dirname(__FILE__), "mocked_responses/#{api_name}/", file))
 rescue Errno::ENOENT => e
   raise e if value_if_file_not_found == false
   value_if_file_not_found

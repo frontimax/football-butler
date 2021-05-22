@@ -8,6 +8,9 @@ RSpec.describe Football::Butler::Competitions do
   describe 'when by_id' do
     it 'returns one competition' do
       response = described_class.by_id(id: 2002)
+
+      expect(response).to be_a(HTTParty::Response)
+      expect(response.parsed_response).to be_a(Hash)
       expect(response.parsed_response).to include(response_competition.stringify_keys)
     end
   end
@@ -15,18 +18,44 @@ RSpec.describe Football::Butler::Competitions do
   describe 'when all' do
     it 'returns all competitions' do
       response = described_class.all
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_competitions)
     end
 
     it 'returns all competitions with result param :default' do
       response = described_class.all(result: :default)
+
+      expect(response).to be_a(HTTParty::Response)
+      expect(response.parsed_response).to be_a(Hash)
       expect(response.parsed_response).to include(response_competitions_all.stringify_keys)
     end
   end
 
+  describe 'when all_tier_plan_filter' do
+    it 'returns all competitions with configured tier plan filter empty' do
+      response = described_class.all_tier_plan_filter
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_competitions)
+    end
+
+    it 'returns all competitions with configured tier plan filter TIER_ONE' do
+      Football::Butler::Configuration.reconfigure(
+        tier_plan: 'TIER_ONE'
+      )
+      response = described_class.all_tier_plan_filter
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_competitions)
+    end
+  end
+
   describe 'when by_plan' do
-    it 'returns all competitions TIER_ONE' do
-      response = described_class.by_plan(plan: 'TIER_ONE')
+    it 'returns all competitions TIER_TWO' do
+      response = described_class.by_plan(plan: 'TIER_TWO')
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_competitions_filter_plan)
     end
   end
@@ -34,6 +63,8 @@ RSpec.describe Football::Butler::Competitions do
   describe 'when by_areas' do
     it 'returns all competitions two areas' do
       response = described_class.by_areas(ids: [2088, 2081])
+
+      expect(response).to be_a(Array)
       expect(response).to match_array(response_competitions_filter_areas)
     end
   end
@@ -65,22 +96,25 @@ end
 
 def stubs_competitions
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2002")
-    .to_return(status: 200, body: get_mocked_response('competition.json'))
+    .to_return(status: 200, body: get_mocked_response('competition.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/9999")
-    .to_return(status: 200, body: get_mocked_response('resource_missing.json'))
+    .to_return(status: 200, body: get_mocked_response('resource_missing.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions")
-    .to_return(status: 200, body: get_mocked_response('competitions.json'))
+    .to_return(status: 200, body: get_mocked_response('competitions.json', :football_data))
+
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions?plan=TIER_TWO")
+    .to_return(status: 200, body: get_mocked_response('competitions_filter_plan.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions/2001")
-    .to_return(status: 200, body: get_mocked_response('seasons.json'))
+    .to_return(status: 200, body: get_mocked_response('seasons.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions?plan=TIER_ONE")
-    .to_return(status: 200, body: get_mocked_response('competitions_filter_plan.json'))
+    .to_return(status: 200, body: get_mocked_response('competitions.json', :football_data))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/competitions?areas=2088,2081")
-    .to_return(status: 200, body: get_mocked_response('competitions_filter_areas.json'))
+    .to_return(status: 200, body: get_mocked_response('competitions_filter_areas.json', :football_data))
 end
 
 def response_missing
