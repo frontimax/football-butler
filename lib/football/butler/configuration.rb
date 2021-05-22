@@ -55,11 +55,18 @@ module Football
 
           @api_name       = set_api_name(api_name) unless api_name.nil?
           @api_token      = api_token unless api_token.nil?
+
           unless api_version.nil?
             @api_version    = api_version
             @api_endpoint   = set_api_endpoint(@api_name, @api_version) if api_endpoint.nil?
           end
-          @api_endpoint   = api_endpoint unless api_endpoint.nil?
+
+          if api_endpoint.nil?
+            @api_endpoint = set_api_endpoint(@api_name, @api_version) if api_name
+          else
+            @api_endpoint = api_endpoint
+          end
+
           @tier_plan      = tier_plan unless tier_plan.nil?
           @wait_on_limit  = set_wait_on_limit(wait_on_limit, @api_name) unless wait_on_limit.nil?
 
@@ -196,6 +203,8 @@ module Football
               return 'Countries'
             when 'Matches'
               return 'Events'
+            when 'Scorers'
+              return 'TopScorers'
             end
           when :football_data_org
             case klass
@@ -203,6 +212,8 @@ module Football
               return 'Areas'
             when 'Events'
               return 'Matches'
+            when 'TopScorers'
+              return 'Scorers'
             end
           end
 

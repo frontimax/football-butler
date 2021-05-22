@@ -13,6 +13,7 @@ require 'football/butler/standings'
 require 'football/butler/countries'
 require 'football/butler/events'
 require 'football/butler/players'
+require 'football/butler/scorers'
 
 module Football
   module Butler
