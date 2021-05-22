@@ -15,7 +15,6 @@ RSpec.describe Football::Butler::Competitions do
     Football::Butler::Configuration.reconfigure(api_token: 'my_dummy_token')
   end
 
-  # TODO: check ids from request and response match!
   describe 'when by_id' do
     it 'returns one competition' do
       response = described_class.by_id(id: 41)

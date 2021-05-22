@@ -95,6 +95,15 @@ RSpec.describe Football::Butler::Matches do
       expect(response).to match_array(response_matches_more)
     end
   end
+
+  describe 'when by_player' do
+    it 'returns all matches of a player' do
+      response = described_class.by_player(id: 2002)
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_matches_more)
+    end
+  end
 end
 
 def stubs_matches
@@ -124,6 +133,9 @@ def stubs_matches
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/teams/2002/matches?status=SCHEDULED")
     .to_return(status: 200, body: get_mocked_response('matches_more.json', :football_data))
+
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/players/2002/matches")
+    .to_return(status: 200, body: get_mocked_response('matches_player.json', :football_data))
 end
 
 def response_missing

@@ -89,6 +89,20 @@ module Football
           def by_team_scheduled(id:, result:, filters:)
             by_team_and_status(id: id, status: STATUS_SCHEDULED, result: result, filters: filters)
           end
+
+          ## PLAYER
+          #
+          # dateFrom={DATE}
+          # dateTo={DATE}
+          # status={STATUS}
+          # competitions={competitionIds}
+          # limit={LIMIT}
+          #
+          # /v2/players/{id}/matches
+          def by_player(id:, result:, filters:)
+            path = "#{Players::PATH}/#{id}/#{PATH}"
+            Api.get(path: path, result: result, filters: filters)
+          end
         end
       end
     end

@@ -13,17 +13,6 @@ module Football
             path = "#{PATH}/#{id}"
             Api.get(path: path)
           end
-
-          ## MATCHES
-          #
-          # dateFrom={DATE}
-          # dateTo={DATE}
-          # status={STATUS}
-          # competitions={competitionIds}
-          # limit={LIMIT}
-          #
-          # /v2/players/{id}/matches
-          # TODO: matches.by_player > Matches!
         end
       end
     end
