@@ -15,9 +15,9 @@ RSpec.describe Football::Butler::Competitions do
     Football::Butler::Configuration.reconfigure(api_token: 'my_dummy_token')
   end
 
-  describe 'when by_id' do
-    it 'returns one competition' do
-      response = described_class.by_id(id: 41)
+  describe 'when by_country' do
+    it 'returns competitions' do
+      response = described_class.by_country(id: 41)
 
       expect(response).to be_a(HTTParty::Response)
       expect(response.parsed_response).to be_a(Array)

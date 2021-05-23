@@ -40,7 +40,7 @@ module Football
             Api.get(path: build_path(PATH), filters: filters, result: result)
           end
 
-          # TODO: id?
+          # TODO: id? !!!!!!!!!!!
           # action=get_events?league_id={id}&from={year}-01-01&{year}-12-31
           def by_competition_and_year(id:, year:, result:, filters:)
             from  = "#{year}-01-01"
