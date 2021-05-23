@@ -16,6 +16,9 @@ require 'football/butler/players'
 require 'football/butler/scorers'
 require 'football/butler/top_scorers'
 require 'football/butler/lineups'
+require 'football/butler/statistics'
+require 'football/butler/odds'
+require 'football/butler/head_to_head'
 
 module Football
   module Butler

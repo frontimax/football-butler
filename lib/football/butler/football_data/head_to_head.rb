@@ -3,24 +3,19 @@
 module Football
   module Butler
     module FootballData
-      class Lineups < Base
+      class HeadToHead < Base
         PATH = :matches
 
         class << self
-          ## LINEUPS
+          ## HEAD TO HEAD
           #
           # v2/matches/{id}
           def by_match(id:)
             path  = "#{PATH}/#{id}"
             match = Api.get(path: path, result: :match)
 
-            if match.is_a?(Hash) && match.with_indifferent_access.dig(:homeTeam) &&
-              match.with_indifferent_access.dig(:awayTeam)
-
-              lineups = {}
-              lineups['homeTeam'] = match['homeTeam']
-              lineups['awayTeam'] = match['awayTeam']
-              lineups
+            if match.is_a?(Hash) && match.with_indifferent_access.dig(:head2head)
+              match['head2head']
             else
               match
             end

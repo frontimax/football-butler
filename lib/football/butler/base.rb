@@ -25,8 +25,14 @@ module Football
           error_message(MSG_INVALID_CONFIG)
         end
 
-        def unsupported_api_call
-          error_message("This method is not supported by this API: #{Configuration.api_name}")
+        def unsupported_api_call(klass, method)
+          message  = "Method '#{method}' is not supported for the endpoint '#{klass}' by this API: "
+          message += "#{Configuration.api_name}"
+          error_message(message)
+        end
+
+        def unsupported_api_endpoint(klass)
+          error_message("The Endpint '#{klass}' is not supported by this API: #{Configuration.api_name}")
         end
 
         def error_message(error)
@@ -36,9 +42,13 @@ module Football
         # MULTI-API
         def api_switch_method(method, named_params)
           klass = api_switch
-          klass.respond_to?(method) ?
-            klass.send(method, **named_params) :
-            unsupported_api_call
+          if klass
+            klass.respond_to?(method) ?
+              klass.send(method, **named_params) :
+              unsupported_api_call(this_class, method)
+          else
+            unsupported_api_endpoint(this_class)
+          end
         end
 
         def api_switch_result
@@ -47,6 +57,8 @@ module Football
 
         def api_switch
           "Football::Butler::#{api_class}::#{this_class}".constantize
+        rescue
+          return nil
         end
 
         def api_class
