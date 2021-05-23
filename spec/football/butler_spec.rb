@@ -61,7 +61,7 @@ RSpec.describe Football::Butler do
       result = Football::Butler::Predictions.by_match(id: 666)
 
       expect(result).to be_a(Hash)
-      expect(result['message']).to eq("The Endpint 'Predictions' is not supported by this API: football_data_org")
+      expect(result['message']).to eq("The Endpoint 'Predictions' is not supported by this API: football_data_org")
     end
   end
 end

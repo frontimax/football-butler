@@ -5,7 +5,10 @@
 [![Build Status](https://travis-ci.com/frontimax/football-butler.svg?token=kdzGtbwhXCggiYUeL5pd&branch=main)](https://travis-ci.org/frontimax/football-butler)
 [![codecov](https://codecov.io/gh/frontimax/football-butler/branch/main/graph/badge.svg?token=GBV4PK62WC)](https://codecov.io/gh/frontimax/football-butler)  
 
-This gem enables API requests against multiple different football APIs: football-data.org & apifootball.com.
+This gem enables API requests against multiple different football APIs, with direct requests or using normalized endpoint Class methods. Currently supported APis: 
+
+- football-data.org 
+- apifootball.com
 
 To use the API you need an API token, get it for free @ http://api.football-data.org/register or https://apifootball.com/register.
 
@@ -19,13 +22,15 @@ Also see the following Links:
 
 ## Tiers
 
-This Gem supports direct calls to the API with path & filters so you can use all Tiers (Payment Plans) with the direct API calls.
+This Gem supports two ways of using the APIs:
 
-The "comfort" functions (one class for each endpoint with semantic methods) of this Gem only covers API calls for the Free Tier (TIER_ONE) yet, the next version will add 
-also the features included in TIER_TWO and up (Players, Bookings and Odds).
+- direct calls to the API with path & filters 
+- "comfort" functions (one class for each endpoint with semantic methods) 
+
+**Update May 2021 (v2.0.0):** Multiple APIs are now supported and all endpoints for football-data.org are now implemented. See below for more info on usage.
 
 **Update April 10th 2021:** The Tier packages have been adjusted - Standings are now part of TIER_ONE and also of the newest Gem Version 1.1.0
-**Update May 2021:** Multiple APIs are now supported. See below for more info on usage.
+
 
 ## Installation
 
@@ -47,6 +52,8 @@ Or install it yourself as:
 
 ### The quickest way to start
 
+**Note: football-data.org (api_name: :football_data_org) ist set as the default API.**
+
 To use the API you need to configure the API token.  
 You can do this "on the fly" or in your application configuration:
 
@@ -55,7 +62,7 @@ You can do this "on the fly" or in your application configuration:
 Create your own initializer file config\initializers\football_butler.rb and add:
 
     Football::Butler::Configuration.configure do |config|
-      config.api_token  = "<YOUR_API_TOKEN_HERE>"
+      config.api_token = "<YOUR_API_TOKEN_HERE>"
     end
 
 #### On the Fly
@@ -72,6 +79,26 @@ Get all matches of current Bundesliga season:
     rails c
     Football::Butler::Matches.by_competition(id: 2002)
 
+#### Change the target API
+
+See the available api names:
+
+    Football::Butler::Configuration::AVAILABLE_APIS
+    [:football_data_org, :apifootball_com]
+
+To set the target API:
+
+    Football::Butler::Configuration.configure do |config|
+      config.api_name  = :apifootball_com
+      config.api_token = "<YOUR_API_TOKEN_HERE>"
+    end
+
+To change the target API:
+
+    Football::Butler.Configure.reconfigure(
+      api_name:  :apifootball_com
+      api_token: "<YOUR_API_TOKEN_HERE>"
+    )
 
 ### The advanced way to go (more options)
 
@@ -80,10 +107,11 @@ Get all matches of current Bundesliga season:
 | Name | Default Value | Data Type | Explanation |
 | ---------------|----------------|----------------|----------------|
 | api_token|nil|String|Your API Token (required to set by you)|
+| api_name|:football_data_org|String| must be one of: [:football_data_org, :apifootball_com] |
 | api_version|2|Integer|API Version|
 | api_endpoint|"https://api.football-data.org/v#{api_version}"|String|API Endpoint|
-| tier_plan|nil|String|TIER_ONE<br>TIER_TWO<br>TIER_THREE<br>TIER_FOUR|
-| wait_on_limit|false|Boolean|Uses 'sleep' to wait if request is limited
+| <span style="color: blue;">tier_plan</span><br>*ONLY: :football_data_org* |nil|String|TIER_ONE<br>TIER_TWO<br>TIER_THREE<br>TIER_FOUR|
+| <span style="color: blue;">wait_on_limit</span><br>*ONLY: :football_data_org* |false|Boolean|Uses 'sleep' to wait if request is limited
 
 The tier_plan is only used in Football::Butler::Competitions.all as a default filter.
 You can use "plan" filter manually on Competition calls.
@@ -111,6 +139,8 @@ or
 ## Usage
 
 ### Direct API Calls with path and filters
+
+#### football_data_org
 
 Example:
 
@@ -150,11 +180,48 @@ If you performed a bad request, e.g. invalid api_token configured, you will get 
     response['errorCode']
     => 400
 
+#### apifootball_com
+
+Example:
+
+    # Resources
+    # https://apifootball.com/documentation
+    path = '?action=get_events'
+
+    filters = { league_id: 149, from: '2021-05-16', to: '2021-05-16' }
+
+    response = Football::Butler.get(path: path, filters: filters)
+
+Will call
+
+    https://apiv2.apifootball.com/?action=get_events&from=2021-05-16&to=2021-05-17&league_id=149&APIkey=<YOUR_API_TOKEN>
+
+and return all matches of match day 1 of the english Premiere League for the given time range:
+
+    response.parsed_response
+    => [{"match_id"=>"497362", "country_id"=>"41", "country_name"=>"England", "league_id"=>"149", "league_name"=>"Championship", ....]
+
+If you performed a bad request, e.g. invalid api_token configured, you will get an error hash:
+
+    response['message']
+    => "No event found (please check your plan)!"
+
 ### Comfort Functions (Endpoint Classes)
 
 Instead of using the direct API calls you can use endpoint classes with semantic methods to get results. This list may be expanded in future versions.
 
-The methods return the result directly, but you can also get the complete response (as shown above in the direct API call) by using the :result option:
+I tried to normalize endpoint classes (with aliases) and methods across different target APIs.
+If an endpoint class is not available (such as Predictions and Statistics in API :football_data_org) you will get an error message:
+
+    "The Endpoint 'Predictions' is not supported by this API: football_data_org"
+
+If a method is not available for that target API, you will also get an error message:
+
+    "Method 'by_name' is not supported for the endpoint 'Countries' by this API: apifootball_com"
+
+#### football_data_org
+
+The methods return the result directly (e.g. :matches), but you can also get the complete response (as shown above in the direct API call) by using the :result option:
 
 Directly returns an Array with all areas:
 
@@ -171,6 +238,47 @@ Returns a Hash with full API response:
 
 *If you request a single Object (e.g. "by_id") the Object is returned by football-data.org directly as a Hash 
 (not in an Array)! Exception: Match.by_id returns Hash with Keys ["head2head", "match"]*
+
+**Note: You can alos use "Countries", as this is an alias method from :apifootball_com.**
+
+#### apifootball_com
+
+The methods return the result directly (result: :parsed_response), but you can also get the complete response (as shown above in the direct API call) by using the :result option:
+
+Directly returns an Array with all areas:
+
+    Football::Butler::Countries.all
+    => [{"country_id"=>"41", "country_name"=>"England", "country_logo"=>"https://apiv2.apifootball.com/badges/logo_country/41_england.png"}, {"country_id"=>"46", "country_name"=>"France", "country_logo"=>"https://apiv2.apifootball.com/badges/logo_country/46_france.png"}]
+
+Returns a full API response:
+
+    response = Football::Butler::Countries.all(result: :default)
+    => response.parsed_response
+    => [{"country_id"=>"41", "country_name"=>"England", "country_logo"=>"https://apiv2.apifootball.com/badges/logo_country/41_england.png"}, {"country_id"=>"46", "country_name"=>"France", "country_logo"=>"https://apiv2.apifootball.com/badges/logo_country/46_france.png"}]
+    => response.cod
+    => 200
+
+**Note: You can alos use "Areas", as this is an alias method from :football_data_org.**
+
+#### Overview of all available Endpoints (Classes & Methods)
+
+| Class | football-data.org | apifootball.com | 
+| ---------------|----------------|----------------|
+| Areas | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Countries* |
+| Competitions | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Countries | <span style="color: blue;">YES</span><br>*alias from Areas* | <span style="color: green;">YES</span> |
+| Events | <span style="color: blue;">YES</span><br>*alias from Matches* | <span style="color: green;">YES</span> |
+| HeadToHead | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Lineups | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Matches | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Events* |
+| Odds | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Players | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Predictions | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| Scorers | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from TopScorers* |
+| Standings | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Statistics | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| Teams | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| TopScorers | <span style="color: blue;">YES</span><br>*alias from Scorers* | <span style="color: green;">YES</span> |
 
 #### Areas
 

@@ -32,7 +32,7 @@ module Football
         end
 
         def unsupported_api_endpoint(klass)
-          error_message("The Endpint '#{klass}' is not supported by this API: #{Configuration.api_name}")
+          error_message("The Endpoint '#{klass}' is not supported by this API: #{Configuration.api_name}")
         end
 
         def error_message(error)
