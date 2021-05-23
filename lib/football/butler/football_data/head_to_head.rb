@@ -12,7 +12,7 @@ module Football
           # v2/matches/{id}
           def by_match(id:)
             path  = "#{PATH}/#{id}"
-            match = Api.get(path: path, result: :match)
+            match = Api.get(path: path, result: :parsed_response)
 
             if match.is_a?(Hash) && match.with_indifferent_access.dig(:head2head)
               match['head2head']

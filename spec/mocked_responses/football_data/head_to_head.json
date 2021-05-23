@@ -1,0 +1,576 @@
+{
+  "head2head": {
+    "numberOfMatches": 5,
+    "totalGoals": 26,
+    "homeTeam": {
+      "id": 678,
+      "name": "AFC Ajax",
+      "wins": 5,
+      "draws": 0,
+      "losses": 0
+    },
+    "awayTeam": {
+      "id": 1914,
+      "name": "FC Emmen",
+      "wins": 0,
+      "draws": 0,
+      "losses": 5
+    }
+  },
+  "match": {
+    "id": 235202,
+    "competition": {
+      "id": 2003,
+      "name": "Eredivisie",
+      "area": {
+        "name": "Netherlands",
+        "code": "NLD",
+        "ensignUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
+      }
+    },
+    "season": {
+      "id": 156,
+      "startDate": "2018-08-10",
+      "endDate": "2019-05-12",
+      "currentMatchday": 34,
+      "winner": {
+        "id": 678,
+        "name": "AFC Ajax",
+        "shortName": "Ajax",
+        "tla": "AJA",
+        "crestUrl": "https://crests.football-data.org/678.svg"
+      },
+      "availableStages": [
+        "REGULAR_SEASON",
+        "EUROPA_LEAGUE_PLAYOFF_SEMI_FINALS",
+        "EUROPA_LEAGUE_PLAYOFF_FINAL"
+      ]
+    },
+    "utcDate": "2018-08-25T16:30:00Z",
+    "status": "FINISHED",
+    "minute": null,
+    "attendance": 52885,
+    "venue": "Johan Cruyff ArenA",
+    "matchday": 3,
+    "stage": "REGULAR_SEASON",
+    "group": "Regular Season",
+    "lastUpdated": "2019-04-13T17:30:48Z",
+    "odds": {
+      "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+    },
+    "score": {
+      "winner": "HOME_TEAM",
+      "duration": "REGULAR",
+      "fullTime": {
+        "homeTeam": 5,
+        "awayTeam": 0
+      },
+      "halfTime": {
+        "homeTeam": 2,
+        "awayTeam": 0
+      },
+      "extraTime": {
+        "homeTeam": null,
+        "awayTeam": null
+      },
+      "penalties": {
+        "homeTeam": null,
+        "awayTeam": null
+      }
+    },
+    "homeTeam": {
+      "id": 678,
+      "name": "AFC Ajax",
+      "coach": {
+        "id": 9584,
+        "name": "Erik ten Hag",
+        "countryOfBirth": "Netherlands",
+        "nationality": "Netherlands"
+      },
+      "captain": {
+        "id": 7549,
+        "name": "Matthijs de Ligt",
+        "shirtNumber": 4
+      },
+      "lineup": [
+        {
+          "id": 7544,
+          "name": "André Onana",
+          "position": "Goalkeeper",
+          "shirtNumber": 24
+        },
+        {
+          "id": 7899,
+          "name": "Daley Blind",
+          "position": "Defender",
+          "shirtNumber": 17
+        },
+        {
+          "id": 3208,
+          "name": "Nicolás Tagliafico",
+          "position": "Defender",
+          "shirtNumber": 31
+        },
+        {
+          "id": 7549,
+          "name": "Matthijs de Ligt",
+          "position": "Defender",
+          "shirtNumber": 4
+        },
+        {
+          "id": 7554,
+          "name": "Rasmus Kristensen",
+          "position": "Defender",
+          "shirtNumber": 2
+        },
+        {
+          "id": 3707,
+          "name": "Hakim Ziyech",
+          "position": "Midfielder",
+          "shirtNumber": 22
+        },
+        {
+          "id": 7556,
+          "name": "Donny van de Beek",
+          "position": "Midfielder",
+          "shirtNumber": 6
+        },
+        {
+          "id": 7560,
+          "name": "Carel Eiting",
+          "position": "Midfielder",
+          "shirtNumber": 15
+        },
+        {
+          "id": 7559,
+          "name": "Frenkie de Jong",
+          "position": "Midfielder",
+          "shirtNumber": 21
+        },
+        {
+          "id": 7572,
+          "name": "Klaas-Jan Huntelaar",
+          "position": "Attacker",
+          "shirtNumber": 9
+        },
+        {
+          "id": 3444,
+          "name": "Dušan Tadić",
+          "position": "Attacker",
+          "shirtNumber": 10
+        }
+      ],
+      "bench": [
+        {
+          "id": 7546,
+          "name": "Kostas Lamprou",
+          "position": "Goalkeeper",
+          "shirtNumber": 26
+        },
+        {
+          "id": 7553,
+          "name": "Noussair Mazraoui",
+          "position": "Defender",
+          "shirtNumber": 12
+        },
+        {
+          "id": 53469,
+          "name": "Perr Schuurs",
+          "position": "Defender",
+          "shirtNumber": 27
+        },
+        {
+          "id": 3458,
+          "name": "Lasse Schöne",
+          "position": "Midfielder",
+          "shirtNumber": 20
+        },
+        {
+          "id": 3703,
+          "name": "Zakaria Labyad",
+          "position": "Midfielder",
+          "shirtNumber": 19
+        },
+        {
+          "id": 7562,
+          "name": "Maximilian Wöber",
+          "position": "Midfielder",
+          "shirtNumber": 5
+        },
+        {
+          "id": 7564,
+          "name": "Dani de Wit",
+          "position": "Midfielder",
+          "shirtNumber": 30
+        },
+        {
+          "id": 7574,
+          "name": "Kaj Sierhuis",
+          "position": "Attacker",
+          "shirtNumber": 39
+        },
+        {
+          "id": 7573,
+          "name": "Dennis Johnsen",
+          "position": "Attacker",
+          "shirtNumber": 41
+        }
+      ]
+    },
+    "awayTeam": {
+      "id": 1914,
+      "name": "FC Emmen",
+      "coach": {
+        "id": 9850,
+        "name": "Dick Lukkien",
+        "countryOfBirth": "Netherlands",
+        "nationality": "Netherlands"
+      },
+      "captain": {
+        "id": 9847,
+        "name": "Anco Jansen",
+        "shirtNumber": 6
+      },
+      "lineup": [
+        {
+          "id": 9814,
+          "name": "Kjell Scherpen",
+          "position": "Goalkeeper",
+          "shirtNumber": 12
+        },
+        {
+          "id": 9816,
+          "name": "Tim Siekman",
+          "position": "Defender",
+          "shirtNumber": 3
+        },
+        {
+          "id": 9824,
+          "name": "Glenn Bijl",
+          "position": "Defender",
+          "shirtNumber": 23
+        },
+        {
+          "id": 9825,
+          "name": "Keziah Veendorp",
+          "position": "Defender",
+          "shirtNumber": 13
+        },
+        {
+          "id": 9834,
+          "name": "Michael Chacón",
+          "position": "Midfielder",
+          "shirtNumber": 20
+        },
+        {
+          "id": 29929,
+          "name": "Caner Cavlan",
+          "position": "Midfielder",
+          "shirtNumber": 22
+        },
+        {
+          "id": 9340,
+          "name": "Nicklas Pedersen",
+          "position": "Attacker",
+          "shirtNumber": 9
+        },
+        {
+          "id": 7279,
+          "name": "Luciano Slagveer",
+          "position": "Attacker",
+          "shirtNumber": 17
+        },
+        {
+          "id": 7732,
+          "name": "Wouter Marinus",
+          "position": "Attacker",
+          "shirtNumber": 7
+        },
+        {
+          "id": 9847,
+          "name": "Anco Jansen",
+          "position": "Attacker",
+          "shirtNumber": 6
+        },
+        {
+          "id": 9840,
+          "name": "Gersom Klok",
+          "position": "Attacker",
+          "shirtNumber": 5
+        }
+      ],
+      "bench": [
+        {
+          "id": 9815,
+          "name": "Peter van der Vlag",
+          "position": "Goalkeeper",
+          "shirtNumber": 1
+        },
+        {
+          "id": 9813,
+          "name": "Dennis Telgenkamp",
+          "position": "Goalkeeper",
+          "shirtNumber": 26
+        },
+        {
+          "id": 6094,
+          "name": "Easah Suliman",
+          "position": "Defender",
+          "shirtNumber": 15
+        },
+        {
+          "id": 9817,
+          "name": "Stef Gronsveld",
+          "position": "Defender",
+          "shirtNumber": 2
+        },
+        {
+          "id": 9819,
+          "name": "Nick Bakker",
+          "position": "Defender",
+          "shirtNumber": 4
+        },
+        {
+          "id": 9835,
+          "name": "Hilal Ben Moussa",
+          "position": "Midfielder",
+          "shirtNumber": 8
+        },
+        {
+          "id": 9829,
+          "name": "Henk Bos",
+          "position": "Midfielder",
+          "shirtNumber": 30
+        },
+        {
+          "id": 9841,
+          "name": "Cas Peters",
+          "position": "Attacker",
+          "shirtNumber": 11
+        },
+        {
+          "id": 9633,
+          "name": "Jafar Arias",
+          "position": "Attacker",
+          "shirtNumber": 25
+        }
+      ]
+    },
+    "goals": [
+      {
+        "minute": 8,
+        "extraTime": null,
+        "type": "REGULAR",
+        "team": {
+          "id": 678,
+          "name": "AFC Ajax"
+        },
+        "scorer": {
+          "id": 3707,
+          "name": "Hakim Ziyech"
+        },
+        "assist": {
+          "id": 7572,
+          "name": "Klaas-Jan Huntelaar"
+        }
+      },
+      {
+        "minute": 38,
+        "extraTime": null,
+        "type": "REGULAR",
+        "team": {
+          "id": 678,
+          "name": "AFC Ajax"
+        },
+        "scorer": {
+          "id": 7572,
+          "name": "Klaas-Jan Huntelaar"
+        },
+        "assist": null
+      },
+      {
+        "minute": 59,
+        "extraTime": null,
+        "type": "REGULAR",
+        "team": {
+          "id": 678,
+          "name": "AFC Ajax"
+        },
+        "scorer": {
+          "id": 7572,
+          "name": "Klaas-Jan Huntelaar"
+        },
+        "assist": {
+          "id": 7560,
+          "name": "Carel Eiting"
+        }
+      },
+      {
+        "minute": 71,
+        "extraTime": null,
+        "type": "REGULAR",
+        "team": {
+          "id": 678,
+          "name": "AFC Ajax"
+        },
+        "scorer": {
+          "id": 3444,
+          "name": "Dušan Tadić"
+        },
+        "assist": null
+      },
+      {
+        "minute": 86,
+        "extraTime": null,
+        "type": "OWN",
+        "team": {
+          "id": 1914,
+          "name": "FC Emmen"
+        },
+        "scorer": {
+          "id": 9824,
+          "name": "Glenn Bijl"
+        },
+        "assist": null
+      }
+    ],
+    "bookings": [
+      {
+        "minute": 41,
+        "team": {
+          "id": 1914,
+          "name": "FC Emmen"
+        },
+        "player": {
+          "id": 9816,
+          "name": "Tim Siekman"
+        },
+        "card": "YELLOW_CARD"
+      }
+    ],
+    "substitutions": [
+      {
+        "minute": 46,
+        "team": {
+          "id": 1914,
+          "name": "FC Emmen"
+        },
+        "playerOut": {
+          "id": 7732,
+          "name": "Wouter Marinus"
+        },
+        "playerIn": {
+          "id": 9817,
+          "name": "Stef Gronsveld"
+        }
+      },
+      {
+        "minute": 46,
+        "team": {
+          "id": 1914,
+          "name": "FC Emmen"
+        },
+        "playerOut": {
+          "id": 9340,
+          "name": "Nicklas Pedersen"
+        },
+        "playerIn": {
+          "id": 9633,
+          "name": "Jafar Arias"
+        }
+      },
+      {
+        "minute": 64,
+        "team": {
+          "id": 678,
+          "name": "AFC Ajax"
+        },
+        "playerOut": {
+          "id": 7559,
+          "name": "Frenkie de Jong"
+        },
+        "playerIn": {
+          "id": 7553,
+          "name": "Noussair Mazraoui"
+        }
+      },
+      {
+        "minute": 64,
+        "team": {
+          "id": 678,
+          "name": "AFC Ajax"
+        },
+        "playerOut": {
+          "id": 7572,
+          "name": "Klaas-Jan Huntelaar"
+        },
+        "playerIn": {
+          "id": 7574,
+          "name": "Kaj Sierhuis"
+        }
+      },
+      {
+        "minute": 78,
+        "team": {
+          "id": 678,
+          "name": "AFC Ajax"
+        },
+        "playerOut": {
+          "id": 3707,
+          "name": "Hakim Ziyech"
+        },
+        "playerIn": {
+          "id": 7573,
+          "name": "Dennis Johnsen"
+        }
+      },
+      {
+        "minute": 78,
+        "team": {
+          "id": 1914,
+          "name": "FC Emmen"
+        },
+        "playerOut": {
+          "id": 7279,
+          "name": "Luciano Slagveer"
+        },
+        "playerIn": {
+          "id": 9829,
+          "name": "Henk Bos"
+        }
+      }
+    ],
+    "referees": [
+      {
+        "id": 56905,
+        "name": "Bas Nijhuis",
+        "role": "REF",
+        "nationality": "Netherlands"
+      },
+      {
+        "id": 15153,
+        "name": "Rob van de Ven",
+        "role": "REF",
+        "nationality": "Netherlands"
+      },
+      {
+        "id": 15154,
+        "name": "Jan de Vries",
+        "role": "REF",
+        "nationality": "Netherlands"
+      },
+      {
+        "id": 56904,
+        "name": "Edwin van de Graaf",
+        "role": "REF",
+        "nationality": "Netherlands"
+      },
+      {
+        "id": 43858,
+        "name": "Serdar Gözübüyük",
+        "role": "REF",
+        "nationality": "Netherlands"
+      }
+    ]
+  }
+}
