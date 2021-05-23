@@ -55,6 +55,15 @@ RSpec.describe Football::Butler do
       expect(Football::Butler::Configuration.api_endpoint).to eq("#{Football::Butler::Configuration::DEFAULT_API_URL}/v3")
     end
   end
+
+  describe 'when unsupported endpoint klass' do
+    it 'with PredictExactResults' do
+      result = Football::Butler::Predictions.by_match(id: 666)
+
+      expect(result).to be_a(Hash)
+      expect(result['message']).to eq("The Endpint 'Predictions' is not supported by this API: football_data_org")
+    end
+  end
 end
 
 def stubs
