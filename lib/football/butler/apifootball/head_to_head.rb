@@ -10,7 +10,7 @@ module Football
         class << self
           ## HEAD TO HEAD
           #
-          # imezone	      Default timezone: Europe/Berlin. With this filter you can set the timezone
+          # timezone	    Default timezone: Europe/Berlin. With this filter you can set the timezone
           #               where you want to receive the data. Timezone is in TZ format (exemple: America/New_York).
           #               (Optional)
           # firstTeam	    First team name
@@ -18,9 +18,9 @@ module Football
           # firstTeamId	  First team Id
           # secondTeamId	Second team Id
           #
-          # action=get_H2H&firstTeamId={}&secondTeamId={}
+          # action=get_H2H&firstTeamId={team_id}&secondTeamId={second_team_id}
           def by_teams(team_id:, second_team_id:, filters:)
-            filters.merge(firstTeamId: team_id, secondTeamId: second_team_id)
+            filters.merge!(firstTeamId: team_id, secondTeamId: second_team_id)
             Api.get(path: build_path(PATH), filters: filters, result: :parsed_response)
           end
         end

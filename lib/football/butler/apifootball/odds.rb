@@ -13,7 +13,7 @@ module Football
           # from	Start date (yyyy-mm-dd)
           # to	  Stop date (yyyy-mm-dd)
           #
-          # action=get_odds&match_id={id}
+          # action=get_odds&match_id={id}&from={from}&to={to}
           def by_match(id:, from:, to:)
             filters = { match_id: id, from: from, to: to }
             # TODO: :parsed_reposne? wann als default ??? chedck for readme.MD !!! consitency
