@@ -24,7 +24,7 @@ RSpec.describe Football::Butler::Players do
       response = described_class.by_name(name: 'Ronaldo')
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: football_data_org')
+      expect(response['message']).to eq( "Method 'by_name' is not supported for the endpoint 'Players' by this API: football_data_org")
     end
   end
 end

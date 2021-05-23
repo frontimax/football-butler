@@ -47,7 +47,7 @@ RSpec.describe Football::Butler::Competitions do
       response = described_class.by_plan(plan: 'TIER_ONE')
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'by_plan' is not supported for the endpoint 'Competitions' by this API: apifootball_com")
     end
   end
 
@@ -56,7 +56,7 @@ RSpec.describe Football::Butler::Competitions do
       response = described_class.by_areas(ids: [2088, 2081])
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'by_areas' is not supported for the endpoint 'Competitions' by this API: apifootball_com")
     end
   end
 
@@ -65,14 +65,14 @@ RSpec.describe Football::Butler::Competitions do
       response = described_class.current_match_day(id: 2002)
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'current_match_day' is not supported for the endpoint 'Competitions' by this API: apifootball_com")
     end
 
     it 'returns nothing' do
       response = described_class.current_match_day(id: 9999)
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'current_match_day' is not supported for the endpoint 'Competitions' by this API: apifootball_com")
     end
   end
 
@@ -81,14 +81,14 @@ RSpec.describe Football::Butler::Competitions do
       response = described_class.seasons(id: 2001)
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'seasons' is not supported for the endpoint 'Competitions' by this API: apifootball_com")
     end
 
     it 'returns nothing' do
       response = described_class.seasons(id: 9999)
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'seasons' is not supported for the endpoint 'Competitions' by this API: apifootball_com")
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe Football::Butler::Competitions do
       response = described_class.all_tier_plan_filter
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'all_tier_plan_filter' is not supported for the endpoint 'Competitions' by this API: apifootball_com")
     end
 
     it 'returns all competitions with configured tier plan filter TIER_ONE' do
@@ -107,7 +107,7 @@ RSpec.describe Football::Butler::Competitions do
       response = described_class.all_tier_plan_filter
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'all_tier_plan_filter' is not supported for the endpoint 'Competitions' by this API: apifootball_com")
     end
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe Football::Butler::Areas do
       response = described_class.by_id(id: 2002)
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'by_id' is not supported for the endpoint 'Countries' by this API: apifootball_com")
     end
   end
 
@@ -46,14 +46,14 @@ RSpec.describe Football::Butler::Areas do
       response = described_class.by_name(name: 'Albania')
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'by_name' is not supported for the endpoint 'Countries' by this API: apifootball_com")
     end
 
     it 'returns no area when unkown name' do
       response = described_class.by_name(name: 'Absurdistan')
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'by_name' is not supported for the endpoint 'Countries' by this API: apifootball_com")
     end
   end
 
@@ -67,7 +67,7 @@ RSpec.describe Football::Butler::Areas do
       response = described_class.by_name(name: 'Albania')
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'by_name' is not supported for the endpoint 'Countries' by this API: apifootball_com")
     end
   end
 end

@@ -48,7 +48,7 @@ RSpec.describe Football::Butler::Teams do
       response = described_class.by_competition_and_year(id: 2002, year: 2019)
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'by_competition_and_year' is not supported for the endpoint 'Teams' by this API: apifootball_com")
     end
   end
 end
