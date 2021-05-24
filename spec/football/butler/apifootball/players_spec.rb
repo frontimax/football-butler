@@ -19,8 +19,8 @@ RSpec.describe Football::Butler::Players do
     it 'returns one player' do
       response = described_class.by_id(id: 4068429598)
 
-      expect(response.parsed_response).to be_a(Array)
-      expect(response.parsed_response).to match_array(response_player_apifootball)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_player_apifootball)
     end
   end
 
@@ -28,8 +28,8 @@ RSpec.describe Football::Butler::Players do
     it 'returns one player' do
       response = described_class.by_name(name: 'Salaheddine')
 
-      expect(response.parsed_response).to be_a(Array)
-      expect(response.parsed_response).to match_array(response_player_apifootball)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_player_apifootball)
     end
   end
 end

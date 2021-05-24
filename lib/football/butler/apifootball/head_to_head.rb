@@ -19,9 +19,9 @@ module Football
           # secondTeamId	Second team Id
           #
           # action=get_H2H&firstTeamId={team_id}&secondTeamId={second_team_id}
-          def by_teams(team_id:, second_team_id:, filters:)
+          def by_teams(team_id:, second_team_id:, filters:, result:)
             filters.merge!(firstTeamId: team_id, secondTeamId: second_team_id)
-            Api.get(path: build_path(PATH), filters: filters, result: :parsed_response)
+            Api.get(path: build_path(PATH), filters: filters, result: result)
           end
         end
       end

@@ -16,7 +16,6 @@ module Football
           # action=get_odds&match_id={id}&from={from}&to={to}
           def by_match(id:, from:, to:)
             filters = { match_id: id, from: from, to: to }
-            # TODO: :parsed_reposne? wann als default ??? chedck for readme.MD !!! consitency
             Api.get(path: build_path(PATH), filters: filters, result: :parsed_response)
           end
         end

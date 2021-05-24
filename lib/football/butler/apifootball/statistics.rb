@@ -11,9 +11,9 @@ module Football
           ## STATISTICS
           #
           # action=get_statistics&match_id={id}
-          def by_match(id:)
+          def by_match(id:, result:)
             filters = { match_id: id }
-            Api.get(path: build_path(PATH), filters: filters, result: :parsed_response)
+            Api.get(path: build_path(PATH), filters: filters, result: result)
           end
         end
       end

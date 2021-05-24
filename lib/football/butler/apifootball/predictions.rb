@@ -17,9 +17,9 @@ module Football
           # match_id	  Match ID - if set only details from specific match will be returned (Optional)
           #
           # get_predictions&match_id={id}
-          def by_match(id:, filters:)
+          def by_match(id:, filters:, result:)
             filters.merge!(match_id: id)
-            Api.get(path: build_path(PATH), filters: filters, result: :parsed_response)
+            Api.get(path: build_path(PATH), filters: filters, result: result)
           end
         end
       end

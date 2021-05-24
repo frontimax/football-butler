@@ -11,8 +11,8 @@ module Football
           ## TEAM
           # action=get_teams&team_id={id}
           def by_id(id:)
-            filters= { team_id: id }
-            Api.get(path: build_path(PATH), filters: filters)
+            filters = { team_id: id }
+            Api.get(path: build_path(PATH), filters: filters, result: :parsed_response)
           end
 
           ## COMPETITION

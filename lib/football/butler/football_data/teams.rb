@@ -10,7 +10,6 @@ module Football
           ## TEAM
           # v2/teams/{id}
           # returns team object directly as a hash
-          # TODO: result: :parsed_response ?
           def by_id(id:)
             path = "#{PATH}/#{id}"
             Api.get(path: path)

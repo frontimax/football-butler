@@ -7,8 +7,8 @@ module Football
 
       class << self
         ## STATISTICS
-        def by_match(id:)
-          api_switch_method(__method__, { id: id })
+        def by_match(id:, result: api_switch_result)
+          api_switch_method(__method__, { id: id, result: result })
         end
       end
     end

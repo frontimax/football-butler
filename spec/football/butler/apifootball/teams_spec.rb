@@ -19,9 +19,8 @@ RSpec.describe Football::Butler::Teams do
     it 'returns one team' do
       response = described_class.by_id(id: 2611)
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Array)
-      expect(response.parsed_response).to match_array(response_team_apifootball)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_team_apifootball)
     end
   end
 

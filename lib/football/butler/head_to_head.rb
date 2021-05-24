@@ -12,11 +12,12 @@ module Football
           api_switch_method(__method__, { id: id })
         end
 
-        def by_teams(team_id:, second_team_id:, filters: {})
+        def by_teams(team_id:, second_team_id:, filters: {}, result: api_switch_result)
           api_switch_method(__method__, {
               team_id: team_id,
               second_team_id: second_team_id,
-              filters: filters
+              filters: filters,
+              result: result
             }
           )
         end

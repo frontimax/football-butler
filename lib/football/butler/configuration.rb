@@ -193,6 +193,8 @@ module Football
           when :football_data_org
             klass::PATH
           end
+        rescue
+          return nil
         end
 
         def class_converter(klass)
