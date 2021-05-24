@@ -220,7 +220,7 @@ If a method is not available for that target API, you will also get an error mes
     "Method 'by_name' is not supported for the endpoint 'Countries' by this API: apifootball_com"
 
 <span style="color: blue;">**NOTE: I did not normalize the returned data-types yet as I wanted to keep straight with the target API. Let me know if you would
-like to have a Configuration option to return same data types for all returns and target APIs!**</span>
+like to have a Configuration option to return same data types for all returns and target APIs. Until then: use "result: :default" where available and work with the normalized HTTParty Response Type.**</span>
 
 #### football_data_org
 
@@ -295,7 +295,7 @@ Football::Butler::Areas
 | ---------------|----------------|----------------|----------------|----------------|
 | by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | 
 | all | - | result (Symbol) | Array | Array |
-| by_name | name: String | - | Hash | <span style="color: red;">N/A</span> |
+| by_name | name: String | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> |
 
 Examples:
 
@@ -354,7 +354,7 @@ Football::Butler::HeadToHead
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
 | by_match | id: Integer | - | Hash | <span style="color: red;">N/A</span> | 
-| by_teams | team_id: Integer<br>second_team_id| filters (Hash) | <span style="color: red;">N/A</span> | Hash |
+| by_teams | team_id: Integer<br>second_team_id| result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |
 
 Examples:
 
@@ -416,7 +416,7 @@ Football::Butler::Odds
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer<br>from: Date as String<br>to: Date as String (from and to only used in apifootbal.com) | - | Hash | Hash |
+| by_match | id: Integer<br>from: Date as String ('2021-05-17')<br>to: Date as String ('2021-05-17')<br><span style="color: red;">(from and to only used (required) in apifootbal.com)</span> | - | Hash | Hash |
 
 Examples:
 
@@ -431,7 +431,7 @@ Football::Butler::Players
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
 | by_id | id: Integer | - | Hash | Hash |
-| by_name | name: String | - | <span style="color: red;">N/A</span> | Hash |
+| by_name | name: String | result (Symbol) | <span style="color: red;">N/A</span> | Hash |
 
 Examples:
 
@@ -449,7 +449,7 @@ Football::Butler::Predictions
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer | - | <span style="color: red;">N/A</span> | Hash |
+| by_match | id: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |
 
 Examples:
 
@@ -466,7 +466,7 @@ Football::Butler::Scorers
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
-| by_competition | id: Integer | - | Array | Hash |
+| by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | Hash |
 
 Examples:
 
@@ -500,7 +500,7 @@ Football::Butler::Statistics
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer | - | <span style="color: red;">N/A</span> | Hash |
+| by_match | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | Hash |
 
 Examples:
 
