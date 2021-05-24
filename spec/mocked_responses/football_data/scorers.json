@@ -1,0 +1,225 @@
+{
+  "count": 10,
+  "filters": {
+    "limit": 10
+  },
+  "competition": {
+    "id": 2002,
+    "area": {
+      "id": 2088,
+      "name": "Germany"
+    },
+    "name": "Bundesliga",
+    "code": "BL1",
+    "plan": "TIER_ONE",
+    "lastUpdated": "2021-04-17T00:20:14Z"
+  },
+  "season": {
+    "id": 599,
+    "startDate": "2020-09-18",
+    "endDate": "2021-05-23",
+    "currentMatchday": 34,
+    "winner": {
+      "id": 5,
+      "name": "FC Bayern München",
+      "shortName": "Bayern M",
+      "tla": "FCB",
+      "crestUrl": "https://crests.football-data.org/5.svg"
+    },
+    "availableStages": [
+      "REGULAR_SEASON"
+    ]
+  },
+  "scorers": [
+    {
+      "player": {
+        "id": 371,
+        "name": "Robert Lewandowski",
+        "firstName": "Robert",
+        "lastName": "",
+        "dateOfBirth": "1988-08-21",
+        "countryOfBirth": "Poland",
+        "nationality": "Poland",
+        "position": "Attacker",
+        "shirtNumber": "",
+        "lastUpdated": "2021-03-05T13:51:30Z"
+      },
+      "team": {
+        "id": 5,
+        "name": "FC Bayern München"
+      },
+      "numberOfGoals": 41
+    },
+    {
+      "player": {
+        "id": 1760,
+        "name": "André Silva",
+        "firstName": "André Miguel",
+        "lastName": "",
+        "dateOfBirth": "1995-11-06",
+        "countryOfBirth": "Portugal",
+        "nationality": "Portugal",
+        "position": "Attacker",
+        "shirtNumber": "",
+        "lastUpdated": "2021-05-14T16:12:30Z"
+      },
+      "team": {
+        "id": 19,
+        "name": "Eintracht Frankfurt"
+      },
+      "numberOfGoals": 28
+    },
+    {
+      "player": {
+        "id": 38101,
+        "name": "Erling Haaland",
+        "firstName": "Erling Braut",
+        "lastName": "",
+        "dateOfBirth": "2000-07-21",
+        "countryOfBirth": "England",
+        "nationality": "Norway",
+        "position": "Attacker",
+        "shirtNumber": "",
+        "lastUpdated": "2020-09-07T18:47:42Z"
+      },
+      "team": {
+        "id": 4,
+        "name": "Borussia Dortmund"
+      },
+      "numberOfGoals": 27
+    },
+    {
+      "player": {
+        "id": 318,
+        "name": "Andrej Kramarić",
+        "firstName": "Andrej",
+        "lastName": "",
+        "dateOfBirth": "1991-06-19",
+        "countryOfBirth": "Croatia",
+        "nationality": "Croatia",
+        "position": "Attacker",
+        "shirtNumber": "",
+        "lastUpdated": "2020-11-26T02:04:12Z"
+      },
+      "team": {
+        "id": 2,
+        "name": "TSG 1899 Hoffenheim"
+      },
+      "numberOfGoals": 20
+    },
+    {
+      "player": {
+        "id": 7697,
+        "name": "Wout Weghorst",
+        "firstName": "Wout",
+        "lastName": "",
+        "dateOfBirth": "1992-08-07",
+        "countryOfBirth": "Netherlands",
+        "nationality": "Netherlands",
+        "position": "Attacker",
+        "shirtNumber": "",
+        "lastUpdated": "2020-09-07T18:47:50Z"
+      },
+      "team": {
+        "id": 11,
+        "name": "VfL Wolfsburg"
+      },
+      "numberOfGoals": 20
+    },
+    {
+      "player": {
+        "id": 10761,
+        "name": "Saša Kalajdžić",
+        "firstName": "Saša",
+        "lastName": "",
+        "dateOfBirth": "1997-07-07",
+        "countryOfBirth": "Austria",
+        "nationality": "Austria",
+        "position": "Attacker",
+        "shirtNumber": "",
+        "lastUpdated": "2020-10-22T02:10:57Z"
+      },
+      "team": {
+        "id": 10,
+        "name": "VfB Stuttgart"
+      },
+      "numberOfGoals": 16
+    },
+    {
+      "player": {
+        "id": 3185,
+        "name": "Lars Stindl",
+        "firstName": "Lars",
+        "lastName": "",
+        "dateOfBirth": "1988-08-26",
+        "countryOfBirth": "Germany",
+        "nationality": "Germany",
+        "position": "Midfielder",
+        "shirtNumber": "",
+        "lastUpdated": "2021-01-20T15:20:20Z"
+      },
+      "team": {
+        "id": 18,
+        "name": "Borussia Mönchengladbach"
+      },
+      "numberOfGoals": 14
+    },
+    {
+      "player": {
+        "id": 370,
+        "name": "Thomas Müller",
+        "firstName": "Thomas",
+        "lastName": "",
+        "dateOfBirth": "1989-09-13",
+        "countryOfBirth": "Germany",
+        "nationality": "Germany",
+        "position": "Attacker",
+        "shirtNumber": "",
+        "lastUpdated": "2021-03-05T13:51:30Z"
+      },
+      "team": {
+        "id": 5,
+        "name": "FC Bayern München"
+      },
+      "numberOfGoals": 11
+    },
+    {
+      "player": {
+        "id": 82354,
+        "name": "Silas Wamangituka",
+        "firstName": "Silas Fundu",
+        "lastName": "",
+        "dateOfBirth": "1999-10-06",
+        "countryOfBirth": "Congo DR",
+        "nationality": "Congo DR",
+        "position": "Attacker",
+        "shirtNumber": "",
+        "lastUpdated": "2020-09-07T18:47:49Z"
+      },
+      "team": {
+        "id": 10,
+        "name": "VfB Stuttgart"
+      },
+      "numberOfGoals": 11
+    },
+    {
+      "player": {
+        "id": 9463,
+        "name": "Max Kruse",
+        "firstName": "Max",
+        "lastName": "",
+        "dateOfBirth": "1988-03-19",
+        "countryOfBirth": "Germany",
+        "nationality": "Germany",
+        "position": "Attacker",
+        "shirtNumber": "",
+        "lastUpdated": "2020-09-07T18:48:06Z"
+      },
+      "team": {
+        "id": 28,
+        "name": "1. FC Union Berlin"
+      },
+      "numberOfGoals": 11
+    }
+  ]
+}

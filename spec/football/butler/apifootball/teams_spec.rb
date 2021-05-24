@@ -19,9 +19,8 @@ RSpec.describe Football::Butler::Teams do
     it 'returns one team' do
       response = described_class.by_id(id: 2611)
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Array)
-      expect(response.parsed_response).to match_array(response_team_apifootball)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_team_apifootball)
     end
   end
 
@@ -48,7 +47,7 @@ RSpec.describe Football::Butler::Teams do
       response = described_class.by_competition_and_year(id: 2002, year: 2019)
 
       expect(response).to be_a(Hash)
-      expect(response['message']).to eq('This method is not supported by this API: apifootball_com')
+      expect(response['message']).to eq("Method 'by_competition_and_year' is not supported for the endpoint 'Teams' by this API: apifootball_com")
     end
   end
 end

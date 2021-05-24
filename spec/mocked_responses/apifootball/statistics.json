@@ -1,0 +1,21 @@
+{
+  "86392": {
+    "statistics": [
+      {
+        "type": "Shots Total",
+        "home": "14",
+        "away": "5"
+      },
+      {
+        "type": "Shots On Goal",
+        "home": "9",
+        "away": "2"
+      },
+      {
+        "type": "Shots Off Goal",
+        "home": "4",
+        "away": "2"
+      }
+    ]
+  }
+}

@@ -13,6 +13,13 @@ require 'football/butler/standings'
 require 'football/butler/countries'
 require 'football/butler/events'
 require 'football/butler/players'
+require 'football/butler/scorers'
+require 'football/butler/top_scorers'
+require 'football/butler/lineups'
+require 'football/butler/statistics'
+require 'football/butler/odds'
+require 'football/butler/head_to_head'
+require 'football/butler/predictions'
 
 module Football
   module Butler

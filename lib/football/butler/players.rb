@@ -12,8 +12,8 @@ module Football
           api_switch_method(__method__, { id: id })
         end
 
-        def by_name(name:)
-          api_switch_method(__method__, { name: name })
+        def by_name(name:, result: api_switch_result)
+          api_switch_method(__method__, { name: name, result: result })
         end
       end
     end
