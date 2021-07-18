@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'football/butler/apifootball/competitions'
 require 'football/butler/football_data/competitions'
+require 'football/butler/api_football/leagues'
 
 module Football
   module Butler
@@ -41,6 +42,10 @@ module Football
 
         def seasons(id:)
           api_switch_method(__method__, { id: id })
+        end
+
+        def all_seasons(result: api_switch_result)
+          api_switch_method(__method__, { result: result })
         end
       end
 

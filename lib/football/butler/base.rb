@@ -42,6 +42,7 @@ module Football
         # MULTI-API
         def api_switch_method(method, named_params)
           klass = api_switch
+
           if klass
             klass.respond_to?(method) ?
               klass.send(method, **named_params) :

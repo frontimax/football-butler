@@ -20,6 +20,7 @@ require 'football/butler/statistics'
 require 'football/butler/odds'
 require 'football/butler/head_to_head'
 require 'football/butler/predictions'
+require 'football/butler/leagues'
 
 module Football
   module Butler

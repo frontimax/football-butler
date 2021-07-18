@@ -15,7 +15,7 @@ module Football
             Api.get(path: path)
           end
 
-          ## COMPETITION
+          ## TEAMS
           #
           # season={YEAR}
           # stage={STAGE}
@@ -24,6 +24,10 @@ module Football
           def by_competition(id:, result:, filters:)
             path = "#{Competitions::PATH}/#{id}/#{PATH}"
             Api.get(path: path, result: result, filters: filters)
+          end
+
+          def by_league(id:, result:, filters:)
+            by_competition(id: id, result: result, filters: filters)
           end
 
           # v2/competitions/{id}/teams?year={year}

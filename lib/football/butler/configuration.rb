@@ -4,14 +4,16 @@ module Football
   module Butler
     module Configuration
       # MULTI-API
-      API_URL_FOOTBALL_DATA = 'https://api.football-data.org'
-      API_URL_APIFOOTBALL   = 'https://apiv2.apifootball.com/?'
+      API_URL_FOOTBALL_DATA   = 'https://api.football-data.org'
+      API_URL_APIFOOTBALL     = 'https://apiv2.apifootball.com/?'
+      API_URL_API_FOOTBALL    = 'https://v3.football.api-sports.io'
 
       API_VERSION_FOOTBALL_DATA = 2
       API_VERSION_APIFOOTBALL   = 2
+      API_VERSION_API_FOOTBALL  = 3
 
       # API
-      AVAILABLE_APIS        = [:football_data_org, :apifootball_com]
+      AVAILABLE_APIS        = [:football_data_org, :apifootball_com, :api_football_com]
       DEFAULT_API_NAME      = :football_data_org
       DEFAULT_API_URL       = API_URL_FOOTBALL_DATA
 
@@ -103,6 +105,8 @@ module Football
             'Apifootball'
           when :football_data_org
             'FootballData'
+          when :api_football_com
+            'ApiFootball'
           end
         end
 
@@ -118,6 +122,8 @@ module Football
             API_URL_APIFOOTBALL
           when :football_data_org
             "#{API_URL_FOOTBALL_DATA}/v#{api_version}"
+          when :api_football_com
+            API_URL_API_FOOTBALL
           end
         end
 
@@ -126,6 +132,8 @@ module Football
           when :apifootball_com
             false
           when :football_data_org
+            wait_on_limit
+          when :api_football_com
             wait_on_limit
           end
         end
@@ -136,6 +144,10 @@ module Football
             {}
           when :football_data_org
             { "X-Auth-Token": Configuration.api_token }
+          when :api_football_com
+            # TODO: RAPID API!?
+            # TODO: set headers manually via config
+            { "x-apisports-key": Configuration.api_token }
           end
         end
 
@@ -144,6 +156,8 @@ module Football
           when :apifootball_com
             "#{Configuration.api_endpoint}#{path}&APIkey=#{Configuration.api_token}"
           when :football_data_org
+            "#{Configuration.api_endpoint}/#{path}"
+          when :api_football_com
             "#{Configuration.api_endpoint}/#{path}"
           end
         end
@@ -154,6 +168,8 @@ module Football
             response_apifootball_com(response, result)
           when :football_data_org
             response_football_data_org(response, result)
+          when :api_football_com
+            response_api_football_com(response, result)
           end
         end
 
@@ -177,9 +193,22 @@ module Football
           end
         end
 
+        def response_api_football_com(response, result)
+          case result
+          when :default
+            response
+          when :parsed_response
+            response.parsed_response
+          when :data
+            response['response']
+          else
+            response.parsed_response
+          end
+        end
+
         def tier_from_response(response)
           case api_name
-          when :apifootball_com
+          when :apifootball_com, :api_football_com
             # n/a
           when :football_data_org
             Tier.set_from_response_headers(response)
@@ -192,6 +221,8 @@ module Football
             :parsed_response
           when :football_data_org
             klass::PATH
+          when :api_football_com
+            :default
           end
         rescue
           return nil
@@ -207,6 +238,8 @@ module Football
               return 'Events'
             when 'Scorers'
               return 'TopScorers'
+            when 'Leagues'
+              return 'Competitions'
             end
           when :football_data_org
             case klass
@@ -216,6 +249,15 @@ module Football
               return 'Matches'
             when 'TopScorers'
               return 'Scorers'
+            when 'Leagues'
+              return 'Competitions'
+            end
+          when :api_football_com
+            case klass
+            when 'Areas'
+              return 'Countries'
+            when 'Competitions'
+              return 'Leagues'
             end
           end
 
