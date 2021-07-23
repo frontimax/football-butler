@@ -5,7 +5,7 @@ require 'football/butler/api_football/fixtures'
 
 module Football
   module Butler
-    class Events < Matches
+    class Fixtures < Matches
     end
   end
 end 

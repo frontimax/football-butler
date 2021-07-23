@@ -25,6 +25,12 @@ module Football
       DEFAULT_TIER_PLAN     = nil
       DEFAULT_WAIT_ON_LIMIT = false
 
+      # MESSAGES
+      # football_data_org
+      MSG_REACHED_LIMIT_1   = 'You reached your request limit.' # code: 429
+      # api-football.com
+      MSG_REACHED_LIMIT_2   = 'Too many requests. Your rate limit is 10 requests per minute.' # code: 200
+
       class << self
         attr_accessor :api_version, :api_token, :api_endpoint, :tier_plan, :wait_on_limit, :init_done,
                       :api_name
@@ -236,6 +242,8 @@ module Football
               return 'Countries'
             when 'Matches'
               return 'Events'
+            when 'Fixtures'
+              return 'Events'
             when 'Scorers'
               return 'TopScorers'
             when 'Leagues'
@@ -246,6 +254,8 @@ module Football
             when 'Countries'
               return 'Areas'
             when 'Events'
+              return 'Matches'
+            when 'Fixtures'
               return 'Matches'
             when 'TopScorers'
               return 'Scorers'
@@ -258,10 +268,76 @@ module Football
               return 'Countries'
             when 'Competitions'
               return 'Leagues'
+            when 'Events'
+              return 'Fixtures'
+            when 'Matches'
+              return 'Fixtures'
             end
           end
 
           klass
+        end
+
+        def reached_limit?(response)
+          case api_name
+          when :apifootball_com
+            false
+          when :football_data_org
+            return false if !response.is_a?(Hash) &&
+              (response.respond_to?(:parsed_response) &&
+                !response.parsed_response.is_a?(Hash))
+            response.dig('message') ? response['message'].start_with?(MSG_REACHED_LIMIT_1) : false
+          when :api_football_com
+            if response&.headers.present?
+              if response.headers['x-ratelimit-remaining'] == '0' ||
+                response.headers['x-ratelimit-requests-remaining'] == '0'
+                return true
+              end
+            elsif response.is_a?(Hash) && response.respond_to?(:parsed_response) &&
+              response.parsed_response.dig('errors', 'rateLimit').present?
+              return true
+            end
+
+            # TODO: remove
+            # API DASH
+            # Response Header: {"server"=>["openresty"], "date"=>["Tue, 20 Jul 2021 18:29:22 GMT"],
+            # "content-type"=>["application/json"], "transfer-encoding"=>["chunked"], "connection"=>["close"],
+            # "x-request-id"=>["247da5ca-81f3-4503-9730-f330d3d66b7e", "247da5ca-81f3-4503-9730-f330d3d66b7e"],
+            # "strict-transport-security"=>["max-age=31536000"], "vary"=>["Accept-Encoding"],
+            # "access-control-allow-origin"=>["*"], "access-control-allow-credentials"=>["True"],
+            # "access-control-allow-methods"=>["GET, OPTIONS"],
+            # "access-control-allow-headers"=>["x-rapidapi-key, x-apisports-key, x-rapidapi-host"],
+            #
+            # MINUTE
+            # "x-ratelimit-limit"=>["10"],
+            # "x-ratelimit-remaining"=>["0"],
+            # DAY
+            # "x-ratelimit-requests-limit"=>["100"],
+            # "x-ratelimit-requests-remaining"=>["0"]}
+            #
+            # Message:
+            #
+            # {
+            #     "get": "teams",
+            #     "parameters": {
+            #         "season": "2020",
+            #         "league": "39"
+            #     },
+            #     "errors": {
+            #         "rateLimit": "Too many requests. Your rate limit is 10 requests per minute."
+            #     },
+            #     "results": 0,
+            #     "paging": {
+            #         "current": 1,
+            #         "total": 1
+            #     },
+            #     "response": []
+            # }
+          end
+
+          false
+        rescue
+          return false
         end
       end
     end

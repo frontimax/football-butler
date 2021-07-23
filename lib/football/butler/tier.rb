@@ -8,12 +8,42 @@ module Football
       class << self
         attr_accessor :available_minute, :counter_reset, :last_request, :total_requests, :sleep_seconds
 
+        # TODO: remove
+        # API DASH
+        # Response Header: {"server"=>["openresty"], "date"=>["Tue, 20 Jul 2021 18:29:22 GMT"],
+        # "content-type"=>["application/json"], "transfer-encoding"=>["chunked"], "connection"=>["close"],
+        # "x-request-id"=>["247da5ca-81f3-4503-9730-f330d3d66b7e", "247da5ca-81f3-4503-9730-f330d3d66b7e"],
+        # "strict-transport-security"=>["max-age=31536000"], "vary"=>["Accept-Encoding"],
+        # "access-control-allow-origin"=>["*"], "access-control-allow-credentials"=>["True"],
+        # "access-control-allow-methods"=>["GET, OPTIONS"],
+        # "access-control-allow-headers"=>["x-rapidapi-key, x-apisports-key, x-rapidapi-host"],
+        #
+        # MINUTE
+        # "x-ratelimit-limit"=>["10"],
+        # "x-ratelimit-remaining"=>["0"],
+        # DAY
+        # "x-ratelimit-requests-limit"=>["100"],
+        # "x-ratelimit-requests-remaining"=>["0"]}
+        #
         def set_from_response_headers(response)
-          if available_minute?(response) && counter_reset?(response)
-            set_tier_from_response(
-              response.headers['x-requests-available-minute'],
-              response.headers['x-requestcounter-reset']
-            )
+          case Configuration.api_name
+          when :apifootball_com
+            # n/a
+          when :football_data_org
+            if available_minute?(response, 'x-requests-available-minute') &&
+              counter_reset?(response, 'x-requestcounter-reset')
+              set_tier_from_response(
+                response.headers['x-requests-available-minute'],
+                response.headers['x-requestcounter-reset']
+              )
+            end
+          when :api_football_com
+            if available_minute?(response, 'x-ratelimit-remaining')
+              set_tier_from_response(
+                response.headers['x-ratelimit-remaining'],
+                '60'
+              )
+            end
           end
         end
 
@@ -27,12 +57,12 @@ module Football
           true
         end
 
-        def available_minute?(response)
-          response&.headers&.dig('x-requests-available-minute')&.present?
+        def available_minute?(response, key_remaining_minute)
+          response&.headers&.dig(key_remaining_minute)&.present?
         end
 
-        def counter_reset?(response)
-          response&.headers&.dig('x-requestcounter-reset')&.present?
+        def counter_reset?(response, key_reset)
+          response&.headers&.dig(key_reset)&.present?
         end
 
         def get_sleep_seconds
