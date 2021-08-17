@@ -19,6 +19,13 @@ RSpec.describe Football::Butler::Teams do
     end
   end
 
+  describe 'when by_league' do
+    it 'returns all teams of a competition' do
+      response = described_class.by_league(id: 2002)
+      expect(response).to match_array(response_teams)
+    end
+  end
+
   describe 'when by_competition' do
     it 'returns all teams of a competition result all' do
       response = described_class.by_competition(id: 2002, result: :default)

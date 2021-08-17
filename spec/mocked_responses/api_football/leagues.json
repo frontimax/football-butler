@@ -1,0 +1,61 @@
+[
+  {
+    "league": {
+      "id": 78,
+      "name": "Bundesliga 1",
+      "type": "League",
+      "logo": "https://media.api-sports.io/football/leagues/78.png"
+    },
+    "country": {
+      "name": "Germany",
+      "code": "DE",
+      "flag": "https://media.api-sports.io/flags/de.svg"
+    },
+    "seasons": [
+      {
+        "year": 2020,
+        "start": "2020-09-18",
+        "end": "2021-05-29",
+        "current": false,
+        "coverage": {
+          "fixtures": {
+            "events": true,
+            "lineups": true,
+            "statistics_fixtures": true,
+            "statistics_players": true
+          },
+          "standings": true,
+          "players": true,
+          "top_scorers": true,
+          "top_assists": true,
+          "top_cards": true,
+          "injuries": true,
+          "predictions": true,
+          "odds": false
+        }
+      },
+      {
+        "year": 2021,
+        "start": "2021-08-13",
+        "end": "2022-05-14",
+        "current": true,
+        "coverage": {
+          "fixtures": {
+            "events": true,
+            "lineups": true,
+            "statistics_fixtures": true,
+            "statistics_players": true
+          },
+          "standings": true,
+          "players": true,
+          "top_scorers": true,
+          "top_assists": true,
+          "top_cards": true,
+          "injuries": false,
+          "predictions": true,
+          "odds": true
+        }
+      }
+    ]
+  }
+]

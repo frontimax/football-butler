@@ -16,8 +16,8 @@ module Football
           end
 
           # /leagues?country={country}
-          def by_country(ountry:)
-            filters = { ountry: ountry }
+          def by_country(id:)
+            filters = { country: id }
             Api.get(path: PATH, filters: filters)
           end
 

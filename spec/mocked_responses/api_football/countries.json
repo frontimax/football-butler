@@ -1,0 +1,36 @@
+{
+  "get": "countries",
+  "parameters": [],
+  "errors": [],
+  "results": 161,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "id": 2000,
+      "name": "Afghanistan",
+      "countryCode": "AFG",
+      "ensignUrl": "null",
+      "parentAreaId": 2014,
+      "parentArea": "Asia"
+    },
+    {
+      "id": 2001,
+      "name": "Africa",
+      "countryCode": "AFR",
+      "ensignUrl": "null",
+      "parentAreaId": 2267,
+      "parentArea": "World"
+    },
+    {
+      "id": 2002,
+      "name": "Albania",
+      "countryCode": "ALB",
+      "ensignUrl": "null",
+      "parentAreaId": 2077,
+      "parentArea": "Europe"
+    }
+  ]
+}
