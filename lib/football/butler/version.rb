@@ -3,7 +3,7 @@
 module Football
   module Butler
     # Adding new API api_football.com
-    # July 2021
+    # August 2021
     #
     # Supported APIs;
     # - https://www.football-data.org (>= 1.0.0)

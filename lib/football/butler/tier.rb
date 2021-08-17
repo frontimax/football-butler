@@ -52,8 +52,6 @@ module Football
           @counter_reset    = counter_reset.to_i
           @last_request     = Time.current
 
-          @total_requests = @total_requests.is_a?(Integer) ? @total_requests + 1 : 1
-
           true
         end
 
@@ -81,6 +79,10 @@ module Football
 
         def reset_total_requests
           @total_requests = 0
+        end
+
+        def count_request
+          @total_requests = @total_requests.is_a?(Integer) ? @total_requests + 1 : 1
         end
 
         def reset_sleep_seconds

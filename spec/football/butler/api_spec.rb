@@ -17,7 +17,7 @@ RSpec.describe Football::Butler::Api do
   describe 'when base functions' do
     context 'with reached_limit?' do
       it 'returns true' do
-        response = { message: Football::Butler::Base::MSG_REACHED_LIMIT }.with_indifferent_access
+        response = { message: Football::Butler::Configuration::MSG_REACHED_LIMIT[:football_data_org] }.with_indifferent_access
         expect(described_class.reached_limit?(response)).to be_truthy
       end
     end
@@ -89,7 +89,7 @@ RSpec.describe Football::Butler::Api do
         Football::Butler::Configuration.reconfigure(api_token: 'my_dummy_token', wait_on_limit: true)
 
         response = Football::Butler::Areas.by_id(id: 9999)
-        expect(response[:message]).to eq(Football::Butler::Base::MSG_REACHED_LIMIT)
+        expect(response[:message]).to eq(Football::Butler::Configuration::MSG_REACHED_LIMIT[:football_data_org])
       end
     end
   end

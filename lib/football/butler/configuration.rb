@@ -26,10 +26,10 @@ module Football
       DEFAULT_WAIT_ON_LIMIT = false
 
       # MESSAGES
-      # football_data_org
-      MSG_REACHED_LIMIT_1   = 'You reached your request limit.' # code: 429
-      # api-football.com
-      MSG_REACHED_LIMIT_2   = 'Too many requests. Your rate limit is 10 requests per minute.' # code: 200
+      MSG_REACHED_LIMIT = {
+        football_data_org: 'You reached your request limit.', # code: 429
+        api_football_com: 'Too many requests. Your rate limit is 10 requests per minute.' # code: 200
+      }
 
       class << self
         attr_accessor :api_version, :api_token, :api_endpoint, :tier_plan, :wait_on_limit, :init_done,
@@ -286,7 +286,7 @@ module Football
             return false if !response.is_a?(Hash) &&
               (response.respond_to?(:parsed_response) &&
                 !response.parsed_response.is_a?(Hash))
-            response.dig('message') ? response['message'].start_with?(MSG_REACHED_LIMIT_1) : false
+            return response.dig('message') ? response['message'].start_with?(MSG_REACHED_LIMIT[api_name]) : false
           when :api_football_com
             if response&.headers.present?
               if response.headers['x-ratelimit-remaining'] == '0' ||

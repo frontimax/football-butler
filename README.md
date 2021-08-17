@@ -9,6 +9,7 @@ This gem enables API requests against multiple different football APIs, with dir
 
 - football-data.org 
 - apifootball.com
+- api-football.com
 
 To use the API you need an API token, get it for free @ http://api.football-data.org/register or https://apifootball.com/register.
 
