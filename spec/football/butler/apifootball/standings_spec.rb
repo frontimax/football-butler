@@ -21,7 +21,7 @@ RSpec.describe Football::Butler::Standings do
       response = described_class.by_competition(id: 2002, result: :parsed_response, filters: {})
 
       expect(response).to be_a(Array)
-      expect(response).to match_array(response_standings_api_football)
+      expect(response).to match_array(response_standings_apifootball)
     end
   end
 end
@@ -31,7 +31,7 @@ def stubs_standing_apifootball
     .to_return(status: 200, body: get_mocked_response('standings.json', :apifootball))
 end
 
-def response_standings_api_football
+def response_standings_apifootball
   [
     {
       "country_name": "England",

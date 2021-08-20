@@ -1,0 +1,16 @@
+{
+  "get": "teams",
+  "parameters": {
+    "season": "2020",
+    "league": "39"
+  },
+  "errors": {
+    "rateLimit": "Too many requests. Your rate limit is 10 requests per minute."
+  },
+  "results": 0,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": []
+}

@@ -1,0 +1,110 @@
+{
+  "get": "players/topscorers",
+  "parameters": {
+    "season": "2020",
+    "league": "78"
+  },
+  "errors": [],
+  "results": 20,
+  "paging": {
+    "current": 0,
+    "total": 1
+  },
+  "response": [
+    {
+      "player": {
+        "id": 521,
+        "name": "R. Lewandowski",
+        "firstname": "Robert",
+        "lastname": "Lewandowski",
+        "age": 33,
+        "birth": {
+          "date": "1988-08-21",
+          "place": "Warszawa",
+          "country": "Poland"
+        },
+        "nationality": "Poland",
+        "height": "184 cm",
+        "weight": "80 kg",
+        "injured": false,
+        "photo": "https://media.api-sports.io/football/players/521.png"
+      },
+      "statistics": [
+        {
+          "team": {
+            "id": 157,
+            "name": "Bayern Munich",
+            "logo": "https://media.api-sports.io/football/teams/157.png"
+          },
+          "league": {
+            "id": 78,
+            "name": "Bundesliga 1",
+            "country": "Germany",
+            "logo": "https://media.api-sports.io/football/leagues/78.png",
+            "flag": "https://media.api-sports.io/flags/de.svg",
+            "season": 2020
+          },
+          "games": {
+            "appearences": 29,
+            "lineups": 28,
+            "minutes": 2463,
+            "number": "",
+            "position": "Attacker",
+            "rating": "7.841379",
+            "captain": false
+          },
+          "substitutes": {
+            "in": 1,
+            "out": 6,
+            "bench": 1
+          },
+          "shots": {
+            "total": 116,
+            "on": 68
+          },
+          "goals": {
+            "total": 41,
+            "conceded": 0,
+            "assists": 7,
+            "saves": ""
+          },
+          "passes": {
+            "total": 661,
+            "key": 32,
+            "accuracy": 17
+          },
+          "tackles": {
+            "total": 15,
+            "blocks": 1,
+            "interceptions": 3
+          },
+          "duels": {
+            "total": 281,
+            "won": 110
+          },
+          "dribbles": {
+            "attempts": 43,
+            "success": 22,
+            "past": ""
+          },
+          "fouls": {
+            "drawn": 29,
+            "committed": 41
+          },
+          "cards": {
+            "yellow": 4,
+            "yellowred": 0,
+            "red": 0
+          },
+          "penalty": {
+            "won": "",
+            "commited": "",
+            "scored": 8,
+            "missed": 1,
+            "saved": ""
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "get": "fixtures",
+  "parameters": {
+    "id": "587177"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "fixture": {
+        "id": 587177,
+        "referee": "F. Brych",
+        "timezone": "UTC",
+        "date": "2020-09-19T16:30:00+00:00",
+        "timestamp": 1600533000,
+        "periods": {
+          "first": 1600533000,
+          "second": 1600536600
+        },
+        "venue": {
+          "id": 702,
+          "name": "Signal-Iduna-Park",
+          "city": "Dortmund"
+        },
+        "status": {
+          "long": "Match Finished",
+          "short": "FT",
+          "elapsed": 90
+        }
+      },
+      "league": {
+        "id": 78,
+        "name": "Bundesliga 1",
+        "country": "Germany",
+        "logo": "https://media.api-sports.io/football/leagues/78.png",
+        "flag": "https://media.api-sports.io/flags/de.svg",
+        "season": 2020,
+        "round": "Regular Season - 1"
+      },
+      "teams": {
+        "home": {
+          "id": 165,
+          "name": "Borussia Dortmund",
+          "logo": "https://media.api-sports.io/football/teams/165.png",
+          "winner": true
+        },
+        "away": {
+          "id": 163,
+          "name": "Borussia Monchengladbach",
+          "logo": "https://media.api-sports.io/football/teams/163.png",
+          "winner": false
+        }
+      },
+      "goals": {
+        "home": 3,
+        "away": 0
+      },
+      "score": {},
+      "events": [],
+      "lineups": [],
+      "statistics": [],
+      "players": []
+    }
+  ]
+}

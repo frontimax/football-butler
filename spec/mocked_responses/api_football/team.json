@@ -1,0 +1,33 @@
+{
+  "get": "teams",
+  "parameters": {
+    "id": "39"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 39,
+        "name": "Wolves",
+        "country": "England",
+        "founded": 1877,
+        "national": false,
+        "logo": "https://media.api-sports.io/football/teams/39.png"
+      },
+      "venue": {
+        "id": 600,
+        "name": "Molineux Stadium",
+        "address": "Waterloo Road",
+        "city": "Wolverhampton, West Midlands",
+        "capacity": 32050,
+        "surface": "grass",
+        "image": "https://media.api-sports.io/football/venues/600.png"
+      }
+    }
+  ]
+}

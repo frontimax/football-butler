@@ -39,5 +39,13 @@ RSpec.describe Football::Butler::Configuration do
       described_class.reconfigure(api_name: :apifootball_com, wait_on_limit: true)
       expect(described_class.wait_on_limit).to be_falsey
     end
+
+    it 'with api_footbal_com' do
+      described_class.reconfigure(wait_on_limit: true, api_name: :api_football_com)
+      expect(described_class.wait_on_limit).to be_truthy
+
+      described_class.reconfigure(wait_on_limit: false, api_name: :api_football_com)
+      expect(described_class.wait_on_limit).to be_falsey
+    end
   end
 end

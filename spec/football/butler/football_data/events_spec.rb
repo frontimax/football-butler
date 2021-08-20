@@ -29,6 +29,14 @@ RSpec.describe Football::Butler::Events do
       expect(response.parsed_response).to be_a(Hash)
       expect(response.parsed_response).to include(response_matches_all.stringify_keys)
     end
+
+    it 'returns all matches with result param :default' do
+      response = Football::Butler::Fixtures.all(result: :default)
+
+      expect(response).to be_a(HTTParty::Response)
+      expect(response.parsed_response).to be_a(Hash)
+      expect(response.parsed_response).to include(response_matches_all.stringify_keys)
+    end
   end
 
   describe 'when by_competition' do

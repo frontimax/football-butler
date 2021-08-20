@@ -214,9 +214,9 @@ module Football
 
         def tier_from_response(response)
           case api_name
-          when :apifootball_com, :api_football_com
+          when :apifootball_com
             # n/a
-          when :football_data_org
+          when :football_data_org, :api_football_com
             Tier.set_from_response_headers(response)
           end
         end
@@ -288,51 +288,14 @@ module Football
                 !response.parsed_response.is_a?(Hash))
             return response.dig('message') ? response['message'].start_with?(MSG_REACHED_LIMIT[api_name]) : false
           when :api_football_com
-            if response&.headers.present?
+            if response.is_a?(HTTParty::Response) && response&.headers.present?
               if response.headers['x-ratelimit-remaining'] == '0' ||
                 response.headers['x-ratelimit-requests-remaining'] == '0'
                 return true
               end
-            elsif response.is_a?(Hash) && response.respond_to?(:parsed_response) &&
-              response.parsed_response.dig('errors', 'rateLimit').present?
+            elsif response.is_a?(HTTParty::Response) && response.parsed_response.dig('errors', 'rateLimit').present?
               return true
             end
-
-            # TODO: remove
-            # API DASH
-            # Response Header: {"server"=>["openresty"], "date"=>["Tue, 20 Jul 2021 18:29:22 GMT"],
-            # "content-type"=>["application/json"], "transfer-encoding"=>["chunked"], "connection"=>["close"],
-            # "x-request-id"=>["247da5ca-81f3-4503-9730-f330d3d66b7e", "247da5ca-81f3-4503-9730-f330d3d66b7e"],
-            # "strict-transport-security"=>["max-age=31536000"], "vary"=>["Accept-Encoding"],
-            # "access-control-allow-origin"=>["*"], "access-control-allow-credentials"=>["True"],
-            # "access-control-allow-methods"=>["GET, OPTIONS"],
-            # "access-control-allow-headers"=>["x-rapidapi-key, x-apisports-key, x-rapidapi-host"],
-            #
-            # MINUTE
-            # "x-ratelimit-limit"=>["10"],
-            # "x-ratelimit-remaining"=>["0"],
-            # DAY
-            # "x-ratelimit-requests-limit"=>["100"],
-            # "x-ratelimit-requests-remaining"=>["0"]}
-            #
-            # Message:
-            #
-            # {
-            #     "get": "teams",
-            #     "parameters": {
-            #         "season": "2020",
-            #         "league": "39"
-            #     },
-            #     "errors": {
-            #         "rateLimit": "Too many requests. Your rate limit is 10 requests per minute."
-            #     },
-            #     "results": 0,
-            #     "paging": {
-            #         "current": 1,
-            #         "total": 1
-            #     },
-            #     "response": []
-            # }
           end
 
           false

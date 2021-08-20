@@ -22,6 +22,13 @@ RSpec.describe Football::Butler::Events do
       expect(response).to be_a(Array)
       expect(response).to match_array(response_match_apifootball)
     end
+
+    it 'returns one match' do
+      response = Football::Butler::Fixtures.by_id(id: 205430)
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_match_apifootball)
+    end
   end
 
   describe 'when all' do
