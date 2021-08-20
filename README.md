@@ -7,13 +7,17 @@
 
 This gem enables API requests against multiple different football APIs, with direct requests or using normalized endpoint Class methods. Currently supported APis: 
 
-- football-data.org 
+- football-data.org ***[current default api]***
 - apifootball.com
 - api-football.com
 
-To use the API you need an API token, get it for free @ http://api.football-data.org/register or https://apifootball.com/register.
+To use the API you need an API token, get it for free @ 
 
-Depending on you Payment Plan you can access international Competitions, Teams, Matches, Scores, Players, Odds, and Standings.
+- http://api.football-data.org/register
+- https://apifootball.com/register
+- https://dashboard.api-football.com/register
+
+Depending on you Payment Plan / Subscription you can access international Competitions, Teams, Matches, Scores, Players, Odds, and Standings.
 
 Also see the following Links:
 
@@ -30,7 +34,7 @@ This Gem supports two ways of using the APIs:
 
 **Update May 2021 (v2.0.0):** Multiple APIs are now supported and all endpoints for football-data.org are now implemented. See below for more info on usage.
 
-**Update April 10th 2021:** The Tier packages have been adjusted - Standings are now part of TIER_ONE and also of the newest Gem Version 1.1.0
+**Update April 10th 2021:** The Tier packages of football-data.org have been adjusted - Standings are now part of TIER_ONE and also of the newest Gem Version 1.1.0
 
 
 ## Installation
@@ -85,21 +89,51 @@ Get all matches of current Bundesliga season:
 See the available api names:
 
     Football::Butler::Configuration::AVAILABLE_APIS
-    [:football_data_org, :apifootball_com]
+    [:football_data_org, :apifootball_com, :api_football_com]
 
 To set the target API:
 
     Football::Butler::Configuration.configure do |config|
-      config.api_name  = :apifootball_com
+      config.api_name  = :api_football_com
       config.api_token = "<YOUR_API_TOKEN_HERE>"
     end
 
 To change the target API:
 
     Football::Butler.Configure.reconfigure(
-      api_name:  :apifootball_com
+      api_name:  :api_football_com
       api_token: "<YOUR_API_TOKEN_HERE>"
     )
+
+#### Configure the Request Header
+
+<span style="color: blue;">**Note: Since Versiob 2.1.0 it is now possible to overwrite the default HEADER name (key) of the API Token. So, in case you need to adjust to a different name (e.g. for RAPID API with api-football.com, you can do so!*</span>
+
+Default Names:
+
+    case api_name
+    when :apifootball_com
+        # not used in header
+        nil                      
+    when :football_data_org
+        "X-Auth-Token"
+    when :api_football_com
+        "x-apisports-key"
+    end
+
+To change the name of the Api Token Key:
+
+    Football::Butler.Configure.reconfigure(
+      header_token_name:  'x-rapidapi-key'
+    )
+
+Also, you can add additional header keys and values:
+
+    Football::Butler.Configure.reconfigure(
+      header_token_name:  'x-rapidapi-key',
+      header_additional: { my_key: 'my_value" }
+    )
+
 
 ### The advanced way to go (more options)
 
@@ -108,12 +142,13 @@ To change the target API:
 | Name | Default Value | Data Type | Explanation |
 | ---------------|----------------|----------------|----------------|
 | api_token|nil|String|Your API Token (required to set by you)|
-| api_name|:football_data_org|String| must be one of: [:football_data_org, :apifootball_com] |
+| api_name|:football_data_org|String| must be one of: [:football_data_org, :apifootball_com, :api_football_com] |
 | api_version|2|Integer|API Version|
-| api_endpoint|"https://api.football-data.org/v#{api_version}"|String|API Endpoint|
+| api_endpoint|Depends on api_name|String|URL String|
+| header_token_name|Depends on api_name|String|e.g. X-Auth-Token|
+| header_additional|{}|Hash|You can add additional header data|
 | <span style="color: blue;">tier_plan</span><br>*ONLY: :football_data_org* |nil|String|TIER_ONE<br>TIER_TWO<br>TIER_THREE<br>TIER_FOUR|
 | <span style="color: blue;">wait_on_limit</span><br>*ONLY: :football_data_org* |false|Boolean|Uses 'sleep' to wait if request is limited
-
 The tier_plan is only used in Football::Butler::Competitions.all as a default filter.
 You can use "plan" filter manually on Competition calls.
 
@@ -207,6 +242,34 @@ If you performed a bad request, e.g. invalid api_token configured, you will get 
     response['message']
     => "No event found (please check your plan)!"
 
+#### api_football_com
+
+Example:
+
+    # Resources
+    # https://www.api-football.com/documentation-v3
+    path = 'fixtures'
+  
+    filters = { league: 78, season: 2021 }
+
+    response = Football::Butler.get(path: path, filters: filters)
+
+Will call
+
+    https://v3.football.api-sports.io/fixtures?season=2021&league=78
+
+and return all matches of 2021-05-16 of the english Premiere League for the given time range:
+    
+    response
+    => HTTParty::Response
+
+    response.parsed_response
+    => Hash with Meta Data and response key
+
+    response.parsed_response['response']
+    => [{"fixture"=>{"id"=>719349,"referee"=>"M. Fritz","timezone"=>"UTC","date"=>"2021-08-13T18:30:00+00:00","timestamp"=>1628879400, ....]
+
+
 ### Comfort Functions (Endpoint Classes)
 
 Instead of using the direct API calls you can use endpoint classes with semantic methods to get results. This list may be expanded in future versions.
@@ -266,23 +329,26 @@ Returns a full API response:
 
 ### Overview of all available Endpoint Classes
 
-| Class | football-data.org | apifootball.com | 
-| ---------------|----------------|----------------|
-| Areas | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Countries* |
-| Competitions | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Countries | <span style="color: blue;">YES</span><br>*alias from Areas* | <span style="color: green;">YES</span> |
-| Events | <span style="color: blue;">YES</span><br>*alias from Matches* | <span style="color: green;">YES</span> |
-| HeadToHead | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Lineups | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Matches | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Events* |
-| Odds | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Players | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Predictions | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
-| Scorers | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from TopScorers* |
-| Standings | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Statistics | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
-| Teams | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| TopScorers | <span style="color: blue;">YES</span><br>*alias from Scorers* | <span style="color: green;">YES</span> |
+| Class | football-data.org | apifootball.com | api_football.com |
+| ---------------|----------------|----------------|----------------|
+| Areas | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Countries* | <span style="color: blue;">YES</span><br>*alias from Countries* |
+| Competitions | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><span style="color: blue;">YES</span><br>*alias from Leagues* |
+| Countries | <span style="color: blue;">YES</span><br>*alias from Areas* | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Events | <span style="color: blue;">YES</span><br>*alias from Matches* | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Fixtures* |
+| HeadToHead | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
+| Fixtures | <span style="color: blue;">YES</span><br>*alias from Matches* | <span style="color: blue;">YES</span><br>*alias from Events* | <span style="color: green;">YES</span> |
+| Leagues | <span style="color: blue;">YES</span><br>*alias from Competitions* | <span style="color: blue;">YES</span><br>*alias from Competitions* | <span style="color: green;">YES</span> |
+| Lineups | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
+| Matches | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Events* | <span style="color: blue;">YES</span><br>*alias from Fixtures* |
+| Odds | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
+| Players | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
+| Predictions | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
+| Scorers | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from TopScorers* | <span style="color: blue;">YES</span><br>*alias from TopScorers*|
+| Standings | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Statistics | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
+| Teams | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| TopScorers | <span style="color: blue;">YES</span><br>*alias from Scorers* | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+
 
 ### Areas
 
@@ -290,13 +356,14 @@ Football::Butler::Areas
 
 *alias (apifootball_com):* Football::Butler::Countries
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | 
-| all | - | result (Symbol) | Array | Array |
-| by_name | name: String | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> |
+| Method | Params required | Params optional | football-data | apifootball | api_football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> |
+| all | - | result (Symbol) | Array | Array | Array |
+| by_name | name: String | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> |
+| all | name: String | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> |
 
 Examples:
 
@@ -311,7 +378,7 @@ Examples:
 
 Football::Butler::Competitions
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -350,7 +417,7 @@ Football::Butler::Events
 
 Football::Butler::HeadToHead
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -367,7 +434,7 @@ Examples:
 
 Football::Butler::Lineups
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -383,7 +450,7 @@ Football::Butler::Matches
 
 *alias (apifootball_com):* Football::Butler::Events
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -413,7 +480,7 @@ Examples:
 
 Football::Butler::Odds
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -427,7 +494,7 @@ Examples:
 
 Football::Butler::Players
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -446,7 +513,7 @@ Football::Butler::Predictions
 
 **Note: only apifootball_com**
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -463,7 +530,7 @@ Football::Butler::Scorers
 
 *alias (apifootball_com):* Football::Butler::TopScorers
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -477,7 +544,7 @@ Examples:
 
 Football::Butler::Standings
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -497,7 +564,7 @@ Football::Butler::Statistics
 
 **Note: only apifootball_com**
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|
@@ -511,7 +578,7 @@ Examples:
 
 Football::Butler::Teams
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball |
 | ---------------|----------------|----------------|----------------|----------------|

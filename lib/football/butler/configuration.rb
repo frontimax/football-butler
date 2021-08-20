@@ -156,6 +156,7 @@ module Football
         def set_header_token_name(api_name)
           case api_name
           when :apifootball_com
+            # not used in header
             nil
           when :football_data_org
             "X-Auth-Token"
