@@ -33,7 +33,7 @@ module Football
 
       class << self
         attr_accessor :api_version, :api_token, :api_endpoint, :tier_plan, :wait_on_limit, :init_done,
-                      :api_name
+                      :api_name, :header_token_name, :header_additional
 
         def configure
           raise "You need to configure football-butler first, see readme." unless block_given?
@@ -49,6 +49,9 @@ module Football
           @tier_plan      ||= DEFAULT_TIER_PLAN
           @wait_on_limit  ||= set_wait_on_limit(self.wait_on_limit, @api_name)
 
+          @header_token_name ||= set_header_token_name(@api_name)
+          @header_additional ||= {}
+
           @init_done = true
 
           api_name_valid?(self.api_name)
@@ -56,15 +59,15 @@ module Football
 
         def reconfigure(
           api_token: nil, api_version: nil, api_endpoint: nil, tier_plan: nil, wait_on_limit: nil,
-          api_name: nil
+          api_name: nil, header_token_name: nil, header_additional: nil
         )
 
           reset unless @init_done
 
           @api_name       = set_api_name(api_name) unless api_name.nil?
-          @api_token      = api_token unless api_token.nil?
+          @api_token      = api_token if api_token
 
-          unless api_version.nil?
+          if api_version
             @api_version    = api_version
             @api_endpoint   = set_api_endpoint(@api_name, @api_version) if api_endpoint.nil?
           end
@@ -75,8 +78,11 @@ module Football
             @api_endpoint = api_endpoint
           end
 
-          @tier_plan      = tier_plan unless tier_plan.nil?
+          @tier_plan      = tier_plan if tier_plan
           @wait_on_limit  = set_wait_on_limit(wait_on_limit, @api_name) unless wait_on_limit.nil?
+
+          @header_token_name = header_token_name ? header_token_name : set_header_token_name(@api_name)
+          @header_additional = header_additional if header_additional
 
           api_name_valid?(api_name ? api_name : @api_name)
         end
@@ -91,6 +97,9 @@ module Football
           @api_endpoint   = DEFAULT_API_ENDPOINT
           @tier_plan      = DEFAULT_TIER_PLAN
           @wait_on_limit  = DEFAULT_WAIT_ON_LIMIT
+
+          @header_token_name = set_header_token_name(@api_name)
+          @header_additional = {}
 
           @init_done = true
 
@@ -144,17 +153,27 @@ module Football
           end
         end
 
-        def http_party_headers
+        def set_header_token_name(api_name)
           case api_name
           when :apifootball_com
-            {}
+            nil
           when :football_data_org
-            { "X-Auth-Token": Configuration.api_token }
+            "X-Auth-Token"
           when :api_football_com
-            # TODO: RAPID API!?
-            # TODO: set headers manually via config
-            { "x-apisports-key": Configuration.api_token }
+            "x-apisports-key"
           end
+        end
+
+        def http_party_headers
+          result = case api_name
+                   when :apifootball_com
+                    {}
+                   when :football_data_org, :api_football_com
+                     { Configuration.header_token_name => Configuration.api_token }
+                   end
+
+          result.merge!(Configuration.header_additional)
+          result
         end
 
         def http_party_url(path)

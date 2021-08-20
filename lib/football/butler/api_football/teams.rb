@@ -50,7 +50,6 @@ module Football
           # string
           # The country name of the team
           #
-          # TODO: searches!
           # search
           # string >= 3 characters
           # The name or the country name of the team

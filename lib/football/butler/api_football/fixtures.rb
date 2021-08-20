@@ -75,10 +75,6 @@ module Football
             filters.merge!({ league: id, season: year })
             Api.get(path: PATH, filters: filters, result: result)
           end
-
-          # TODO: more new methods, always with season!
-          #
-          #
         end
       end
     end

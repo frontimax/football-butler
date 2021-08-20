@@ -8,23 +8,6 @@ module Football
       class << self
         attr_accessor :available_minute, :counter_reset, :last_request, :total_requests, :sleep_seconds
 
-        # TODO: remove
-        # API DASH
-        # Response Header: {"server"=>["openresty"], "date"=>["Tue, 20 Jul 2021 18:29:22 GMT"],
-        # "content-type"=>["application/json"], "transfer-encoding"=>["chunked"], "connection"=>["close"],
-        # "x-request-id"=>["247da5ca-81f3-4503-9730-f330d3d66b7e", "247da5ca-81f3-4503-9730-f330d3d66b7e"],
-        # "strict-transport-security"=>["max-age=31536000"], "vary"=>["Accept-Encoding"],
-        # "access-control-allow-origin"=>["*"], "access-control-allow-credentials"=>["True"],
-        # "access-control-allow-methods"=>["GET, OPTIONS"],
-        # "access-control-allow-headers"=>["x-rapidapi-key, x-apisports-key, x-rapidapi-host"],
-        #
-        # MINUTE
-        # "x-ratelimit-limit"=>["10"],
-        # "x-ratelimit-remaining"=>["0"],
-        # DAY
-        # "x-ratelimit-requests-limit"=>["100"],
-        # "x-ratelimit-requests-remaining"=>["0"]}
-        #
         def set_from_response_headers(response)
           case Configuration.api_name
           when :apifootball_com
