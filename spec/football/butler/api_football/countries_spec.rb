@@ -38,9 +38,8 @@ RSpec.describe Football::Butler::Countries do
     it 'returns all countries' do
       response = described_class.all
 
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response['response']).to be_a(Array)
-      expect(response.parsed_response['response']).to match_array(response_areas_api_dash)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_areas_api_dash)
     end
 
     it 'returns all countries with result param :default' do

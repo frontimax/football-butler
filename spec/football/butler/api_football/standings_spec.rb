@@ -19,11 +19,8 @@ RSpec.describe Football::Butler::Standings do
     it 'returns standings of competition by season year' do
       response = described_class.by_competition_and_year(id: 2002, year: '2020', filters: {})
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response['response']).to be_a(Array)
-
-      expect(response.parsed_response['response']).to match_array(response_standings_api_football)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_standings_api_football)
     end
   end
 end

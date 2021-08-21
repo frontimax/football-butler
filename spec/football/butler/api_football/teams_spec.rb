@@ -30,7 +30,7 @@ RSpec.describe Football::Butler::Teams do
 
   describe 'when by_country' do
     it 'returns teams' do
-      response = described_class.by_country(country: 'Germany')
+      response = described_class.by_country_name(name: 'Germany')
 
       expect(response.parsed_response['response']).to be_a(Array)
       expect(response.parsed_response['response']).to match_array(response_teams_api_football)
@@ -41,8 +41,8 @@ RSpec.describe Football::Butler::Teams do
     it 'returns all teams of a competition by a season starting year' do
       response = described_class.by_competition_and_year(id: 2002, year: 2019)
 
-      expect(response.parsed_response['response']).to be_a(Array)
-      expect(response.parsed_response['response']).to match_array(response_team_api_football)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_team_api_football)
     end
   end
 
@@ -50,8 +50,8 @@ RSpec.describe Football::Butler::Teams do
     it 'returns all teams of a competition by a season starting year' do
       response = described_class.by_competition_and_season(id: 2002, season: 2019)
 
-      expect(response.parsed_response['response']).to be_a(Array)
-      expect(response.parsed_response['response']).to match_array(response_team_api_football)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_team_api_football)
     end
   end
 end

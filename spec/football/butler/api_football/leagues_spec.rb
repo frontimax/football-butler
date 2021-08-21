@@ -15,14 +15,12 @@ RSpec.describe Football::Butler::Leagues do
     Football::Butler::Configuration.reconfigure(api_token: 'my_dummy_token')
   end
 
-  describe 'when by_country' do
+  describe 'when by_country_name' do
     it 'returns leagues' do
-      response = described_class.by_country(id: 'Germany')
+      response = described_class.by_country_name(name: 'Germany')
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response['response']).to be_a(Array)
-      expect(response.parsed_response['response']).to match(response_league_api_dash)
+      expect(response).to be_a(Array)
+      expect(response).to match(response_league_api_dash)
     end
   end
 
@@ -48,9 +46,8 @@ RSpec.describe Football::Butler::Leagues do
     it 'returns leagues' do
       response = described_class.all_seasons
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Array)
-      expect(response.parsed_response).to match(response_league_seasons_api_dash)
+      expect(response).to be_a(Array)
+      expect(response).to match(response_league_seasons_api_dash)
     end
   end
 
@@ -58,10 +55,8 @@ RSpec.describe Football::Butler::Leagues do
     it 'returns all leagues' do
       response = described_class.all
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response['response']).to be_a(Array)
-      expect(response.parsed_response['response']).to match(response_league_api_dash)
+      expect(response).to be_a(Array)
+      expect(response).to match(response_league_api_dash)
     end
   end
 
@@ -88,9 +83,8 @@ RSpec.describe Football::Butler::Leagues do
     it 'returns all leagues' do
       response = described_class.all(result: :response)
 
-      expect(response).to be_a(Hash)
-      expect(response['response']).to be_a(Array)
-      expect(response['response']).to match(response_league_api_dash)
+      expect(response).to be_a(Array)
+      expect(response).to match(response_league_api_dash)
     end
   end
 end
@@ -237,8 +231,21 @@ end
 
 def response_league_seasons_api_dash
   [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
     2019,
     2020,
-    2021
+    2021,
+    2022,
+    2023
   ]
 end

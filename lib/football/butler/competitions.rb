@@ -13,8 +13,12 @@ module Football
           api_switch_method(__method__, { id: id })
         end
 
-        def by_country(id:)
-          api_switch_method(__method__, { id: id })
+        def by_country(id:, result: api_switch_result)
+          api_switch_method(__method__, { id: id, result: result })
+        end
+
+        def by_country_name(name:, result: api_switch_result)
+          api_switch_method(__method__, { name: name, result: result })
         end
 
         ## COMPETITIONS

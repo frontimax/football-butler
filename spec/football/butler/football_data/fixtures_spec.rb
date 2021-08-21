@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Football::Butler::Events do
+RSpec.describe Football::Butler::Fixtures do
   before do
     stubs_matches
   end

@@ -20,8 +20,8 @@ RSpec.describe Football::Butler::TopScorers do
       it 'returns scorers' do
         response = described_class.by_competition_and_year(id: 78, year: 2020)
 
-        expect(response.parsed_response['response']).to be_a(Array)
-        expect(response.parsed_response['response']).to match_array(response_scorers_api_dash)
+        expect(response).to be_a(Array)
+        expect(response).to match_array(response_scorers_api_dash)
       end
     end
 
@@ -29,10 +29,8 @@ RSpec.describe Football::Butler::TopScorers do
       it 'returns scorers' do
         response = described_class.by_competition_and_year(id: 78, year: 2000)
 
-        expect(response).to be_a(HTTParty::Response)
-        expect(response.parsed_response).to be_a(Hash)
-        expect(response.parsed_response['response']).to be_a(Array)
-        expect(response.parsed_response['response']).to be_empty
+        expect(response).to be_a(Array)
+        expect(response).to be_empty
       end
     end
   end

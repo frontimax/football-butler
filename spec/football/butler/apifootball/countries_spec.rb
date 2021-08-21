@@ -71,23 +71,3 @@ RSpec.describe Football::Butler::Countries do
     end
   end
 end
-
-def stubs_area_apifootball
-  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}APIkey=my_dummy_token&action=get_countries")
-    .to_return(status: 200, body: get_mocked_response('countries.json', :apifootball))
-end
-
-def response_areas_apifootball
-  [
-    {
-      "country_id": "41",
-      "country_name": "England",
-      "country_logo": "https://apiv2.apifootball.com/badges/logo_country/41_england.png"
-    }.with_indifferent_access,
-    {
-      "country_id": "46",
-      "country_name": "France",
-      "country_logo": "https://apiv2.apifootball.com/badges/logo_country/46_france.png"
-    }.with_indifferent_access
-  ]
-end

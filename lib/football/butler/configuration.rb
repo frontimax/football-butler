@@ -225,19 +225,8 @@ module Football
             response
           when :parsed_response
             response.parsed_response
-          when :data
-            response['response']
           else
-            response.parsed_response
-          end
-        end
-
-        def tier_from_response(response)
-          case api_name
-          when :apifootball_com
-            # n/a
-          when :football_data_org, :api_football_com
-            Tier.set_from_response_headers(response)
+            response&.keys&.include?('response') ? response['response'] : nil
           end
         end
 
@@ -248,10 +237,19 @@ module Football
           when :football_data_org
             klass::PATH
           when :api_football_com
-            :default
+            :response
           end
         rescue
           return nil
+        end
+
+        def tier_from_response(response)
+          case api_name
+          when :apifootball_com
+            # n/a
+          when :football_data_org, :api_football_com
+            Tier.set_from_response_headers(response)
+          end
         end
 
         def class_converter(klass)
@@ -292,6 +290,8 @@ module Football
               return 'Fixtures'
             when 'Matches'
               return 'Fixtures'
+            when 'Scorers'
+              return 'TopScorers'
             end
           end
 

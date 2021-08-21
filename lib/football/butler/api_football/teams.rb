@@ -23,8 +23,8 @@ module Football
           end
 
           # /teams/country={country}
-          def by_country(country:)
-            filters = { country: country }
+          def by_country_name(name:)
+            filters = { country: name }
             Api.get(path: PATH, filters: filters)
           end
 
