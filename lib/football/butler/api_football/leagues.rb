@@ -12,7 +12,7 @@ module Football
           # /leagues?id={id}
           def by_id(id:)
             filters = { id: id }
-            Api.get(path: PATH, filters: filters)
+            Api.get(path: PATH, filters: filters, result: :response)
           end
 
           # /leagues?country={country}
@@ -76,6 +76,23 @@ module Football
             Api.get(path: PATH, result: result, filters: filters)
           end
 
+          # /leagues?search={name}
+          def search_by_name(name:, filters:)
+            filters.merge!({ search: name })
+            Api.get(path: PATH, filters: filters)
+          end
+
+          # /leagues?type=league
+          def all_leagues(result:, filters:)
+            filters.merge!({ type: 'league' })
+            Api.get(path: PATH, result: result, filters: filters)
+          end
+
+          # /leagues?type=cup
+          def all_cups(result:, filters:)
+            filters.merge!({ type: 'cup' })
+            Api.get(path: PATH, result: result, filters: filters)
+          end
         end
 
       end

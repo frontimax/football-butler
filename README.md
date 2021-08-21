@@ -362,8 +362,9 @@ Football::Butler::Areas
 | ---------------|----------------|----------------|----------------|----------------|----------------|
 | by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> |
 | all | - | result (Symbol) | Array | Array | Array |
-| by_name | name: String | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | HTTParty::Response (Hash) |
-| by_code | code: String | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | HTTParty::Response (Hash) |
+| by_name | name: String | result (Symbol)<br>filters (Hash) | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | Array |
+| by_code | code: String | result (Symbol)<br>filters (Hash) | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | Array |
+| search_by_name | name: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
 
 Examples:
 
@@ -371,6 +372,7 @@ Examples:
     Football::Butler::Areas.by_name(name: 'Germany')
     Football::Butler::Areas.all
     Football::Butler::Areas.by_code(code: 'DE')
+    Football::Butler::Areas.search_by_name(name: 'Ger')
 
 ### Competitions
 
@@ -382,7 +384,7 @@ Football::Butler::Competitions
 
 | Method | Params required | Params optional | football-data | apifootball | api-football |
 | ---------------|----------------|----------------|----------------|----------------|----------------|
-| by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | HTTParty::Response (Hash) | 
+| by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | Array | 
 | by_country | id: Integer | - | <span style="color: red;">N/A</span> | Array | <span style="color: red;">N/A</span> |
 | by_country_name | name: String | - | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
 | all | - | result (Symbol)<br>filters (Hash) | Array | Array | Array | 
@@ -391,6 +393,9 @@ Football::Butler::Competitions
 | current_match_day | id: Integer | - | Integer | <span style="color: red;">N/A</span>| <span style="color: red;">N/A</span> | 
 | seasons | id: Integer | - | Array | <span style="color: red;">N/A</span>| <span style="color: red;">N/A</span> | 
 | all_seasons | - | - | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>| Array | 
+| search_by_name | name: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
+| all_leagues | - | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
+| all_cups | - | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
 
 Examples:
 
@@ -403,7 +408,10 @@ Examples:
     Football::Butler::Competitions.all_season
     Football::Butler::Competitions.by_country(id: 49)
     Football::Butler::Competitions.by_country_name(name: 'Germany')
-
+    Football::Butler::Competitions.search_by_name(name: 'Ger')
+    Football::Butler::Competitions.all_leagues
+    Football::Butler::Competitions.all_cups
+    
 
 ### Countries
 
@@ -457,12 +465,12 @@ Football::Butler::Matches
 
 | Method | Params required | Params optional | football-data | apifootball | api-football |
 | ---------------|----------------|----------------|----------------|----------------|----------------|
-| by_id | id: Integer | - | HTTParty::Response (Hash) | Array | HTTParty::Response (Hash)
+| by_id | id: Integer | - | HTTParty::Response (Hash) | Array | Array
 | all | - | result (Symbol)<br>filters (Hash) | Array | Array |<span style="color: red;">N/A</span>
 | by_competition_and_year | id: Integer<br>year: Integer | result (Symbol)<br>filters (Hash) | Array | Array | Array
 | by_competition_and_match_day | id: Integer<br>match_day: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>
 | by_team | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array | <span style="color: red;">N/A</span>
-| by_team_and_status | id: Integer<br>status: String | result (Symbol)<br>filters (Hash) | | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>
+| by_team_and_status | id: Integer<br>status: String | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>
 | by_team_finished | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>
 | by_team_scheduled | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span>  | <span style="color: red;">N/A</span>
 | by_player | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |<span style="color: red;">N/A</span>
@@ -588,22 +596,18 @@ Football::Butler::Teams
 | Method | Params required | Params optional | football-data | apifootball | api-football |
 | ---------------|----------------|----------------|----------------|----------------|----------------|
 | by_id | id: Integer | - | HTTParty::Response (Hash) | Array | Array
-| by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array | Array
-| by_league | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array | Array
+| by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array | <span style="color: red;">N/A</span>
 | by_competition_and_year | id: Integer<br>year: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> | Array
 | by_name | name: String | - | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array
 | by_country_name | name: String | - | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array
-| by_competition_and_season | id: Integer<br>season: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> | Array
 
 Examples:
 
     Football::Butler::Teams.by_id(id: 2002)
     Football::Butler::Teams.by_competition(id: 2002)
     Football::Butler::Teams.by_competition_and_year(id: 2002, year: 2019)
-    Football::Butler::Teams.by_league(id: 2002)
     Football::Butler::Teams.by_name(name: 'Wolves')
     Football::Butler::Teams.by_country_name(name: 'Germany')
-    Football::Butler::Teams.by_competition_and_season(id: 2002, season: 2019)
 
 ### TopScorers
 

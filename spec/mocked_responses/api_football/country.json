@@ -1,8 +1,19 @@
 {
-  "id": 2002,
-  "name": "Albania",
-  "countryCode": "ALB",
-  "ensignUrl": "null",
-  "parentAreaId": 2077,
-  "parentArea": "Europe"
+  "get": "countries",
+  "parameters": {
+    "code": "AL"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "name": "Albania",
+      "code": "AL",
+      "flag": "https://media.api-sports.io/flags/al.svg"
+    }
+  ]
 }

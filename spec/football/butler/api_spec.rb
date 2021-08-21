@@ -152,7 +152,7 @@ RSpec.describe Football::Butler::Api do
         Football::Butler::Tier.available_minute = 0
 
         response = Football::Butler::Areas.by_name(name: 'Germany')
-        expect(response.parsed_response).to include(response_area.stringify_keys)
+        expect(response).to match_array(response_area_api_football)
       end
 
       it 'runs thru sleep second condition which is disabled in test env' do
@@ -246,5 +246,15 @@ def response_area
     "ensignUrl": 'null',
     "parentAreaId": 2077,
     "parentArea": "Europe"
-  }
+  }.with_indifferent_access
+end
+
+def response_area_api_football
+  [
+    {
+      "name": "Albania",
+      "code": "AL",
+      "flag": "https://media.api-sports.io/flags/al.svg"
+    }.with_indifferent_access
+  ]
 end

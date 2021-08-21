@@ -75,3 +75,84 @@ RSpec.describe Football::Butler::Areas do
   end
 end
 
+
+def stubs_area
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/areas/2002")
+    .to_return(status: 200, body: get_mocked_response('area.json', :football_data))
+
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/areas")
+    .to_return(status: 200, body: get_mocked_response('areas.json', :football_data))
+end
+
+def response_area
+  {
+    "id": 2002,
+    "name": "Albania",
+    "countryCode": "ALB",
+    "ensignUrl": 'null',
+    "parentAreaId": 2077,
+    "parentArea": "Europe"
+  }
+end
+
+def response_areas_all
+  {
+    "count": 3,
+    "filters": {},
+    "areas": [
+               {
+                 "id": 2000,
+                 "name": "Afghanistan",
+                 "countryCode": "AFG",
+                 "ensignUrl": "null",
+                 "parentAreaId": 2014,
+                 "parentArea": "Asia"
+               }.with_indifferent_access,
+               {
+                 "id": 2001,
+                 "name": "Africa",
+                 "countryCode": "AFR",
+                 "ensignUrl": "null",
+                 "parentAreaId": 2267,
+                 "parentArea": "World"
+               }.with_indifferent_access,
+               {
+                 "id": 2002,
+                 "name": "Albania",
+                 "countryCode": "ALB",
+                 "ensignUrl": "null",
+                 "parentAreaId": 2077,
+                 "parentArea": "Europe"
+               }.with_indifferent_access
+             ]
+  }
+end
+
+def response_areas
+  [
+    {
+      "id": 2000,
+      "name": "Afghanistan",
+      "countryCode": "AFG",
+      "ensignUrl": "null",
+      "parentAreaId": 2014,
+      "parentArea": "Asia"
+    }.with_indifferent_access,
+    {
+      "id": 2001,
+      "name": "Africa",
+      "countryCode": "AFR",
+      "ensignUrl": "null",
+      "parentAreaId": 2267,
+      "parentArea": "World"
+    }.with_indifferent_access,
+    {
+      "id": 2002,
+      "name": "Albania",
+      "countryCode": "ALB",
+      "ensignUrl": "null",
+      "parentAreaId": 2077,
+      "parentArea": "Europe"
+    }.with_indifferent_access
+  ]
+end

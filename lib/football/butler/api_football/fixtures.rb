@@ -9,10 +9,10 @@ module Football
 
         class << self
           ## FIXTURE
-          # /fixtures
+          # /fixtures?id={id}
           def by_id(id:)
             filters = { id: id }
-            Api.get(path: PATH, filters: filters)
+            Api.get(path: PATH, filters: filters, result: :response)
           end
 
           ## FIXTURES
@@ -67,8 +67,6 @@ module Football
           # timezone
           # string
           # A valid timezone from the endpoint Timezone
-          #
-          # /fixtures
           #
           # /fixtures?league={id}&season={year}
           def by_competition_and_year(id:, year:, result:, filters:)

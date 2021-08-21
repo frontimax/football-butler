@@ -59,11 +59,6 @@ module Football
             filters.merge!({ league: id, season: year })
             Api.get(path: PATH, result: result, filters: filters)
           end
-
-          # /teams?league={id}&season={year}
-          def by_competition_and_season(id:, season:, result:, filters:)
-            by_competition_and_year(id: id, year: season, result: result, filters: filters)
-          end
         end
       end
     end

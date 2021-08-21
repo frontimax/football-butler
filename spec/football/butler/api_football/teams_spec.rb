@@ -45,15 +45,6 @@ RSpec.describe Football::Butler::Teams do
       expect(response).to match_array(response_team_api_football)
     end
   end
-
-  describe 'when by_competition_and_season' do
-    it 'returns all teams of a competition by a season starting year' do
-      response = described_class.by_competition_and_season(id: 2002, season: 2019)
-
-      expect(response).to be_a(Array)
-      expect(response).to match_array(response_team_api_football)
-    end
-  end
 end
 
 def stubs_teams_api_football

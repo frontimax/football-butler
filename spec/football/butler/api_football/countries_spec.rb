@@ -28,9 +28,8 @@ RSpec.describe Football::Butler::Countries do
     it 'returns one country' do
       response = described_class.by_code(code: 'AL')
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response).to include(response_area_api_dash.stringify_keys)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_area_api_dash)
     end
   end
 
@@ -55,17 +54,15 @@ RSpec.describe Football::Butler::Countries do
     it 'returns one country by name' do
       response = described_class.by_name(name: 'Albania')
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response).to include(response_area_api_dash.stringify_keys)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_area_api_dash)
     end
 
     it 'returns no country when unknown name' do
       response = described_class.by_name(name: 'Absurdistan')
 
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response['response']).to be_a(Array)
-      expect(response.parsed_response['response']).to be_empty
+      expect(response).to be_a(Array)
+      expect(response).to be_empty
     end
   end
 
@@ -102,14 +99,13 @@ def stubs_countries_api_dash
 end
 
 def response_area_api_dash
-  {
-    "id": 2002,
-    "name": "Albania",
-    "countryCode": "ALB",
-    "ensignUrl": 'null',
-    "parentAreaId": 2077,
-    "parentArea": "Europe"
-  }
+  [
+    {
+      "name": "Albania",
+      "code": "AL",
+      "flag": "https://media.api-sports.io/flags/al.svg"
+    }.with_indifferent_access
+  ]
 end
 
 def response_areas_all_api_dash

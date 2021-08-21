@@ -15,19 +15,15 @@ RSpec.describe Football::Butler::Fixtures do
     it 'returns one fixture' do
       response = described_class.by_id(id: 587177)
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response['response']).to be_a(Array)
-      expect(response.parsed_response['response']).to match_array(response_fixture_api_football)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_fixture_api_football)
     end
 
     it 'returns one fixture' do
       response = Football::Butler::Events.by_id(id: 587177)
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response['response']).to be_a(Array)
-      expect(response.parsed_response['response']).to match_array(response_fixture_api_football)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_fixture_api_football)
     end
   end
 

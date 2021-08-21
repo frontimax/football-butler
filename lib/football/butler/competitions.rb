@@ -51,6 +51,19 @@ module Football
         def all_seasons(result: api_switch_result)
           api_switch_method(__method__, { result: result })
         end
+
+        def search_by_name(name:, result: api_switch_result, filters: {})
+          api_switch_method(__method__, { name: name, result: result, filters: filters })
+        end
+
+        def all_leagues(result: api_switch_result, filters: {})
+          api_switch_method(__method__, { result: result, filters: filters })
+        end
+
+        # /leagues?type=cup
+        def all_cups(result: api_switch_result, filters: {})
+          api_switch_method(__method__, { result: result, filters: filters })
+        end
       end
 
     end

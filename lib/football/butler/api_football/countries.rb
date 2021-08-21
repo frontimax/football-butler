@@ -10,15 +10,15 @@ module Football
         class << self
           ## COUNTRY
           # /countries?name={name}
-          def by_name(name:)
-            filters = { name: name }
-            Api.get(path: PATH, filters: filters)
+          def by_name(name:, result:, filters:)
+            filters.merge!({ name: name })
+            Api.get(path: PATH, result: result, filters: filters)
           end
 
           # /countries?code={code}
-          def by_code(code:)
-            filters = { code: code }
-            Api.get(path: PATH, filters: filters)
+          def by_code(code:, result:, filters:)
+            filters.merge!({ code: code })
+            Api.get(path: PATH, result: result, filters: filters)
           end
 
           ## COUNTRIES
@@ -27,6 +27,11 @@ module Football
             Api.get(path: PATH, result: result)
           end
 
+          # /countries?search={name}
+          def search_by_name(name:, result:, filters:)
+            filters.merge!({ search: name })
+            Api.get(path: PATH, result: result, filters: filters)
+          end
         end
       end
     end

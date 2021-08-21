@@ -28,17 +28,15 @@ RSpec.describe Football::Butler::Leagues do
     it 'returns league' do
       response = described_class.by_id(id: 78)
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response).to include(response_league_by_id_api_dash.stringify_keys)
+      expect(response).to be_a(Array)
+      expect(response).to include(response_league_by_id_api_dash.stringify_keys)
     end
 
     it 'returns league' do
       response = Football::Butler::Competitions.by_id(id: 78)
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Hash)
-      expect(response.parsed_response).to include(response_league_by_id_api_dash.stringify_keys)
+      expect(response).to be_a(Array)
+      expect(response).to include(response_league_by_id_api_dash.stringify_keys)
     end
   end
 
