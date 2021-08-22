@@ -374,6 +374,24 @@ Examples:
     Football::Butler::Areas.by_code(code: 'DE')
     Football::Butler::Areas.search_by_name(name: 'Ger')
 
+### Coachs (added in version 2.1.0)
+
+Football::Butler::Coachs
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_id | id: Integer<br>season: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| search_by_name | name: String | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_team | team: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Coachs.by_id(id: 1540)
+    Football::Butler::Coachs.search_by_name(name: 'Rose')
+    Football::Butler::Coachs.by_team(team: 165)
+
 ### Competitions
 
 Football::Butler::Competitions
@@ -440,6 +458,24 @@ Examples:
 
     Football::Butler::HeadToHead.by_match(id: 2002)
     Football::Butler::HeadToHead.by_teams(team_id: 7275, second_team_id: 151)
+
+### Injuries (added in version 2.1.0)
+
+Football::Butler::Injuries
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_competition_and_season | competition: Integer<br>season: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_team_and_season | team: Integer<br>season: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_match | match: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Injuries.by_competition_and_season(competition: 78, season: 2021)
+    Football::Butler::Injuries.by_team_and_season(team: 78, season: 2021)
+    Football::Butler::Injuries.by_match(match: 719364)
 
 ### Lineups (added in version 2.0.0)
 
@@ -523,8 +559,6 @@ Examples:
 
 Football::Butler::Predictions
 
-**Note: only apifootball_com**
-
 *Return Values if the result option is not set explicitly!*
 
 | Method | Params required | Params optional | football-data | apifootball | api-football |
@@ -540,7 +574,7 @@ Examples:
 
 Football::Butler::Scorers
 
-*alias (apifootball_com):* Football::Butler::TopScorers
+*alias:* Football::Butler::TopScorers
 
 *Return Values if the result option is not set explicitly!*
 
@@ -553,6 +587,23 @@ Examples:
 
     Football::Butler::Scorers.by_competition(id: 2002)
     Football::Butler::Scorers.by_competition_and_year(id: 2002, year: 2002)
+
+### Sidelineds (added in version 2.1.0)
+
+Football::Butler::Sidelineds
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_player | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_coach | coach: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Sidelineds.by_player(player 1540)
+    Football::Butler::Sidelineds.by_coach(coach: 154)
+
 
 ### Standings (added in version 1.1.0)
 
@@ -576,7 +627,6 @@ Football::Butler::Standings
 
 Football::Butler::Statistics
 
-**Note: only apifootball_com**
 
 *Return Values if the result option is not set explicitly!*
 
@@ -610,12 +660,82 @@ Examples:
     Football::Butler::Teams.by_name(name: 'Wolves')
     Football::Butler::Teams.by_country_name(name: 'Germany')
 
+### Timezones (added in version 2.1.0)
+
+Football::Butler::Timezones
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| all | - | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Timezones.all
+
+
 ### TopScorers
 
 Football::Butler::TopScorers
 
 **NOTE: alias of/see Football::Butler::Scorers**
 
+
+### Transfers (added in version 2.1.0)
+
+Football::Butler::Transfers
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_player | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_team | team: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Transfers.by_player(player 1540)
+    Football::Butler::Transfers.by_team(team: 154)
+
+### Trophies (added in version 2.1.0)
+
+Football::Butler::Trophies
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_player | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_coach | coach: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Trophies.by_player(player 1540)
+    Football::Butler::Trophies.by_coach(coach: 154)
+
+
+### Venues (added in version 2.1.0)
+
+Football::Butler::Venues
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_city | city: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+| by_name | name: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+| by_country | country: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+| by_id | id: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+| search | search: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+
+Examples:
+
+    Football::Butler::Venues.by_city(city: 'Hamburg')
+    Football::Butler::Venues.by_name(name: 'Millerntor')
+    Football::Butler::Venues.by_country(country: 'Germany')
+    Football::Butler::Venues.by_id(id: 745)
+    Football::Butler::Venues.search(search: 'Millern')
 
 ## Contributing
 

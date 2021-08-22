@@ -22,6 +22,13 @@ require 'football/butler/head_to_head'
 require 'football/butler/predictions'
 require 'football/butler/leagues'
 require 'football/butler/fixtures'
+require 'football/butler/timezones'
+require 'football/butler/venues'
+require 'football/butler/injuries'
+require 'football/butler/coachs'
+require 'football/butler/transfers'
+require 'football/butler/trophies'
+require 'football/butler/sidelineds'
 
 module Football
   module Butler
