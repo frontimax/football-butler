@@ -85,6 +85,33 @@ RSpec.describe Football::Butler::Leagues do
       expect(response).to match(response_league_api_dash)
     end
   end
+
+  describe 'when search_by_name' do
+    it 'returns leagues' do
+      response = described_class.search_by_name(name: 'Bundes')
+
+      expect(response).to be_a(Array)
+      expect(response).to match(response_league_api_dash)
+    end
+  end
+
+  describe 'when all_leagues' do
+    it 'returns leagues' do
+      response = described_class.all_leagues
+
+      expect(response).to be_a(Array)
+      expect(response).to match(response_league_api_dash)
+    end
+  end
+
+  describe 'when all_cups' do
+    it 'returns leagues' do
+      response = described_class.all_cups
+
+      expect(response).to be_a(Array)
+      expect(response).to match(response_league_api_dash)
+    end
+  end
 end
 
 def stubs_leagues_api_dash
@@ -98,6 +125,15 @@ def stubs_leagues_api_dash
     .to_return(status: 200, body: get_mocked_response('league_seasons.json', :api_football))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/leagues")
+    .to_return(status: 200, body: get_mocked_response('leagues.json', :api_football))
+
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/leagues?type=league")
+    .to_return(status: 200, body: get_mocked_response('leagues.json', :api_football))
+
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/leagues?type=cup")
+    .to_return(status: 200, body: get_mocked_response('leagues.json', :api_football))
+
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/leagues?search=Bundes")
     .to_return(status: 200, body: get_mocked_response('leagues.json', :api_football))
 end
 

@@ -1,0 +1,82 @@
+{
+  "get": "fixtures/headtohead",
+  "parameters": {
+    "h2h": "20-21"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "fixture": {
+        "id": 135797,
+        "referee": "Antonio Mateu, Spain",
+        "timezone": "UTC",
+        "date": "2018-06-21T12:00:00+00:00",
+        "timestamp": 1529582400,
+        "periods": {
+          "first": 1529582400,
+          "second": 1529586000
+        },
+        "venue": {
+          "id": "",
+          "name": "Samara Arena",
+          "city": "Samara"
+        },
+        "status": {
+          "long": "Match Finished",
+          "short": "FT",
+          "elapsed": 90
+        }
+      },
+      "league": {
+        "id": 1,
+        "name": "World Cup",
+        "country": "World",
+        "logo": "https://media.api-sports.io/football/leagues/1.png",
+        "flag": "",
+        "season": 2018,
+        "round": "Group Stage - 2"
+      },
+      "teams": {
+        "home": {
+          "id": 21,
+          "name": "Denmark",
+          "logo": "https://media.api-sports.io/football/teams/21.png",
+          "winner": ""
+        },
+        "away": {
+          "id": 20,
+          "name": "Australia",
+          "logo": "https://media.api-sports.io/football/teams/20.png",
+          "winner": ""
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 1
+      },
+      "score": {
+        "halftime": {
+          "home": 1,
+          "away": 1
+        },
+        "fulltime": {
+          "home": 1,
+          "away": 1
+        },
+        "extratime": {
+          "home": "",
+          "away": ""
+        },
+        "penalty": {
+          "home": "",
+          "away": ""
+        }
+      }
+    }
+  ]
+}

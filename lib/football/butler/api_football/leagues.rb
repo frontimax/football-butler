@@ -77,9 +77,9 @@ module Football
           end
 
           # /leagues?search={name}
-          def search_by_name(name:, filters:)
+          def search_by_name(name:, filters:, result:)
             filters.merge!({ search: name })
-            Api.get(path: PATH, filters: filters)
+            Api.get(path: PATH, filters: filters, result: result)
           end
 
           # /leagues?type=league
