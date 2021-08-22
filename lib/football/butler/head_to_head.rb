@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'football/butler/football_data/head_to_head'
 require 'football/butler/apifootball/head_to_head'
+require 'football/butler/api_football/head_to_head'
 
 module Football
   module Butler

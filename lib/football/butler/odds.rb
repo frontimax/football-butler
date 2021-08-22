@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'football/butler/football_data/odds'
 require 'football/butler/apifootball/odds'
+require 'football/butler/api_football/odds'
 
 module Football
   module Butler

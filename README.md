@@ -434,7 +434,7 @@ Football::Butler::HeadToHead
 | Method | Params required | Params optional | football-data | apifootball | api-football |
 | ---------------|----------------|----------------|----------------|----------------|----------------|
 | by_match | id: Integer | - | Hash | <span style="color: red;">N/A</span> |  <span style="color: red;">N/A</span> | 
-| by_teams | team_id: Integer<br>second_team_id| result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |  <span style="color: red;">N/A</span> | 
+| by_teams | team_id: Integer<br>second_team_id| result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |  Array | 
 
 Examples:
 
@@ -449,7 +449,7 @@ Football::Butler::Lineups
 
 | Method | Params required | Params optional | football-data | apifootball | api-football |
 | ---------------|----------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer | - | Hash | Hash | <span style="color: red;">N/A</span>
+| by_match | id: Integer | - | Hash | Hash | Array
 
 Examples:
 
@@ -495,7 +495,7 @@ Football::Butler::Odds
 
 | Method | Params required | Params optional | football-data | apifootball | api-football |
 | ---------------|----------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer<br>from: Date as String ('2021-05-17')<br>to: Date as String ('2021-05-17')<br><span style="color: red;">(from and to only used (required) in apifootbal.com)</span> | - | Hash | Hash |<span style="color: red;">N/A</span>
+| by_match | id: Integer<br>from: Date as String ('2021-05-17')<br>to: Date as String ('2021-05-17')<br><span style="color: red;">(from and to only used (required) in apifootbal.com)</span> | - | Hash | Hash |Array
 
 Examples:
 
@@ -511,12 +511,13 @@ Football::Butler::Players
 | ---------------|----------------|----------------|----------------|----------------|----------------|
 | by_id | id: Integer | - | Hash | Hash |<span style="color: red;">N/A</span>
 | by_name | name: String | result (Symbol) | <span style="color: red;">N/A</span> | Hash |<span style="color: red;">N/A</span>
+| by_id_and_season | id: Integer<br>season: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> |Array
 
 Examples:
 
     Football::Butler::Players.by_id(id: 2002)
-
     Football::Butler::Players.by_name(name: 'Ronaldo')
+    Football::Butler::Players.by_id_and_season(id: 7190, season: 2020)
 
 ### Predictions (added in version 2.0.0)
 
@@ -528,7 +529,7 @@ Football::Butler::Predictions
 
 | Method | Params required | Params optional | football-data | apifootball | api-football |
 | ---------------|----------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |<span style="color: red;">N/A</span>
+| by_match | id: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |Array
 
 Examples:
 
@@ -581,7 +582,7 @@ Football::Butler::Statistics
 
 | Method | Params required | Params optional | football-data | apifootball | api-football |
 | ---------------|----------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | Hash |<span style="color: red;">N/A</span>
+| by_match | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | Hash |Array
 
 Examples:
 
