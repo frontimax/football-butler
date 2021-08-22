@@ -67,6 +67,22 @@ RSpec.describe Football::Butler::Areas do
     end
   end
 
+  describe 'when search_by_name' do
+    it 'returns one countries by search' do
+      response = described_class.search_by_name(name: 'Alb')
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_area_api_dash)
+    end
+
+    it 'returns no country when unknown name' do
+      response = described_class.by_name(name: 'Absurdistan')
+
+      expect(response).to be_a(Array)
+      expect(response).to be_empty
+    end
+  end
+
   describe 'without api token' do
     before do
       Football::Butler::Configuration.reconfigure(api_token: nil)
@@ -90,6 +106,9 @@ def stubs_countries_api_dash
     .to_return(status: 200, body: get_mocked_response('leagues_missing_name.json', :api_football))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/countries?name=Albania")
+    .to_return(status: 200, body: get_mocked_response('country.json', :api_football))
+
+  stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/countries?search=Alb")
     .to_return(status: 200, body: get_mocked_response('country.json', :api_football))
 
   stub_request(:get, "#{Football::Butler::Configuration.api_endpoint}/countries?code=AL")

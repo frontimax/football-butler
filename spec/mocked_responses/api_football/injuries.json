@@ -1,0 +1,126 @@
+{
+  "get": "injuries",
+  "parameters": {
+    "fixture": "719364"
+  },
+  "errors": [],
+  "results": 4,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "player": {
+        "id": 25333,
+        "name": "R. Jarstein",
+        "photo": "https://media.api-sports.io/football/players/25333.png",
+        "type": "Missing Fixture",
+        "reason": "Heart Problems"
+      },
+      "team": {
+        "id": 159,
+        "name": "Hertha Berlin",
+        "logo": "https://media.api-sports.io/football/teams/159.png"
+      },
+      "fixture": {
+        "id": 719364,
+        "timezone": "UTC",
+        "date": "2021-08-21T13:30:00+00:00",
+        "timestamp": 1629552600
+      },
+      "league": {
+        "id": 78,
+        "season": 2021,
+        "name": "Bundesliga 1",
+        "country": "Germany",
+        "logo": "https://media.api-sports.io/football/leagues/78.png",
+        "flag": "https://media.api-sports.io/flags/de.svg"
+      }
+    },
+    {
+      "player": {
+        "id": 1651,
+        "name": "K. Piatek",
+        "photo": "https://media.api-sports.io/football/players/1651.png",
+        "type": "Missing Fixture",
+        "reason": "Ankle Injury"
+      },
+      "team": {
+        "id": 159,
+        "name": "Hertha Berlin",
+        "logo": "https://media.api-sports.io/football/teams/159.png"
+      },
+      "fixture": {
+        "id": 719364,
+        "timezone": "UTC",
+        "date": "2021-08-21T13:30:00+00:00",
+        "timestamp": 1629552600
+      },
+      "league": {
+        "id": 78,
+        "season": 2021,
+        "name": "Bundesliga 1",
+        "country": "Germany",
+        "logo": "https://media.api-sports.io/football/leagues/78.png",
+        "flag": "https://media.api-sports.io/flags/de.svg"
+      }
+    },
+    {
+      "player": {
+        "id": 148284,
+        "name": "B. Bialek",
+        "photo": "https://media.api-sports.io/football/players/148284.png",
+        "type": "Missing Fixture",
+        "reason": "Knee Injury"
+      },
+      "team": {
+        "id": 161,
+        "name": "VfL Wolfsburg",
+        "logo": "https://media.api-sports.io/football/teams/161.png"
+      },
+      "fixture": {
+        "id": 719364,
+        "timezone": "UTC",
+        "date": "2021-08-21T13:30:00+00:00",
+        "timestamp": 1629552600
+      },
+      "league": {
+        "id": 78,
+        "season": 2021,
+        "name": "Bundesliga 1",
+        "country": "Germany",
+        "logo": "https://media.api-sports.io/football/leagues/78.png",
+        "flag": "https://media.api-sports.io/flags/de.svg"
+      }
+    },
+    {
+      "player": {
+        "id": 25208,
+        "name": "P. Otavio",
+        "photo": "https://media.api-sports.io/football/players/25208.png",
+        "type": "Missing Fixture",
+        "reason": "Ankle Injury"
+      },
+      "team": {
+        "id": 161,
+        "name": "VfL Wolfsburg",
+        "logo": "https://media.api-sports.io/football/teams/161.png"
+      },
+      "fixture": {
+        "id": 719364,
+        "timezone": "UTC",
+        "date": "2021-08-21T13:30:00+00:00",
+        "timestamp": 1629552600
+      },
+      "league": {
+        "id": 78,
+        "season": 2021,
+        "name": "Bundesliga 1",
+        "country": "Germany",
+        "logo": "https://media.api-sports.io/football/leagues/78.png",
+        "flag": "https://media.api-sports.io/flags/de.svg"
+      }
+    }
+  ]
+}

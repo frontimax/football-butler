@@ -1,0 +1,332 @@
+{
+  "get": "players",
+  "parameters": {
+    "id": "7190",
+    "season": "2020"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "player": {
+        "id": 7190,
+        "name": "Alan Lima Cariús",
+        "firstname": "Alan",
+        "lastname": "Lima Cariús",
+        "age": 24,
+        "birth": {
+          "date": "1997-04-04",
+          "place": "Petrópolis",
+          "country": "Brazil"
+        },
+        "nationality": "Brazil",
+        "height": "175 cm",
+        "weight": "74 kg",
+        "injured": false,
+        "photo": "https://media.api-sports.io/football/players/7190.png"
+      },
+      "statistics": [
+        {
+          "team": {
+            "id": 3609,
+            "name": "Tuzlaspor",
+            "logo": "https://media.api-sports.io/football/teams/3609.png"
+          },
+          "league": {
+            "id": 204,
+            "name": "TFF 1. Lig",
+            "country": "Turkey",
+            "logo": "https://media.api-sports.io/football/leagues/204.png",
+            "flag": "https://media.api-sports.io/flags/tr.svg",
+            "season": 2020
+          },
+          "games": {
+            "appearences": 6,
+            "lineups": 3,
+            "minutes": 228,
+            "number": "",
+            "position": "Midfielder",
+            "rating": "7.280000",
+            "captain": false
+          },
+          "substitutes": {
+            "in": 3,
+            "out": 3,
+            "bench": 3
+          },
+          "shots": {
+            "total": 5,
+            "on": 3
+          },
+          "goals": {
+            "total": 2,
+            "conceded": 0,
+            "assists": "",
+            "saves": ""
+          },
+          "passes": {
+            "total": 91,
+            "key": 7,
+            "accuracy": 13
+          },
+          "tackles": {
+            "total": 10,
+            "blocks": "",
+            "interceptions": 1
+          },
+          "duels": {
+            "total": 34,
+            "won": 18
+          },
+          "dribbles": {
+            "attempts": 2,
+            "success": 2,
+            "past": ""
+          },
+          "fouls": {
+            "drawn": 4,
+            "committed": 7
+          },
+          "cards": {
+            "yellow": 0,
+            "yellowred": 0,
+            "red": 0
+          },
+          "penalty": {
+            "won": "",
+            "commited": "",
+            "scored": 0,
+            "missed": 0,
+            "saved": ""
+          }
+        },
+        {
+          "team": {
+            "id": 1004,
+            "name": "Kasimpasa",
+            "logo": "https://media.api-sports.io/football/teams/1004.png"
+          },
+          "league": {
+            "id": 203,
+            "name": "Super Lig",
+            "country": "Turkey",
+            "logo": "https://media.api-sports.io/football/leagues/203.png",
+            "flag": "https://media.api-sports.io/flags/tr.svg",
+            "season": 2020
+          },
+          "games": {
+            "appearences": 15,
+            "lineups": 8,
+            "minutes": 688,
+            "number": "",
+            "position": "Midfielder",
+            "rating": "6.514285",
+            "captain": false
+          },
+          "substitutes": {
+            "in": 7,
+            "out": 4,
+            "bench": 9
+          },
+          "shots": {
+            "total": 11,
+            "on": 5
+          },
+          "goals": {
+            "total": 1,
+            "conceded": 0,
+            "assists": 1,
+            "saves": ""
+          },
+          "passes": {
+            "total": 184,
+            "key": 13,
+            "accuracy": 8
+          },
+          "tackles": {
+            "total": 9,
+            "blocks": "",
+            "interceptions": 3
+          },
+          "duels": {
+            "total": 84,
+            "won": 23
+          },
+          "dribbles": {
+            "attempts": 7,
+            "success": 3,
+            "past": ""
+          },
+          "fouls": {
+            "drawn": 8,
+            "committed": 19
+          },
+          "cards": {
+            "yellow": 1,
+            "yellowred": 0,
+            "red": 0
+          },
+          "penalty": {
+            "won": "",
+            "commited": "",
+            "scored": 0,
+            "missed": 0,
+            "saved": ""
+          }
+        },
+        {
+          "team": {
+            "id": 1004,
+            "name": "Kasimpasa",
+            "logo": "https://media.api-sports.io/football/teams/1004.png"
+          },
+          "league": {
+            "id": 206,
+            "name": "Cup",
+            "country": "Turkey",
+            "logo": "https://media.api-sports.io/football/leagues/206.png",
+            "flag": "https://media.api-sports.io/flags/tr.svg",
+            "season": 2020
+          },
+          "games": {
+            "appearences": 3,
+            "lineups": 2,
+            "minutes": 170,
+            "number": "",
+            "position": "Midfielder",
+            "rating": "",
+            "captain": false
+          },
+          "substitutes": {
+            "in": 1,
+            "out": 2,
+            "bench": 1
+          },
+          "shots": {
+            "total": "",
+            "on": ""
+          },
+          "goals": {
+            "total": 2,
+            "conceded": "",
+            "assists": "",
+            "saves": ""
+          },
+          "passes": {
+            "total": "",
+            "key": "",
+            "accuracy": ""
+          },
+          "tackles": {
+            "total": "",
+            "blocks": "",
+            "interceptions": ""
+          },
+          "duels": {
+            "total": "",
+            "won": ""
+          },
+          "dribbles": {
+            "attempts": "",
+            "success": "",
+            "past": ""
+          },
+          "fouls": {
+            "drawn": "",
+            "committed": ""
+          },
+          "cards": {
+            "yellow": 0,
+            "yellowred": 0,
+            "red": 0
+          },
+          "penalty": {
+            "won": "",
+            "commited": "",
+            "scored": "",
+            "missed": "",
+            "saved": ""
+          }
+        },
+        {
+          "team": {
+            "id": 1027,
+            "name": "SKN ST. Polten",
+            "logo": "https://media.api-sports.io/football/teams/1027.png"
+          },
+          "league": {
+            "id": 220,
+            "name": "Cup",
+            "country": "Austria",
+            "logo": "https://media.api-sports.io/football/leagues/220.png",
+            "flag": "https://media.api-sports.io/flags/at.svg",
+            "season": 2020
+          },
+          "games": {
+            "appearences": 1,
+            "lineups": 0,
+            "minutes": 23,
+            "number": "",
+            "position": "Midfielder",
+            "rating": "",
+            "captain": false
+          },
+          "substitutes": {
+            "in": 1,
+            "out": 0,
+            "bench": 1
+          },
+          "shots": {
+            "total": "",
+            "on": ""
+          },
+          "goals": {
+            "total": 0,
+            "conceded": "",
+            "assists": "",
+            "saves": ""
+          },
+          "passes": {
+            "total": "",
+            "key": "",
+            "accuracy": ""
+          },
+          "tackles": {
+            "total": "",
+            "blocks": "",
+            "interceptions": ""
+          },
+          "duels": {
+            "total": "",
+            "won": ""
+          },
+          "dribbles": {
+            "attempts": "",
+            "success": "",
+            "past": ""
+          },
+          "fouls": {
+            "drawn": "",
+            "committed": ""
+          },
+          "cards": {
+            "yellow": 0,
+            "yellowred": 0,
+            "red": 0
+          },
+          "penalty": {
+            "won": "",
+            "commited": "",
+            "scored": "",
+            "missed": "",
+            "saved": ""
+          }
+        }
+      ]
+    }
+  ]
+}

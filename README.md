@@ -147,8 +147,8 @@ Also, you can add additional header keys and values:
 | api_endpoint|Depends on api_name|String|URL String|
 | header_token_name|Depends on api_name|String|e.g. X-Auth-Token|
 | header_additional|{}|Hash|You can add additional header data|
-| <span style="color: blue;">tier_plan</span><br>*ONLY: :football_data_org* |nil|String|TIER_ONE<br>TIER_TWO<br>TIER_THREE<br>TIER_FOUR|
-| <span style="color: blue;">wait_on_limit</span><br>*ONLY: :football_data_org* |false|Boolean|Uses 'sleep' to wait if request is limited
+| <span style="color: blue;">tier_plan</span> |nil|String|TIER_ONE<br>TIER_TWO<br>TIER_THREE<br>TIER_FOUR|
+| <span style="color: blue;">wait_on_limit</span> |false|Boolean|Uses 'sleep' to wait if request is limited
 The tier_plan is only used in Football::Butler::Competitions.all as a default filter.
 You can use "plan" filter manually on Competition calls.
 
@@ -332,23 +332,29 @@ Returns a full API response:
 | Class | football-data.org | apifootball.com | api-football.com |
 | ---------------|----------------|----------------|----------------|
 | Areas | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Countries* | <span style="color: blue;">YES</span><br>*alias from Countries* |
+| Coachs | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
 | Competitions | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Leagues* |
 | Countries | <span style="color: blue;">YES</span><br>*alias from Areas* | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
 | Events | <span style="color: blue;">YES</span><br>*alias from Matches* | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Fixtures* |
-| HeadToHead | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
 | Fixtures | <span style="color: blue;">YES</span><br>*alias from Matches* | <span style="color: blue;">YES</span><br>*alias from Events* | <span style="color: green;">YES</span> |
+| HeadToHead | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Injuries | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
 | Leagues | <span style="color: blue;">YES</span><br>*alias from Competitions* | <span style="color: blue;">YES</span><br>*alias from Competitions* | <span style="color: green;">YES</span> |
-| Lineups | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
+| Lineups | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
 | Matches | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Events* | <span style="color: blue;">YES</span><br>*alias from Fixtures* |
-| Odds | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
-| Players | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
-| Predictions | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
+| Odds | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Players | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Predictions | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
 | Scorers | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from TopScorers* | <span style="color: blue;">YES</span><br>*alias from TopScorers*|
+| Sidelineds | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
 | Standings | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Statistics | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> | <span style="color: red;">NO</span> |
+| Statistics | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
 | Teams | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Timezones | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
 | TopScorers | <span style="color: blue;">YES</span><br>*alias from Scorers* | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-
+| Transfers | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| Trophies | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| Venues | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
 
 ### Areas
 

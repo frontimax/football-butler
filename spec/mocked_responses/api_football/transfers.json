@@ -1,0 +1,103 @@
+{
+  "get": "transfers",
+  "parameters": {
+    "player": "1540"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "player": {
+        "id": 1540,
+        "name": "Araz Abdullayev"
+      },
+      "update": "2021-08-22T08:38:22+00:00",
+      "transfers": [
+        {
+          "date": "2020-09-14",
+          "type": "Free",
+          "teams": {
+            "in": {
+              "id": 3569,
+              "name": "Boluspor",
+              "logo": "https://media.api-sports.io/football/teams/3569.png"
+            },
+            "out": {
+              "id": 556,
+              "name": "Qarabag",
+              "logo": "https://media.api-sports.io/football/teams/556.png"
+            }
+          }
+        },
+        {
+          "date": "2018-07-01",
+          "type": "N/A",
+          "teams": {
+            "in": {
+              "id": 556,
+              "name": "Qarabag",
+              "logo": "https://media.api-sports.io/football/teams/556.png"
+            },
+            "out": {
+              "id": 627,
+              "name": "Qabala",
+              "logo": "https://media.api-sports.io/football/teams/627.png"
+            }
+          }
+        },
+        {
+          "date": "2017-08-14",
+          "type": "Loan",
+          "teams": {
+            "in": {
+              "id": 2269,
+              "name": "Anorthosis",
+              "logo": "https://media.api-sports.io/football/teams/2269.png"
+            },
+            "out": {
+              "id": 627,
+              "name": "Qabala",
+              "logo": "https://media.api-sports.io/football/teams/627.png"
+            }
+          }
+        },
+        {
+          "date": "2017-01-01",
+          "type": "N/A",
+          "teams": {
+            "in": {
+              "id": 627,
+              "name": "Qabala",
+              "logo": "https://media.api-sports.io/football/teams/627.png"
+            },
+            "out": {
+              "id": 2270,
+              "name": "Neftchi Baku",
+              "logo": "https://media.api-sports.io/football/teams/2270.png"
+            }
+          }
+        },
+        {
+          "date": "2012-07-01",
+          "type": "N/A",
+          "teams": {
+            "in": {
+              "id": 2270,
+              "name": "Neftchi Baku",
+              "logo": "https://media.api-sports.io/football/teams/2270.png"
+            },
+            "out": {
+              "id": 622,
+              "name": "Panionios",
+              "logo": "https://media.api-sports.io/football/teams/622.png"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

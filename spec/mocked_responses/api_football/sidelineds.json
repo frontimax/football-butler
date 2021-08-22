@@ -1,0 +1,13 @@
+{
+  "get": "sidelined",
+  "parameters": {
+    "player": "7190"
+  },
+  "errors": [],
+  "results": 0,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": []
+}

@@ -15,7 +15,7 @@ RSpec.describe Football::Butler::Predictions do
     Football::Butler::Configuration.reconfigure(api_token: 'my_dummy_token')
   end
 
-  describe 'when by_id' do
+  describe 'when by_match' do
     it 'returns one prediction' do
       response = described_class.by_match(id: 86392)
 

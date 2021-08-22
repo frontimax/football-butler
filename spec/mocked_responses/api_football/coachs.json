@@ -1,0 +1,82 @@
+{
+  "get": "coachs",
+  "parameters": {
+    "id": "1540"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "id": 1540,
+      "name": "M. Rose",
+      "firstname": "Marco",
+      "lastname": "Rose",
+      "age": 45,
+      "birth": {
+        "date": "1976-09-11",
+        "place": "Leipzig",
+        "country": "Germany"
+      },
+      "nationality": "Germany",
+      "height": "187 cm",
+      "weight": "83 kg",
+      "photo": "https://media.api-sports.io/football/coachs/1540.png",
+      "team": {
+        "id": 165,
+        "name": "Borussia Dortmund",
+        "logo": "https://media.api-sports.io/football/teams/165.png"
+      },
+      "career": [
+        {
+          "team": {
+            "id": 165,
+            "name": "Borussia Dortmund",
+            "logo": "https://media.api-sports.io/football/teams/165.png"
+          },
+          "start": "2021-07-01",
+          "end": ""
+        },
+        {
+          "team": {
+            "id": 163,
+            "name": "Borussia M'gladbach",
+            "logo": "https://media.api-sports.io/football/teams/163.png"
+          },
+          "start": "2019-07-01",
+          "end": "2021-06-01"
+        },
+        {
+          "team": {
+            "id": 571,
+            "name": "Salzburg",
+            "logo": "https://media.api-sports.io/football/teams/571.png"
+          },
+          "start": "2017-06-01",
+          "end": "2019-06-01"
+        },
+        {
+          "team": {
+            "id": 7928,
+            "name": "Salzburg U19",
+            "logo": "https://media.api-sports.io/football/teams/7928.png"
+          },
+          "start": "2016-07-01",
+          "end": "2017-06-01"
+        },
+        {
+          "team": {
+            "id": 9355,
+            "name": "Lokomotive Leipzig",
+            "logo": "https://media.api-sports.io/football/teams/9355.png"
+          },
+          "start": "2012-07-01",
+          "end": "2013-06-01"
+        }
+      ]
+    }
+  ]
+}

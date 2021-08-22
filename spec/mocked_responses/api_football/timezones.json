@@ -1,0 +1,17 @@
+{
+  "get": "timezone",
+  "parameters": [],
+  "errors": [],
+  "results": 425,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    "Africa/Abidjan",
+    "Africa/Accra",
+    "Africa/Addis_Ababa",
+    "Africa/Algiers",
+    "Africa/Asmara"
+  ]
+}
