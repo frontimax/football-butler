@@ -14,9 +14,9 @@ module Football
           # to	  Stop date (yyyy-mm-dd)
           #
           # action=get_odds&match_id={id}&from={from}&to={to}
-          def by_match(id:, from:, to:)
+          def by_match(id:, from:, to:, result:)
             filters = { match_id: id, from: from, to: to }
-            Api.get(path: build_path(PATH), filters: filters, result: :parsed_response)
+            Api.get(path: build_path(PATH), filters: filters, result: result)
           end
         end
       end

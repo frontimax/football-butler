@@ -44,9 +44,9 @@ module Football
           # The id of the bet
           #
           # odds&match_id={id}&from={from}&to={to}
-          def by_match(id:, from:, to:)
+          def by_match(id:, from:, to:, result:)
             filters = { fixture: id }
-            Api.get(path: PATH, filters: filters, result: :response)
+            Api.get(path: PATH, filters: filters, result: result)
           end
         end
       end

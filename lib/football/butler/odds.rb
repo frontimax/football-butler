@@ -9,8 +9,8 @@ module Football
 
       class << self
         ## ODDS
-        def by_match(id:, from: nil, to: nil)
-          api_switch_method(__method__, { id: id, from: from, to: to })
+        def by_match(id:, from: nil, to: nil, result: api_switch_result)
+          api_switch_method(__method__, { id: id, from: from, to: to, result: result })
         end
       end
     end

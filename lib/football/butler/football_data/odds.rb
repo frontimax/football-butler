@@ -10,7 +10,7 @@ module Football
           ## ODDS
           #
           # v2/matches/{id}
-          def by_match(id:, from:, to:)
+          def by_match(id:, from:, to:, result:)
             path  = "#{PATH}/#{id}"
             match = Api.get(path: path, result: :match)
 
