@@ -107,7 +107,7 @@ To change the target API:
 
 #### Configure the Request Header
 
-<span style="color: blue;">**Note: Since Versiob 2.1.0 it is now possible to overwrite the default HEADER name (key) of the API Token. So, in case you need to adjust to a different name (e.g. for RAPID API with api-football.com, you can do so!*</span>
+<span style="color: blue;">**Note: Since Versiob 2.1.0 it is now possible to overwrite the default HEADER name (key) of the API Token. So, in case you need to adjust to a different name (e.g. for RAPID API with api-football.com) you can do so!*</span>
 
 Default Names:
 
@@ -326,6 +326,57 @@ Returns a full API response:
     => 200
 
 **Note: You can also use "Areas", as this is an alias Class from :football_data_org.**
+
+### result: option explained
+
+The default return type is defined by the way the target API works. You have the following options, if you want to adjust the behaviour of the returned object:
+
+*football_data_org*
+
+    case result
+    when :default
+      response
+    when :parsed_response
+      response.parsed_response
+    else
+      response&.keys&.include?(result.to_s) ? response[result.to_s] : nil
+    end
+
+*api_football_com*
+
+    case result
+    when :default
+      response
+    when :parsed_response
+      response.parsed_response
+    when :array_first
+      response&.keys&.include?('response') && response['response'].is_a?(Array) ?
+              response['response'].first : nil
+    else
+      response&.keys&.include?('response') ? response['response'] : nil
+    end
+
+*apifootball_com*
+
+    case result
+    when :default
+      response
+    when :array_first
+      response.parsed_response.is_a?(Array) ? response.parsed_response.first : nil
+    else
+      response.parsed_response
+    end
+
+*Default from api_switch in some endpoints*
+
+    case api_name
+    when :apifootball_com
+      :parsed_response
+    when :football_data_org
+      klass::PATH
+    when :api_football_com
+      :response
+    end
 
 ### Overview of all available Endpoint Classes
 

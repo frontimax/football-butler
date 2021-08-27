@@ -34,6 +34,15 @@ RSpec.describe Football::Butler::Areas do
     end
   end
 
+  describe 'when by_code' do
+    it 'returns one country as Hash' do
+      response = described_class.by_code(code: 'AL', result: :array_first)
+
+      expect(response).to be_a(Hash)
+      expect(response).to match_array(response_area_api_dash.first)
+    end
+  end
+
   describe 'when all' do
     it 'returns all countries' do
       response = described_class.all

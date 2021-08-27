@@ -32,6 +32,13 @@ RSpec.describe Football::Butler::Areas do
       expect(response).to match_array(response_areas_apifootball)
     end
 
+    it 'returns one area with result: :array_first' do
+      response = described_class.all(result: :array_first)
+
+      expect(response).to be_a(Hash)
+      expect(response).to match_array(response_areas_apifootball.first)
+    end
+
     it 'returns all areas with result param :default' do
       response = described_class.all(result: :default)
 

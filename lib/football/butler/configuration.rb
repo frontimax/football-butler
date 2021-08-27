@@ -203,6 +203,8 @@ module Football
           case result
           when :default
             response
+          when :array_first
+            response.parsed_response.is_a?(Array) ? response.parsed_response.first : nil
           else
             response.parsed_response
           end
@@ -225,6 +227,9 @@ module Football
             response
           when :parsed_response
             response.parsed_response
+          when :array_first
+            response&.keys&.include?('response') && response['response'].is_a?(Array) ?
+              response['response'].first : nil
           else
             response&.keys&.include?('response') ? response['response'] : nil
           end
