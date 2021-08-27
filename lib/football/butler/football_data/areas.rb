@@ -25,7 +25,7 @@ module Football
           # v2/areas
           # v2/areas/{id}
           # returns area object directly as a hash
-          def by_name(name:)
+          def by_name(name:, result:, filters:)
             areas = all(result: PATH)
             return areas if areas.is_a?(Hash) && areas.with_indifferent_access.dig('message')
             area  = areas&.detect { |area| area['name'] == name }

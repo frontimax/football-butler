@@ -1,0 +1,44 @@
+{
+  "get": "venues",
+  "parameters": {
+    "city": "Hamburg"
+  },
+  "errors": [],
+  "results": 14,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "id": 720,
+      "name": "Volksparkstadion",
+      "address": "Sylvester Allee 7",
+      "city": "Hamburg",
+      "country": "Germany",
+      "capacity": 57030,
+      "surface": "grass",
+      "image": "https://media.api-sports.io/football/venues/720.png"
+    },
+    {
+      "id": 745,
+      "name": "Millerntor-Stadion",
+      "address": "Auf dem Heiligengeistfeld",
+      "city": "Hamburg",
+      "country": "Germany",
+      "capacity": 29546,
+      "surface": "grass",
+      "image": "https://media.api-sports.io/football/venues/745.png"
+    },
+    {
+      "id": 6445,
+      "name": "Adolf-Jäger-Kampfbahn",
+      "address": "Griegstraße 62",
+      "city": "Hamburg",
+      "country": "Germany",
+      "capacity": 8000,
+      "surface": "grass",
+      "image": "https://media.api-sports.io/football/venues/6445.png"
+    }
+  ]
+}

@@ -15,7 +15,7 @@ module Football
             Api.get(path: path)
           end
 
-          ## COMPETITION
+          ## TEAMS
           #
           # season={YEAR}
           # stage={STAGE}

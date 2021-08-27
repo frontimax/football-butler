@@ -1,0 +1,83 @@
+{
+  "get": "fixtures",
+  "parameters": {
+    "season": "2020",
+    "league": "78"
+  },
+  "errors": [],
+  "results": 308,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "fixture": {
+        "id": 587176,
+        "referee": "F. Zwayer",
+        "timezone": "UTC",
+        "date": "2020-09-18T18:30:00+00:00",
+        "timestamp": 1600453800,
+        "periods": {
+          "first": 1600453800,
+          "second": 1600457400
+        },
+        "venue": {
+          "id": 700,
+          "name": "Allianz Arena",
+          "city": "München"
+        },
+        "status": {
+          "long": "Match Finished",
+          "short": "FT",
+          "elapsed": 90
+        }
+      },
+      "league": {
+        "id": 78,
+        "name": "Bundesliga 1",
+        "country": "Germany",
+        "logo": "https://media.api-sports.io/football/leagues/78.png",
+        "flag": "https://media.api-sports.io/flags/de.svg",
+        "season": 2020,
+        "round": "Regular Season - 1"
+      },
+      "teams": {
+        "home": {
+          "id": 157,
+          "name": "Bayern Munich",
+          "logo": "https://media.api-sports.io/football/teams/157.png",
+          "winner": true
+        },
+        "away": {
+          "id": 174,
+          "name": "FC Schalke 04",
+          "logo": "https://media.api-sports.io/football/teams/174.png",
+          "winner": false
+        }
+      },
+      "goals": {
+        "home": 8,
+        "away": 0
+      },
+      "score": {
+        "halftime": {
+          "home": 3,
+          "away": 0
+        },
+        "fulltime": {
+          "home": 8,
+          "away": 0
+        },
+        "extratime": {
+          "home": "",
+          "away": ""
+        },
+        "penalty": {
+          "home": "",
+          "away": ""
+        }
+      }
+    }
+  ]
+}

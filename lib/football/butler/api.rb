@@ -73,6 +73,8 @@ module Football
         end
 
         def http_party_get(url, headers, query)
+          Tier.count_request
+
           HTTParty.get "#{url}",
                        headers: headers,
                        query: query,

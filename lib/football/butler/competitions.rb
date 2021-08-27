@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'football/butler/apifootball/competitions'
 require 'football/butler/football_data/competitions'
+require 'football/butler/api_football/leagues'
 
 module Football
   module Butler
@@ -12,8 +13,12 @@ module Football
           api_switch_method(__method__, { id: id })
         end
 
-        def by_country(id:)
-          api_switch_method(__method__, { id: id })
+        def by_country(id:, result: api_switch_result)
+          api_switch_method(__method__, { id: id, result: result })
+        end
+
+        def by_country_name(name:, result: api_switch_result)
+          api_switch_method(__method__, { name: name, result: result })
         end
 
         ## COMPETITIONS
@@ -41,6 +46,23 @@ module Football
 
         def seasons(id:)
           api_switch_method(__method__, { id: id })
+        end
+
+        def all_seasons(result: api_switch_result)
+          api_switch_method(__method__, { result: result })
+        end
+
+        def search_by_name(name:, result: api_switch_result, filters: {})
+          api_switch_method(__method__, { name: name, result: result, filters: filters })
+        end
+
+        def all_leagues(result: api_switch_result, filters: {})
+          api_switch_method(__method__, { result: result, filters: filters })
+        end
+
+        # /leagues?type=cup
+        def all_cups(result: api_switch_result, filters: {})
+          api_switch_method(__method__, { result: result, filters: filters })
         end
       end
 

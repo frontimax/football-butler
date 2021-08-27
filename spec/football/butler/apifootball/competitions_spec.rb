@@ -19,9 +19,15 @@ RSpec.describe Football::Butler::Competitions do
     it 'returns competitions' do
       response = described_class.by_country(id: 41)
 
-      expect(response).to be_a(HTTParty::Response)
-      expect(response.parsed_response).to be_a(Array)
-      expect(response.parsed_response).to match_array(response_competition_apifootball)
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_competition_apifootball)
+    end
+
+    it 'returns competitions' do
+      response = Football::Butler::Leagues.by_country(id: 41)
+
+      expect(response).to be_a(Array)
+      expect(response).to match_array(response_competition_apifootball)
     end
   end
 

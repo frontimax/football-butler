@@ -13,6 +13,14 @@ RSpec.describe Football::Butler::Competitions do
       expect(response.parsed_response).to be_a(Hash)
       expect(response.parsed_response).to include(response_competition.stringify_keys)
     end
+
+    it 'returns one competition' do
+      response = Football::Butler::Leagues.by_id(id: 2002)
+
+      expect(response).to be_a(HTTParty::Response)
+      expect(response.parsed_response).to be_a(Hash)
+      expect(response.parsed_response).to include(response_competition.stringify_keys)
+    end
   end
 
   describe 'when all' do

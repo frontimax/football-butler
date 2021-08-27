@@ -7,12 +7,17 @@
 
 This gem enables API requests against multiple different football APIs, with direct requests or using normalized endpoint Class methods. Currently supported APis: 
 
-- football-data.org 
+- football-data.org ***[current default api]***
 - apifootball.com
+- api-football.com
 
-To use the API you need an API token, get it for free @ http://api.football-data.org/register or https://apifootball.com/register.
+To use the API you need an API token, get it for free @ 
 
-Depending on you Payment Plan you can access international Competitions, Teams, Matches, Scores, Players, Odds, and Standings.
+- http://api.football-data.org/register
+- https://apifootball.com/register
+- https://dashboard.api-football.com/register
+
+Depending on you Payment Plan / Subscription you can access international Competitions, Teams, Matches, Scores, Players, Odds, and Standings.
 
 Also see the following Links:
 
@@ -29,7 +34,7 @@ This Gem supports two ways of using the APIs:
 
 **Update May 2021 (v2.0.0):** Multiple APIs are now supported and all endpoints for football-data.org are now implemented. See below for more info on usage.
 
-**Update April 10th 2021:** The Tier packages have been adjusted - Standings are now part of TIER_ONE and also of the newest Gem Version 1.1.0
+**Update April 10th 2021:** The Tier packages of football-data.org have been adjusted - Standings are now part of TIER_ONE and also of the newest Gem Version 1.1.0
 
 
 ## Installation
@@ -84,21 +89,51 @@ Get all matches of current Bundesliga season:
 See the available api names:
 
     Football::Butler::Configuration::AVAILABLE_APIS
-    [:football_data_org, :apifootball_com]
+    [:football_data_org, :apifootball_com, :api_football_com]
 
 To set the target API:
 
     Football::Butler::Configuration.configure do |config|
-      config.api_name  = :apifootball_com
+      config.api_name  = :api_football_com
       config.api_token = "<YOUR_API_TOKEN_HERE>"
     end
 
 To change the target API:
 
     Football::Butler.Configure.reconfigure(
-      api_name:  :apifootball_com
+      api_name:  :api_football_com
       api_token: "<YOUR_API_TOKEN_HERE>"
     )
+
+#### Configure the Request Header
+
+<span style="color: blue;">**Note: Since Versiob 2.1.0 it is now possible to overwrite the default HEADER name (key) of the API Token. So, in case you need to adjust to a different name (e.g. for RAPID API with api-football.com) you can do so!*</span>
+
+Default Names:
+
+    case api_name
+    when :apifootball_com
+        # not used in header
+        nil                      
+    when :football_data_org
+        "X-Auth-Token"
+    when :api_football_com
+        "x-apisports-key"
+    end
+
+To change the name of the Api Token Key:
+
+    Football::Butler.Configure.reconfigure(
+      header_token_name:  'x-rapidapi-key'
+    )
+
+Also, you can add additional header keys and values:
+
+    Football::Butler.Configure.reconfigure(
+      header_token_name:  'x-rapidapi-key',
+      header_additional: { my_key: 'my_value" }
+    )
+
 
 ### The advanced way to go (more options)
 
@@ -107,12 +142,13 @@ To change the target API:
 | Name | Default Value | Data Type | Explanation |
 | ---------------|----------------|----------------|----------------|
 | api_token|nil|String|Your API Token (required to set by you)|
-| api_name|:football_data_org|String| must be one of: [:football_data_org, :apifootball_com] |
+| api_name|:football_data_org|String| must be one of: [:football_data_org, :apifootball_com, :api_football_com] |
 | api_version|2|Integer|API Version|
-| api_endpoint|"https://api.football-data.org/v#{api_version}"|String|API Endpoint|
-| <span style="color: blue;">tier_plan</span><br>*ONLY: :football_data_org* |nil|String|TIER_ONE<br>TIER_TWO<br>TIER_THREE<br>TIER_FOUR|
-| <span style="color: blue;">wait_on_limit</span><br>*ONLY: :football_data_org* |false|Boolean|Uses 'sleep' to wait if request is limited
-
+| api_endpoint|Depends on api_name|String|URL String|
+| header_token_name|Depends on api_name|String|e.g. X-Auth-Token|
+| header_additional|{}|Hash|You can add additional header data|
+| <span style="color: blue;">tier_plan</span> |nil|String|TIER_ONE<br>TIER_TWO<br>TIER_THREE<br>TIER_FOUR|
+| <span style="color: blue;">wait_on_limit</span> |false|Boolean|Uses 'sleep' to wait if request is limited
 The tier_plan is only used in Football::Butler::Competitions.all as a default filter.
 You can use "plan" filter manually on Competition calls.
 
@@ -206,6 +242,34 @@ If you performed a bad request, e.g. invalid api_token configured, you will get 
     response['message']
     => "No event found (please check your plan)!"
 
+#### api_football_com
+
+Example:
+
+    # Resources
+    # https://www.api-football.com/documentation-v3
+    path = 'fixtures'
+  
+    filters = { league: 78, season: 2021 }
+
+    response = Football::Butler.get(path: path, filters: filters)
+
+Will call
+
+    https://v3.football.api-sports.io/fixtures?season=2021&league=78
+
+and return all matches of 2021-05-16 of the english Premiere League for the given time range:
+    
+    response
+    => HTTParty::Response
+
+    response.parsed_response
+    => Hash with Meta Data and response key
+
+    response.parsed_response['response']
+    => [{"fixture"=>{"id"=>719349,"referee"=>"M. Fritz","timezone"=>"UTC","date"=>"2021-08-13T18:30:00+00:00","timestamp"=>1628879400, ....]
+
+
 ### Comfort Functions (Endpoint Classes)
 
 Instead of using the direct API calls you can use endpoint classes with semantic methods to get results. This list may be expanded in future versions.
@@ -263,64 +327,150 @@ Returns a full API response:
 
 **Note: You can also use "Areas", as this is an alias Class from :football_data_org.**
 
+### result: option explained
+
+The default return type is defined by the way the target API works. You have the following options, if you want to adjust the behaviour of the returned object:
+
+*football_data_org*
+
+    case result
+    when :default
+      response
+    when :parsed_response
+      response.parsed_response
+    else
+      response&.keys&.include?(result.to_s) ? response[result.to_s] : nil
+    end
+
+*api_football_com*
+
+    case result
+    when :default
+      response
+    when :parsed_response
+      response.parsed_response
+    when :array_first
+      response&.keys&.include?('response') && response['response'].is_a?(Array) ?
+              response['response'].first : nil
+    else
+      response&.keys&.include?('response') ? response['response'] : nil
+    end
+
+*apifootball_com*
+
+    case result
+    when :default
+      response
+    when :array_first
+      response.parsed_response.is_a?(Array) ? response.parsed_response.first : nil
+    else
+      response.parsed_response
+    end
+
+*Default from api_switch in some endpoints*
+
+    case api_name
+    when :apifootball_com
+      :parsed_response
+    when :football_data_org
+      klass::PATH
+    when :api_football_com
+      :response
+    end
+
 ### Overview of all available Endpoint Classes
 
-| Class | football-data.org | apifootball.com | 
-| ---------------|----------------|----------------|
-| Areas | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Countries* |
-| Competitions | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Countries | <span style="color: blue;">YES</span><br>*alias from Areas* | <span style="color: green;">YES</span> |
-| Events | <span style="color: blue;">YES</span><br>*alias from Matches* | <span style="color: green;">YES</span> |
-| HeadToHead | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Lineups | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Matches | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Events* |
-| Odds | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Players | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Predictions | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
-| Scorers | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from TopScorers* |
-| Standings | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| Statistics | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
-| Teams | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
-| TopScorers | <span style="color: blue;">YES</span><br>*alias from Scorers* | <span style="color: green;">YES</span> |
+| Class | football-data.org | apifootball.com | api-football.com |
+| ---------------|----------------|----------------|----------------|
+| Areas | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Countries* | <span style="color: blue;">YES</span><br>*alias from Countries* |
+| Coachs | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| Competitions | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Leagues* |
+| Countries | <span style="color: blue;">YES</span><br>*alias from Areas* | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Events | <span style="color: blue;">YES</span><br>*alias from Matches* | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Fixtures* |
+| Fixtures | <span style="color: blue;">YES</span><br>*alias from Matches* | <span style="color: blue;">YES</span><br>*alias from Events* | <span style="color: green;">YES</span> |
+| HeadToHead | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Injuries | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| Leagues | <span style="color: blue;">YES</span><br>*alias from Competitions* | <span style="color: blue;">YES</span><br>*alias from Competitions* | <span style="color: green;">YES</span> |
+| Lineups | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Matches | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from Events* | <span style="color: blue;">YES</span><br>*alias from Fixtures* |
+| Odds | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Players | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Predictions | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Scorers | <span style="color: green;">YES</span> | <span style="color: blue;">YES</span><br>*alias from TopScorers* | <span style="color: blue;">YES</span><br>*alias from TopScorers*|
+| Sidelineds | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| Standings | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Statistics | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Teams | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Timezones | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| TopScorers | <span style="color: blue;">YES</span><br>*alias from Scorers* | <span style="color: green;">YES</span> | <span style="color: green;">YES</span> |
+| Transfers | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| Trophies | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
+| Venues | <span style="color: red;">NO</span> | <span style="color: red;">NO</span> | <span style="color: green;">YES</span> |
 
 ### Areas
 
 Football::Butler::Areas
 
-*alias (apifootball_com):* Football::Butler::Countries
+*alias:* Football::Butler::Countries
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | 
-| all | - | result (Symbol) | Array | Array |
-| by_name | name: String | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> |
+| all | - | result (Symbol) | Array | Array | Array |
+| by_name | name: String | result (Symbol)<br>filters (Hash) | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | Array |
+| by_code | code: String | result (Symbol)<br>filters (Hash) | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | Array |
+| search_by_name | name: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
 
 Examples:
 
     Football::Butler::Areas.by_id(id: 2088)
-    Football::Butler::Areas.all
     Football::Butler::Areas.by_name(name: 'Germany')
+    Football::Butler::Areas.all
+    Football::Butler::Areas.by_code(code: 'DE')
+    Football::Butler::Areas.search_by_name(name: 'Ger')
 
-    Football::Butler::Countries.all
+### Coachs (added in version 2.1.0)
 
+Football::Butler::Coachs
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_id | id: Integer<br>season: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| search_by_name | name: String | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_team | team: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Coachs.by_id(id: 1540)
+    Football::Butler::Coachs.search_by_name(name: 'Rose')
+    Football::Butler::Coachs.by_team(team: 165)
 
 ### Competitions
 
 Football::Butler::Competitions
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*alias:* Football::Butler::Leagues
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | 
-| by_country | id: Integer | - | <span style="color: red;">N/A</span> | Array | 
-| all | - | result (Symbol)<br>filters (Hash) | Array | Array |
-| by_plan | plan: String | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span>|
-| by_areas | ids: Array | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span>|
-| current_match_day | id: Integer | - | Integer | <span style="color: red;">N/A</span>|
-| seasons | id: Integer | - | Array | <span style="color: red;">N/A</span>|
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_id | id: Integer | - | HTTParty::Response (Hash) | <span style="color: red;">N/A</span> | Array | 
+| by_country | id: Integer | - | <span style="color: red;">N/A</span> | Array | <span style="color: red;">N/A</span> |
+| by_country_name | name: String | - | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
+| all | - | result (Symbol)<br>filters (Hash) | Array | Array | Array | 
+| by_plan | plan: String | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span>| <span style="color: red;">N/A</span> | 
+| by_areas | ids: Array | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span>| <span style="color: red;">N/A</span> | 
+| current_match_day | id: Integer | - | Integer | <span style="color: red;">N/A</span>| <span style="color: red;">N/A</span> | 
+| seasons | id: Integer | - | Array | <span style="color: red;">N/A</span>| <span style="color: red;">N/A</span> | 
+| all_seasons | - | - | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>| Array | 
+| search_by_name | name: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
+| all_leagues | - | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
+| all_cups | - | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array |
 
 Examples:
 
@@ -330,8 +480,13 @@ Examples:
     Football::Butler::Competitions.by_areas(ids: [2088, 2081])
     Football::Butler::Competitions.current_match_day(id: 2002)
     Football::Butler::Competitions.seasons(id: 2002)
-
-    Football::Butler::Competitions.by_country(id: 44)
+    Football::Butler::Competitions.all_season
+    Football::Butler::Competitions.by_country(id: 49)
+    Football::Butler::Competitions.by_country_name(name: 'Germany')
+    Football::Butler::Competitions.search_by_name(name: 'Ger')
+    Football::Butler::Competitions.all_leagues
+    Football::Butler::Competitions.all_cups
+    
 
 ### Countries
 
@@ -343,34 +498,51 @@ Football::Butler::Countries
 
 Football::Butler::Events
 
-**NOTE: alias of/see Football::Butler::Matches**
+**NOTE: alias of/see Football::Butler::Matches / Football::Butler::Fixtures **
 
 ### HeadToHead (added in version 2.0.0)
 
 Football::Butler::HeadToHead
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer | - | Hash | <span style="color: red;">N/A</span> | 
-| by_teams | team_id: Integer<br>second_team_id| result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_match | id: Integer | - | Hash | <span style="color: red;">N/A</span> |  <span style="color: red;">N/A</span> | 
+| by_teams | team_id: Integer<br>second_team_id| result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |  Array | 
 
 Examples:
 
     Football::Butler::HeadToHead.by_match(id: 2002)
-
     Football::Butler::HeadToHead.by_teams(team_id: 7275, second_team_id: 151)
+
+### Injuries (added in version 2.1.0)
+
+Football::Butler::Injuries
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_competition_and_season | competition: Integer<br>season: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_team_and_season | team: Integer<br>season: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_match | match: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Injuries.by_competition_and_season(competition: 78, season: 2021)
+    Football::Butler::Injuries.by_team_and_season(team: 78, season: 2021)
+    Football::Butler::Injuries.by_match(match: 719364)
 
 ### Lineups (added in version 2.0.0)
 
 Football::Butler::Lineups
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer | - | Hash | Hash |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_match | id: Integer | - | Hash | Hash | Array
 
 Examples:
 
@@ -380,27 +552,27 @@ Examples:
 
 Football::Butler::Matches
 
-*alias (apifootball_com):* Football::Butler::Events
+*alias: * Football::Butler::Events, Football::Butler::Fixtures
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_id | id: Integer | - | HTTParty::Response (Hash) | Array | 
-| all | - | result (Symbol)<br>filters (Hash) | Array | Array |
-| by_competition_and_year | id: Integer<br>year: String | result (Symbol)<br>filters (Hash) | Array | Array |
-| by_competition_and_match_day | id: Integer<br>match_day: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |
-| by_team | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array |
-| by_team_and_status | id: Integer<br>status: String | result (Symbol)<br>filters (Hash) | | <span style="color: red;">N/A</span> |
-| by_team_finished | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |
-| by_team_scheduled | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span>  |
-| by_player | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_id | id: Integer | - | HTTParty::Response (Hash) | Array | Array
+| all | - | result (Symbol)<br>filters (Hash) | Array | Array |<span style="color: red;">N/A</span>
+| by_competition_and_year | id: Integer<br>year: Integer | result (Symbol)<br>filters (Hash) | Array | Array | Array
+| by_competition_and_match_day | id: Integer<br>match_day: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>
+| by_team | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array | <span style="color: red;">N/A</span>
+| by_team_and_status | id: Integer<br>status: String | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>
+| by_team_finished | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>
+| by_team_scheduled | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span>  | <span style="color: red;">N/A</span>
+| by_player | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |<span style="color: red;">N/A</span>
 
 Examples:
 
     Football::Butler::Matches.by_id(id: 297886)
     Football::Butler::Matches.all
-    Football::Butler::Matches.by_competition_and_year(id: 2002, year: '2019')
+    Football::Butler::Matches.by_competition_and_year(id: 2002, year: 2019)
     Football::Butler::Matches.by_competition_and_match_day(id: 297886, match_day: 1)
     Football::Butler::Matches.by_team(id: 18)
     Football::Butler::Matches.by_team_and_status(id: 18, status: 'FINISHED')
@@ -412,11 +584,11 @@ Examples:
 
 Football::Butler::Odds
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer<br>from: Date as String ('2021-05-17')<br>to: Date as String ('2021-05-17')<br><span style="color: red;">(from and to only used (required) in apifootbal.com)</span> | - | Hash | Hash |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_match | id: Integer<br>from: Date as String ('2021-05-17')<br>to: Date as String ('2021-05-17')<br><span style="color: red;">(from and to only used (required) in apifootbal.com)</span> | - | Hash | Hash |Array
 
 Examples:
 
@@ -426,30 +598,29 @@ Examples:
 
 Football::Butler::Players
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_id | id: Integer | - | Hash | Hash |
-| by_name | name: String | result (Symbol) | <span style="color: red;">N/A</span> | Hash |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_id | id: Integer | - | Hash | Hash |<span style="color: red;">N/A</span>
+| by_name | name: String | result (Symbol) | <span style="color: red;">N/A</span> | Hash |<span style="color: red;">N/A</span>
+| by_id_and_season | id: Integer<br>season: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> |Array
 
 Examples:
 
     Football::Butler::Players.by_id(id: 2002)
-
     Football::Butler::Players.by_name(name: 'Ronaldo')
+    Football::Butler::Players.by_id_and_season(id: 7190, season: 2020)
 
 ### Predictions (added in version 2.0.0)
 
 Football::Butler::Predictions
 
-**Note: only apifootball_com**
+*Return Values if the result option is not set explicitly!*
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
-
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_match | id: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | Hash |Array
 
 Examples:
 
@@ -460,47 +631,65 @@ Examples:
 
 Football::Butler::Scorers
 
-*alias (apifootball_com):* Football::Butler::TopScorers
+*alias:* Football::Butler::TopScorers
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | Hash |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | Hash |<span style="color: red;">N/A</span>
+| by_competition_and_year | id: Integer<br>year: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> |Array
 
 Examples:
 
     Football::Butler::Scorers.by_competition(id: 2002)
+    Football::Butler::Scorers.by_competition_and_year(id: 2002, year: 2002)
+
+### Sidelineds (added in version 2.1.0)
+
+Football::Butler::Sidelineds
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_player | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_coach | coach: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Sidelineds.by_player(player 1540)
+    Football::Butler::Sidelineds.by_coach(coach: 154)
+
 
 ### Standings (added in version 1.1.0)
 
 Football::Butler::Standings
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array |
-| home_by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |
-| away_by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |
-| by_competition_and_year | id: Integer<br>year: String | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array |<span style="color: red;">N/A</span>
+| home_by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |<span style="color: red;">N/A</span>
+| away_by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |<span style="color: red;">N/A</span>
+| by_competition_and_year | id: Integer<br>year: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |Array
 
     Football::Butler::Standings.by_competition(id: 2002)
     Football::Butler::Standings.home_by_competition(id: 2002)
     Football::Butler::Standings.away_by_competition(id: 2002)
-    Football::Butler::Standings.by_competition_and_year(id: 2002, year: '2020')
+    Football::Butler::Standings.by_competition_and_year(id: 2002, year: 2020)
 
 ### Statistics (added in version 2.0.0)
 
 Football::Butler::Statistics
 
-**Note: only apifootball_com**
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_match | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | Hash |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_match | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | Hash |Array
 
 Examples:
 
@@ -510,19 +699,38 @@ Examples:
 
 Football::Butler::Teams
 
-*Return Values for football-data & apifootball if the result option is not set explicitly!*
+*Return Values if the result option is not set explicitly!*
 
-| Method | Params required | Params optional | football-data | apifootball |
-| ---------------|----------------|----------------|----------------|----------------|
-| by_id | id: Integer | - | HTTParty::Response (Hash) | Array | 
-| by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array |
-| by_competition_and_year | id: Integer<br>year: String | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> |
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_id | id: Integer | - | HTTParty::Response (Hash) | Array | Array
+| by_competition | id: Integer | result (Symbol)<br>filters (Hash) | Array | Array | <span style="color: red;">N/A</span>
+| by_competition_and_year | id: Integer<br>year: Integer | result (Symbol)<br>filters (Hash) | Array | <span style="color: red;">N/A</span> | Array
+| by_name | name: String | - | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array
+| by_country_name | name: String | - | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span> | Array
 
 Examples:
 
     Football::Butler::Teams.by_id(id: 2002)
     Football::Butler::Teams.by_competition(id: 2002)
-    Football::Butler::Teams.by_competition_and_year(id: 2002, year: '2019')
+    Football::Butler::Teams.by_competition_and_year(id: 2002, year: 2019)
+    Football::Butler::Teams.by_name(name: 'Wolves')
+    Football::Butler::Teams.by_country_name(name: 'Germany')
+
+### Timezones (added in version 2.1.0)
+
+Football::Butler::Timezones
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| all | - | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Timezones.all
+
 
 ### TopScorers
 
@@ -530,6 +738,61 @@ Football::Butler::TopScorers
 
 **NOTE: alias of/see Football::Butler::Scorers**
 
+
+### Transfers (added in version 2.1.0)
+
+Football::Butler::Transfers
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_player | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_team | team: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Transfers.by_player(player 1540)
+    Football::Butler::Transfers.by_team(team: 154)
+
+### Trophies (added in version 2.1.0)
+
+Football::Butler::Trophies
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_player | id: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+| by_coach | coach: Integer | result (Symbol) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  |Array
+
+Examples:
+
+    Football::Butler::Trophies.by_player(player 1540)
+    Football::Butler::Trophies.by_coach(coach: 154)
+
+
+### Venues (added in version 2.1.0)
+
+Football::Butler::Venues
+
+*Return Values if the result option is not set explicitly!*
+
+| Method | Params required | Params optional | football-data | apifootball | api-football |
+| ---------------|----------------|----------------|----------------|----------------|----------------|
+| by_city | city: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+| by_name | name: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+| by_country | country: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+| by_id | id: Integer | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+| search | search: String | result (Symbol)<br>filters (Hash) | <span style="color: red;">N/A</span> | <span style="color: red;">N/A</span>  | Array
+
+Examples:
+
+    Football::Butler::Venues.by_city(city: 'Hamburg')
+    Football::Butler::Venues.by_name(name: 'Millerntor')
+    Football::Butler::Venues.by_country(country: 'Germany')
+    Football::Butler::Venues.by_id(id: 745)
+    Football::Butler::Venues.search(search: 'Millern')
 
 ## Contributing
 

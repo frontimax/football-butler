@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'football/butler/apifootball/teams'
 require 'football/butler/football_data/teams'
+require 'football/butler/api_football/teams'
 
 module Football
   module Butler
@@ -10,6 +11,14 @@ module Football
         ## TEAM
         def by_id(id:)
           api_switch_method(__method__, { id: id })
+        end
+
+        def by_name(name:)
+          api_switch_method(__method__, { name: name })
+        end
+
+        def by_country_name(name:)
+          api_switch_method(__method__, { name: name })
         end
 
         ## COMPETITION

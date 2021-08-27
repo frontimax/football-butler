@@ -1,0 +1,52 @@
+{
+  "get": "teams",
+  "parameters": {
+    "id": "39"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 25,
+        "name": "Germany",
+        "country": "Germany",
+        "founded": 1900,
+        "national": true,
+        "logo": "https://media.api-sports.io/football/teams/25.png"
+      },
+      "venue": {
+        "id": 694,
+        "name": "Olympiastadion Berlin",
+        "address": "Olympischer Platz 3",
+        "city": "Berlin",
+        "capacity": 77116,
+        "surface": "grass",
+        "image": "https://media.api-sports.io/football/venues/694.png"
+      }
+    },
+    {
+      "team": {
+        "id": 157,
+        "name": "Bayern Munich",
+        "country": "Germany",
+        "founded": 1900,
+        "national": false,
+        "logo": "https://media.api-sports.io/football/teams/157.png"
+      },
+      "venue": {
+        "id": 700,
+        "name": "Allianz Arena",
+        "address": "Werner-Heisenberg-Allee 25",
+        "city": "München",
+        "capacity": 75000,
+        "surface": "grass",
+        "image": "https://media.api-sports.io/football/venues/700.png"
+      }
+    }
+  ]
+}

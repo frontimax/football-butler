@@ -3,17 +3,13 @@
 module Football
   module Butler
     class Base
-      MSG_REACHED_LIMIT   = 'You reached your request limit.' # code: 429
       MSG_INVALID_CONFIG  = 'Invalid Configuration, check empty api_token or empty / invalid api_endpoint!'
 
       class << self
 
         # MESSAGES
         def reached_limit?(response)
-          return false if !response.is_a?(Hash) &&
-            (response.respond_to?(:parsed_response) &&
-              !response.parsed_response.is_a?(Hash))
-          response.dig('message') ? response['message'].start_with?(MSG_REACHED_LIMIT) : false
+          Configuration.reached_limit?(response)
         end
 
         # RESULT MESSAGES
@@ -42,6 +38,7 @@ module Football
         # MULTI-API
         def api_switch_method(method, named_params)
           klass = api_switch
+
           if klass
             klass.respond_to?(method) ?
               klass.send(method, **named_params) :

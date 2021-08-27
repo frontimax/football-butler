@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'football/butler/apifootball/predictions'
+require 'football/butler/api_football/predictions'
 
 module Football
   module Butler

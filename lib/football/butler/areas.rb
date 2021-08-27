@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'football/butler/apifootball/countries'
 require 'football/butler/football_data/areas'
+require 'football/butler/api_football/countries'
 
 module Football
   module Butler
@@ -18,8 +19,16 @@ module Football
         end
 
         ## ADDITIONAL
-        def by_name(name:)
-          api_switch_method(__method__, { name: name })
+        def by_name(name:, result: api_switch_result, filters: {})
+          api_switch_method(__method__, { name: name, result: result, filters: filters })
+        end
+
+        def by_code(code:, result: api_switch_result, filters: {})
+          api_switch_method(__method__, { code: code, result: result, filters: filters })
+        end
+
+        def search_by_name(name:, result: api_switch_result, filters: {})
+          api_switch_method(__method__, { name: name, result: result, filters: filters })
         end
       end
     end

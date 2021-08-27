@@ -1,0 +1,81 @@
+{
+  "count": 18,
+  "filters": {},
+  "competition": {
+    "id": 2002,
+    "area": {
+      "id": 2088,
+      "name": "Germany"
+    },
+    "name": "Bundesliga",
+    "code": "BL1",
+    "plan": "TIER_ONE",
+    "lastUpdated": "2021-04-02T00:00:16Z"
+  },
+  "season": {
+    "id": 599,
+    "startDate": "2020-09-18",
+    "endDate": "2021-05-15",
+    "currentMatchday": 27,
+    "winner": "null"
+  },
+  "teams": [
+    {
+      "id": 1,
+      "area": {
+        "id": 2088,
+        "name": "Germany"
+      },
+      "name": "1. FC Köln",
+      "shortName": "1. FC Köln",
+      "tla": "KOE",
+      "crestUrl": "https://crests.football-data.org/1.svg",
+      "address": "Franz-Kremer-Allee 1 Köln 50937",
+      "phone": "+49 (221) 71616300",
+      "website": "http://www.fc-koeln.de",
+      "email": "info@fc-koeln.de",
+      "founded": 1948,
+      "clubColors": "Red / White",
+      "venue": "RheinEnergieSTADION",
+      "lastUpdated": "2020-11-26T02:10:38Z"
+    },
+    {
+      "id": 2,
+      "area": {
+        "id": 2088,
+        "name": "Germany"
+      },
+      "name": "TSG 1899 Hoffenheim",
+      "shortName": "Hoffenheim",
+      "tla": "TSG",
+      "crestUrl": "https://crests.football-data.org/2.svg",
+      "address": "Horrenberger Straße 58 Zuzenhausen 74939",
+      "phone": "+49 (07261) 94930",
+      "website": "http://www.achtzehn99.de",
+      "email": "info@achtzehn99.de",
+      "founded": 1921,
+      "clubColors": "Blue / White",
+      "venue": "PreZero Arena",
+      "lastUpdated": "2021-02-15T08:45:46Z"
+    },
+    {
+      "id": 3,
+      "area": {
+        "id": 2088,
+        "name": "Germany"
+      },
+      "name": "Bayer 04 Leverkusen",
+      "shortName": "Leverkusen",
+      "tla": "B04",
+      "crestUrl": "https://crests.football-data.org/3.svg",
+      "address": "Bismarckstr. 122-124 Leverkusen 51373",
+      "phone": "+49 (01805) 040404",
+      "website": "http://www.bayer04.de",
+      "email": "stefan.kusche.sk@bayer04.de",
+      "founded": 1904,
+      "clubColors": "Red / White / Black",
+      "venue": "BayArena",
+      "lastUpdated": "2021-02-15T08:45:48Z"
+    }
+  ]
+}

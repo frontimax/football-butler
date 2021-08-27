@@ -1,0 +1,24 @@
+{
+  "get": "venues",
+  "parameters": {
+    "city": "Hamburg"
+  },
+  "errors": [],
+  "results": 14,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "id": 745,
+      "name": "Millerntor-Stadion",
+      "address": "Auf dem Heiligengeistfeld",
+      "city": "Hamburg",
+      "country": "Germany",
+      "capacity": 29546,
+      "surface": "grass",
+      "image": "https://media.api-sports.io/football/venues/745.png"
+    }
+  ]
+}
