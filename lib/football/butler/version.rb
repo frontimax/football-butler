@@ -9,6 +9,6 @@ module Football
     # - https://www.football-data.org (>= 1.0.0)
     # - https://apifootball.com (>= 2.0.0)
     # - https://api-football.com (>= 2.1.0)
-    VERSION = "2.1.0"
+    VERSION = "2.2.0"
   end
 end

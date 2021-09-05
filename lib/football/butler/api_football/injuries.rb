@@ -44,9 +44,9 @@ module Football
             Api.get(path: PATH, result: result, filters: filters)
           end
 
-          # /injuries?fixture={match}
-          def by_match(match:, result:, filters:)
-            filters.merge!({ fixture: match })
+          # /injuries?fixture={id}
+          def by_match(id:, result:, filters:)
+            filters.merge!({ fixture: id })
             Api.get(path: PATH, result: result, filters: filters)
           end
 

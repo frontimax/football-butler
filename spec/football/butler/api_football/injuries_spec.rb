@@ -29,7 +29,7 @@ RSpec.describe Football::Butler::Injuries do
   describe 'when by_match' do
     context 'success' do
       it 'returns injuries' do
-        response = described_class.by_match(match: 1)
+        response = described_class.by_match(id: 1)
 
         expect(response).to be_a(Array)
         expect(response).to match_array(response_injuries)

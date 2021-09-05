@@ -14,9 +14,9 @@ module Football
           })
         end
 
-        def by_match(match:, result: api_switch_result, filters: {})
+        def by_match(id:, result: api_switch_result, filters: {})
           api_switch_method(__method__, {
-            match: match, result: result, filters: filters
+            id: id, result: result, filters: filters
           })
         end
 

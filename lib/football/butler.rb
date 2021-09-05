@@ -29,6 +29,7 @@ require 'football/butler/coachs'
 require 'football/butler/transfers'
 require 'football/butler/trophies'
 require 'football/butler/sidelineds'
+require 'football/butler/rounds'
 
 module Football
   module Butler
