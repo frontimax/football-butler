@@ -6,7 +6,7 @@ source "https://rubygems.org"
 gemspec
 
 # May 2021: vulnerability Alert Github:
-gem "nokogiri", ">= 1.11.4"
+gem "nokogiri", ">= 1.11.5"
 gem "actionpack", ">= 6.1.3.2"
 
 group :test do
