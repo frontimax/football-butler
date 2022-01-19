@@ -5,6 +5,19 @@
 [![Build Status](https://travis-ci.com/frontimax/football-butler.svg?token=kdzGtbwhXCggiYUeL5pd&branch=main)](https://travis-ci.org/frontimax/football-butler)
 [![codecov](https://codecov.io/gh/frontimax/football-butler/branch/main/graph/badge.svg?token=GBV4PK62WC)](https://codecov.io/gh/frontimax/football-butler)  
 
+---
+
+**IMPORTANT NOTE**
+
+**No more features will be added to this gem due to the new follow-up gem  [sports-butler](https://github.com/frontimax/sports-butler).** 
+
+![Image of Yaktocat](https://www.sports-butler.de/wp-content/uploads/2021/12/cropped-sb_logo_01_512px.png)
+
+Consider switching if you need more sports, APIs or endpoints in the future. Thanks!
+
+---
+
+
 This gem enables API requests against multiple different football APIs, with direct requests or using normalized endpoint Class methods. Currently supported APis: 
 
 - football-data.org ***[current default api]***
